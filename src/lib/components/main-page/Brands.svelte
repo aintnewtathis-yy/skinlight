@@ -4,22 +4,22 @@
 		{
 			image: '/EllaBache.png',
 			label: 'Ella Bache',
-			href: '#'
+			href: '/brand'
 		},
 		{
 			image: '/Pandhys.png',
 			label: `Pandhy's`,
-			href: '#'
+			href: '/brand'
 		},
 		{
 			image: '/Babor.png',
 			label: 'Babor',
-			href: '#'
+			href: '/brand'
 		},
 		{
 			image: '/christina.png',
 			label: 'Christina',
-			href: '#'
+			href: '/brand'
 		}
 	];
 </script>

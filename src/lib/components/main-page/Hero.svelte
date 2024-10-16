@@ -10,7 +10,7 @@
 			h1: 'Наборы DOCTOR BABOR CLASSIC',
 			p: 'Бестселлеры космецевтики в стильной косметичке',
 			btnText: 'Перейти в каталог',
-			btnLink: '#',
+			btnLink: '/catalog',
 			bgImage: '/hero1.png',
 			bgImageMobile: '/heroMobile1.png'
 		},
@@ -18,7 +18,7 @@
 			h1: 'Наборы DOCTOR BABOR',
 			p: 'Набор из трех продуктов по цене крема',
 			btnText: 'Перейти в каталог',
-			btnLink: '#',
+			btnLink: '/catalog',
 			bgImage: '/hero3.png',
 			bgImageMobile: '/heroMobile2.png'
 		},
@@ -26,7 +26,7 @@
 			h1: 'Дневной крем для век LIFTING CELLULAR',
 			p: 'В подарок при покупке любых 2-х продуктов линии SKINOVAGE*',
 			btnText: 'Перейти в каталог',
-			btnLink: '#',
+			btnLink: '/catalog',
 			bgImage: '/hero2.png',
 			bgImageMobile: '/heroMobile1.png'
 		}

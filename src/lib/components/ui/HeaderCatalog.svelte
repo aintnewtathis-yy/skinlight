@@ -22,144 +22,144 @@
 	const secondMenu = [
 		{
 			label: 'САХАРНАЯ ПАСТА ДЛЯ ДЕПИЛЯЦИИ',
-			href: '#'
+			href: '/catalog'
 		},
 		{
 			label: 'ПРЕД- И ПОСТДЕПИЛЯЦИОННЫЙ УХОД',
-			href: '#'
+			href: '/catalog'
 		},
 		{
 			label: 'Средства ухода',
-			href: '#'
+			href: '/catalog'
 		},
 		{
 			label: 'Фитотоники',
-			href: '#'
+			href: '/catalog'
 		},
 		{
 			label: 'Травяные смеси',
-			href: '#'
+			href: '/catalog'
 		},
 		{
 			label: 'Масла и масляные аромакомплексы',
-			href: '#'
+			href: '/catalog'
 		},
 		{
 			label: 'Массажные средства',
-			href: '#'
+			href: '/catalog'
 		},
 		{
 			label: 'Аксессуары для работы',
-			href: '#'
+			href: '/catalog'
 		},
 		{
 			label: 'Очищающие уходы',
-			href: '#'
+			href: '/catalog'
 		},
 		{
 			label: 'Текстиль для кабинета',
-			href: '#'
+			href: '/catalog'
 		}
 	];
 	const topMenu = [
 		{
 			label: 'Новинки',
-			href: '#'
+			href: '/catalog'
 		},
 		{
 			label: 'Акции',
-			href: '#'
+			href: '/catalog'
 		},
 		{
 			label: 'Подборки',
-			href: '#',
+			href: '/catalog',
 			subMenu: secondMenu
 		},
 		{
 			label: 'Линейки',
-			href: '#',
+			href: '/catalog',
 			subMenu: [
 				{
 					label: 'Фитотоники',
-					href: '#'
+					href: '/catalog'
 				},
 				{
 					label: 'Травяные смеси',
-					href: '#'
+					href: '/catalog'
 				},
 				{
 					label: 'Масла и масляные аромакомплексы',
-					href: '#'
+					href: '/catalog'
 				},
 				{
 					label: 'Массажные средства',
-					href: '#'
+					href: '/catalog'
 				},
 				{
 					label: 'Аксессуары для работы',
-					href: '#'
+					href: '/catalog'
 				}
 			]
 		},
 		{
 			label: 'PANDHY`S',
-			href: '#',
+			href: '/brand',
 			subMenu: secondMenu
 		},
 		{
 			label: 'Ella Bache',
-			href: '#',
+			href: '/brand',
 			subMenu: [
 				{
 					label: 'Фитотоники',
-					href: '#'
+					href: '/catalog'
 				},
 				{
 					label: 'Травяные смеси',
-					href: '#'
+					href: '/catalog'
 				},
 				{
 					label: 'Масла и масляные аромакомплексы',
-					href: '#'
+					href: '/catalog'
 				},
 				{
 					label: 'Массажные средства',
-					href: '#'
+					href: '/catalog'
 				},
 				{
 					label: 'Аксессуары для работы',
-					href: '#'
+					href: '/catalog'
 				}
 			]
 		},
 		{
 			label: 'Babor',
-			href: '#',
+			href: '/brand',
 			subMenu: secondMenu
 		},
 		{
 			label: 'Christina',
-			href: '#',
+			href: '/brand',
 			subMenu: [
 				{
 					label: 'Фитотоники',
-					href: '#'
+					href: '/catalog'
 				},
 				{
 					label: 'Травяные смеси',
-					href: '#'
+					href: '/catalog'
 				},
 				{
 					label: 'Масла и масляные аромакомплексы',
-					href: '#'
+					href: '/catalog'
 				},
 				{
 					label: 'Массажные средства',
-					href: '#'
+					href: '/catalog'
 				},
 				{
 					label: 'Аксессуары для работы',
-					href: '#'
+					href: '/catalog'
 				}
 			]
 		}
@@ -167,11 +167,11 @@
 	const bottomMenu = [
 		{
 			label: 'Skin light group',
-			href: '#'
+			href: '/about'
 		},
 		{
 			label: 'Покупателям',
-			href: '#'
+			href: '/about'
 		},
 		{
 			label: 'Мастерам и косметологам',

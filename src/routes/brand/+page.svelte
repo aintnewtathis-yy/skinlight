@@ -21,7 +21,7 @@
 </script>
 
 <HeroBrand />
-<section>
+<section id="about">
 	<div class="container">
 		<div class="flex flex-col items-center gap-8 max-md:gap-6">
 			<img class="max-w-40 max-md:max-w-32" src={aboutData.preTitle} alt="skinlight group" />
