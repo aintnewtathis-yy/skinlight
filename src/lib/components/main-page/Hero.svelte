@@ -1,0 +1,158 @@
+<script>
+	import { fade } from 'svelte/transition';
+	import { cubicIn } from 'svelte/easing';
+
+	let pagination;
+	let interval;
+	let paginationElmts;
+	let sliderContent = [
+		{
+			h1: 'Наборы DOCTOR BABOR CLASSIC',
+			p: 'Бестселлеры космецевтики в стильной косметичке',
+			btnText: 'Перейти в каталог',
+			btnLink: '#',
+			bgImage: '/hero1.png',
+			bgImageMobile: '/heroMobile1.png'
+		},
+		{
+			h1: 'Наборы DOCTOR BABOR',
+			p: 'Набор из трех продуктов по цене крема',
+			btnText: 'Перейти в каталог',
+			btnLink: '#',
+			bgImage: '/hero3.png',
+			bgImageMobile: '/heroMobile2.png'
+		},
+		{
+			h1: 'Дневной крем для век LIFTING CELLULAR',
+			p: 'В подарок при покупке любых 2-х продуктов линии SKINOVAGE*',
+			btnText: 'Перейти в каталог',
+			btnLink: '#',
+			bgImage: '/hero2.png',
+			bgImageMobile: '/heroMobile1.png'
+		}
+	];
+
+	function sliderOnClick(e, idInput) {
+		clearInterval(interval);
+		const id = e ? Number(e.currentTarget.dataset.visible) : idInput;
+		activeSlide = sliderContent[id];
+
+		if (id > 0) {
+			for (let j = 0; j < sliderContent.length; j++) {
+				if (j < id) {
+					paginationElmts[j].style.width = `100%`;
+				} else {
+					paginationElmts[j].style.width = `0%`;
+				}
+			}
+			paginationElmts[id].style.width = `0%`;
+			startTimer(paginationElmts, id);
+		} else {
+			paginationElmts.forEach((el) => {
+				el.style.width = `0%`;
+			});
+			paginationElmts[id].style.width = `0%`;
+			startTimer(paginationElmts, id);
+		}
+	}
+	function startTimer(paginationElmts, id) {
+		clearInterval(interval);
+		let progress = 0;
+		const intervalTime = 10;
+		const increment = 100 / (5000 / intervalTime);
+
+		interval = setInterval(() => {
+			progress += increment;
+			if (progress >= 100) {
+				clearInterval(interval);
+				if (id < sliderContent.length - 1) {
+					sliderOnClick(null, ++id);
+				} else {
+					paginationElmts.forEach((el) => {
+						el.style.width = `0%`;
+					});
+					paginationElmts[id].style.width = `0%`;
+					sliderOnClick(null, 0);
+				}
+			} else {
+				paginationElmts[id].style.width = `${progress}%`;
+			}
+		}, intervalTime);
+
+		return interval;
+	}
+	let activeSlide = $state(sliderContent[0]);
+
+	$effect(() => {
+		paginationElmts = pagination.querySelectorAll(`[data-visible] div`);
+
+		sliderOnClick(null, 0);
+
+		window.addEventListener('resize', () => {
+			sliderOnClick(null, 0);
+		});
+	});
+</script>
+
+{#snippet slides(content)}
+	<div class="grid grid-cols-2 max-md:flex max-md:h-screen max-md:flex-col">
+		<div
+			class="max-md:w-[calc(100% - 40px)] z-10 flex w-3/4 flex-col justify-center gap-4 pl-5 max-xl:w-full max-md:absolute max-md:bottom-32"
+			in:fade={{ duration: 300 }}
+			out:fade={{ duration: 0 }}
+		>
+			<h1
+				class="text-balance font-serif text-5xl max-lg:text-4xl max-md:text-5xl max-md:text-bgColorBright"
+			>
+				{content.h1}
+			</h1>
+			<p
+				class="w-3/4 text-xl text-textDull max-lg:text-base max-md:text-lg max-md:text-bgColorBright"
+			>
+				{content.p}
+			</p>
+			<a href={content.btnLink} class="btn mt-4 max-md:hidden">{content.btnText}</a>
+		</div>
+		<a
+			href={content.btnLink}
+			class="max-md:h-screen"
+			in:fade={{ duration: 300 }}
+			out:fade={{ duration: 0 }}
+		>
+			<picture>
+				<source media="(max-width: 767px)" srcset={content.bgImageMobile} type="image/png" />
+				<source media="(min-width: 768px)" srcset={content.bgImage} type="image/png" />
+				<img
+					class="aspect-[800/700] h-full w-full object-cover object-center"
+					src={content.bgImageMobile}
+					alt="product"
+				/>
+			</picture>
+		</a>
+	</div>
+{/snippet}
+
+<section>
+	<div>
+		{#key activeSlide}
+			{@render slides(activeSlide)}
+		{/key}
+		<div
+			class="absolute bottom-24 left-5 z-10 flex h-1 items-end gap-1 max-xl:bottom-4 max-md:bottom-20 max-md:left-5 max-md:w-[calc(100%_-_40px)] max-md:justify-start"
+			bind:this={pagination}
+		>
+			{#each sliderContent as _, i}
+				<button
+					aria-label="button"
+					class="z-10 h-full max-h-[2px] w-10 cursor-pointer bg-dull duration-0 max-md:bg-textDull"
+					data-visible={i}
+					onclick={sliderOnClick}
+				>
+					<div
+						class="pointer-events-none h-full w-0 bg-textDull transition-none max-md:bg-bgColorBright"
+					></div>
+				</button>
+			{/each}
+		</div>
+	</div>
+</section>

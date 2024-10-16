@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	@font-face {
+		font-family: 'QuincyCF';
+		font-style: normal;
+		font-weight: 400;
+		font-display: swap;
+		src: url(/fonts/QuincyCF-Regular.woff) format('woff');
+		src: url(/fonts/QuincyCF-Regular.woff2) format('woff2');
+	}
+	@font-face {
+		font-family: 'Helvetica';
+		font-style: normal;
+		font-weight: 400;
+		font-display: swap;
+		src: url(/fonts/HelveticaNeueCyr-Roman.woff) format('woff');
+	}
+}
+
+@layer base {
+	* {
+		position: relative;
+		scroll-behavior: smooth;
+		@apply font-sans text-accent ;
+	}
+	img{
+		@apply  object-cover;
+	}
+	.container{
+		max-width: 1920px!important;
+	}
+	.btn {
+		@apply flex w-fit items-center justify-center rounded bg-accent px-12 py-3 text-base leading-tight text-white transition duration-300 hover:bg-accentHover focus:bg-accentHover active:bg-accentHover max-sm:px-6 max-sm:text-sm;
+	}
+	.btn-dull {
+		@apply flex w-fit items-center justify-center rounded bg-dull px-12 py-3 leading-tight text-accent text-base transition duration-300 hover:bg-dullHover focus:bg-dullHover active:bg-dullHover max-sm:px-6 max-sm:text-sm;
+	}
+	.btn-bordered {
+		@apply flex w-fit items-center justify-center rounded border border-[#D3CAC0] bg-transparent px-12 py-3 text-lg leading-tight text-accent transition duration-300 hover:text-accentHover focus:text-accentHover active:text-accentHover max-sm:px-6 max-sm:text-sm;
+	}
+	.basic-input{
+		@apply px-4 py-3 border border-borderColor rounded;
+	}
+	section {
+		max-width: 1920px;
+		margin-inline: auto;
+
+		@apply mb-32 max-lg:mb-20;
+	}
+	.no-scrollbar {
+		-ms-overflow-style: none;
+		scrollbar-width: none;
+	}
+	.no-scrollbar::-webkit-scrollbar {
+		display: none;
+	}
+	.thin-scrollbar {
+		scrollbar-color: rgba(31, 27, 22, 0.12) #fff;
+		scrollbar-width: thin;
+	}
+}
