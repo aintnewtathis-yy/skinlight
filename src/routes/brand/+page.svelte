@@ -1,5 +1,5 @@
 <script>
-	import HeroBrand from '$lib/components/brand/HeroBrand.svelte';
+	import HeroBrand from '$lib/components/heroPages/HeroBrand.svelte';
 	import LineCatalog from '$lib/components/LineCatalog.svelte';
 	import CatalogRow from '../../lib/components/global/CatalogRow.svelte';
 

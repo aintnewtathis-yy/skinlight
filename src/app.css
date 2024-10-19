@@ -33,13 +33,13 @@
 		max-width: 1920px!important;
 	}
 	.btn {
-		@apply flex w-fit items-center justify-center rounded bg-accent px-12 py-3 text-base leading-tight text-white transition duration-300 hover:bg-accentHover focus:bg-accentHover active:bg-accentHover max-sm:px-6 max-sm:text-sm;
+		@apply flex w-fit items-center justify-center whitespace-nowrap rounded bg-accent px-12 py-4 text-base leading-tight text-white transition duration-300 hover:bg-accentHover focus:bg-accentHover active:bg-accentHover max-md:px-6 max-md:py-3 max-md:text-sm;
 	}
 	.btn-dull {
-		@apply flex w-fit items-center justify-center rounded bg-dull px-12 py-3 leading-tight text-accent text-base transition duration-300 hover:bg-dullHover focus:bg-dullHover active:bg-dullHover max-sm:px-6 max-sm:text-sm;
+		@apply flex w-fit items-center justify-center whitespace-nowrap rounded bg-dull px-12 py-4 leading-tight text-accent text-base transition duration-300 hover:bg-dullHover focus:bg-dullHover active:bg-dullHover max-md:px-6 max-md:py-3 max-md:text-sm;
 	}
 	.btn-bordered {
-		@apply flex w-fit items-center justify-center rounded border border-[#D3CAC0] bg-transparent px-12 py-3 text-lg leading-tight text-accent transition duration-300 hover:text-accentHover focus:text-accentHover active:text-accentHover max-sm:px-6 max-sm:text-sm;
+		@apply flex w-fit items-center justify-center whitespace-nowrap rounded border border-[#D3CAC0] bg-transparent px-12 py-4 text-lg leading-tight text-accent transition duration-300 hover:text-accentHover focus:text-accentHover active:text-accentHover max-md:px-6 max-md:py-3 max-md:text-sm;
 	}
 	.basic-input{
 		@apply px-4 py-3 border border-borderColor rounded;

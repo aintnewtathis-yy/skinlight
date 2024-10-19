@@ -106,7 +106,7 @@
 			<Breadcrumbs />
 		</div>
 		<div class="grid grid-cols-[2fr_1fr] gap-16 max-lg:flex max-lg:flex-col max-lg:gap-8">
-			<div class="flex h-fit items-center justify-center rounded bg-bgColor">
+			<div class="flex h-fit items-center justify-center rounded bg-bgColor max-md:h-lvh">
 				<div class="gradient absolute left-0 top-0 hidden h-16 w-full max-md:flex"></div>
 				<button
 					type="button"
@@ -117,9 +117,9 @@
 				</button>
 				<img class="w-2/3 object-contain max-md:w-full" src={demoData.thumbnail} alt="" />
 			</div>
-			<div class="flex flex-col gap-6 max-lg:items-center max-md:px-5">
-				<div class="flex flex-col gap-3 max-lg:items-center">
-					<h1 class="font-serif text-3xl max-lg:w-2/3 max-lg:text-center">{demoData.title}</h1>
+			<div class="flex flex-col gap-6 max-lg:items-center max-md:px-5 max-md:gap-4">
+				<div class="flex flex-col gap-3 max-lg:items-center max-md:gap-2">
+					<h1 class="font-serif text-3xl max-lg:w-2/3 max-lg:text-center max-md:w-full">{demoData.title}</h1>
 					<p class="text-sm text-textDull max-lg:text-center">Артикул: {demoData.SKU}</p>
 				</div>
 				<h2 class="text-2xl">{demoData.price} руб</h2>
@@ -127,14 +127,14 @@
 					class="flex w-full items-center gap-0 max-lg:fixed max-lg:bottom-0 max-lg:left-0 max-lg:z-20 max-lg:bg-white max-lg:px-5 max-lg:py-3 max-md:bottom-[60px] "
 				>
 					<a href="#" class="btn w-full gap-1"
-						><span class="text-white">Добавить в корзину</span>
-						<span class="hidden text-white max-lg:flex"> - {demoData.price} руб</span></a
+						><span class="text-white max-md:text-base">Добавить в корзину</span>
+						<span class="hidden text-white max-lg:flex max-md:text-base"> - {demoData.price} руб</span></a
 					>
 					<a href="#" class="flex h-full w-14 items-center justify-center px-4">
 						<img src="/favorite.svg" alt="" />
 					</a>
 				</div>
-				<div class="flex flex-col gap-6">
+				<div class="flex flex-col mt-6  gap-6 max-md:mt-4">
 					<div bind:this={tabsSlider}>
 						<Splide
 							aria-label="products"
@@ -161,7 +161,7 @@
 								<SplideSlide>
 									<button
 										data-slider
-										class="flex border-b pb-6 transition duration-300"
+										class="flex border-b pb-4 transition duration-300"
 										type="button"
 										onclick={changeTabs}>Описание</button
 									>
@@ -171,7 +171,7 @@
 								<SplideSlide>
 									<button
 										data-slider
-										class="flex border-b pb-6 transition duration-300"
+										class="flex border-b pb-4 transition duration-300"
 										type="button"
 										onclick={changeTabs}>Применение</button
 									>
@@ -181,7 +181,7 @@
 								<SplideSlide>
 									<button
 										data-slider
-										class="flex border-b pb-6 transition duration-300"
+										class="flex border-b pb-4 transition duration-300"
 										type="button"
 										onclick={changeTabs}>Состав</button
 									>
@@ -191,7 +191,7 @@
 								<SplideSlide>
 									<button
 										data-slider
-										class="flex border-b pb-6 transition duration-300"
+										class="flex border-b pb-4 transition duration-300"
 										type="button"
 										onclick={changeTabs}>Информация о бренде</button
 									>
