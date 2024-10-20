@@ -1,5 +1,10 @@
 <script>
+	import { page } from '$app/stores';
 	import HeaderCatalog from '../ui/HeaderCatalog.svelte';
+
+	let headerShadow = $derived(
+		['/cart', '/checkout', '/catalog/[slug]', '/courses/[slug]'].includes($page.route.id) ? false : true
+	);
 
 	const topMenu = [
 		{
@@ -22,13 +27,14 @@
 </script>
 
 <header
-	class="fixed left-0 top-0 z-50 w-full border-b border-borderColor bg-white py-6 max-md:bottom-0 max-md:top-auto max-md:border-b-0 max-md:border-t max-md:py-4"
+	class="fixed left-0 top-0 z-30 w-full border-b border-borderColor bg-white py-6 max-md:bottom-0 max-md:top-auto max-md:border-b-0 max-md:border-t max-md:py-4"
+	class:max-lg:shadow-[0_-2px_8px_0_rgb(0,0,0,0.1)]={headerShadow}
 >
 	<div class="container">
 		<div class="grid grid-cols-[1fr_190px_1fr] gap-4 max-md:grid-cols-1">
 			<nav class="flex items-center gap-6 max-md:hidden">
 				<HeaderCatalog className={'max-md:hidden'} />
-				<ul class="flex items-center gap-6 -ml-2">
+				<ul class="-ml-2 flex items-center gap-6">
 					{#each topMenu as link}
 						<li class="transition duration-300 hover:text-accentTextHover max-xl:hidden">
 							<a class="px-2 py-3 max-md:px-0" href={link.href}>{link.label}</a>

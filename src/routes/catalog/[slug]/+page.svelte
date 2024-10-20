@@ -4,19 +4,18 @@
 	import '@splidejs/svelte-splide/css/core';
 	import SheetContent from '$lib/components/ui/SheetContent.svelte';
 	import CatalogRow from '$lib/components/global/CatalogRow.svelte';
-	import RegistrationCta from '../../../lib/components/ui/RegistrationCta.svelte';
-
-	let currentActive = $state(0);
+	import RegistrationCta from '$lib/components/ui/RegistrationCta.svelte';
+	
 	let tabsSlider;
 	let tabs;
 	let tabsElements;
 	let tabsSliderElements;
 
+
 	function goBack() {
 		window.history.back();
 	}
 	function changeTabs(e) {
-		console.log(e.target);
 		for (let i = 0; i < tabsSliderElements.length; i++) {
 			if (e.target === tabsSliderElements[i]) {
 				tabsSliderElements.forEach((tab) => {
@@ -43,7 +42,6 @@
 		tabsSliderElements = tabsSlider.querySelectorAll('button');
 		tabsSliderElements[0].click();
 
-		console.log({ tabsElements, tabsSliderElements });
 	});
 
 	let demoData = {
@@ -106,7 +104,7 @@
 			<Breadcrumbs />
 		</div>
 		<div class="grid grid-cols-[2fr_1fr] gap-16 max-lg:flex max-lg:flex-col max-lg:gap-8">
-			<div class="flex h-fit items-center justify-center rounded bg-bgColor max-md:h-lvh">
+			<div class="flex h-fit items-center justify-center rounded bg-bgColor max-md:h-svh">
 				<div class="gradient absolute left-0 top-0 hidden h-16 w-full max-md:flex"></div>
 				<button
 					type="button"
@@ -117,24 +115,28 @@
 				</button>
 				<img class="w-2/3 object-contain max-md:w-full" src={demoData.thumbnail} alt="" />
 			</div>
-			<div class="flex flex-col gap-6 max-lg:items-center max-md:px-5 max-md:gap-4">
+			<div class="flex flex-col gap-6 max-lg:items-center max-md:gap-4 max-md:px-5">
 				<div class="flex flex-col gap-3 max-lg:items-center max-md:gap-2">
-					<h1 class="font-serif text-3xl max-lg:w-2/3 max-lg:text-center max-md:w-full">{demoData.title}</h1>
+					<h1 class="font-serif text-3xl max-lg:w-2/3 max-lg:text-center max-md:w-full">
+						{demoData.title}
+					</h1>
 					<p class="text-sm text-textDull max-lg:text-center">Артикул: {demoData.SKU}</p>
 				</div>
 				<h2 class="text-2xl">{demoData.price} руб</h2>
 				<div
-					class="flex w-full items-center gap-0 max-lg:fixed max-lg:bottom-0 max-lg:left-0 max-lg:z-20 max-lg:bg-white max-lg:px-5 max-lg:py-3 max-md:bottom-[60px] "
+					class="flex w-full items-center gap-0 max-lg:fixed max-lg:bottom-0 max-lg:left-0 max-lg:z-20 max-lg:bg-white max-lg:px-5 max-lg:py-3 max-lg:shadow-[0_-2px_8px_0_rgb(0,0,0,0.1)] max-md:bottom-[60px]"
 				>
 					<a href="#" class="btn w-full gap-1"
 						><span class="text-white max-md:text-base">Добавить в корзину</span>
-						<span class="hidden text-white max-lg:flex max-md:text-base"> - {demoData.price} руб</span></a
+						<span class="hidden text-white max-lg:flex max-md:text-base">
+							- {demoData.price} руб</span
+						></a
 					>
 					<a href="#" class="flex h-full w-14 items-center justify-center px-4">
 						<img src="/favorite.svg" alt="" />
 					</a>
 				</div>
-				<div class="flex flex-col mt-6  gap-6 max-md:mt-4">
+				<div class="mt-6 flex flex-col gap-6 max-md:mt-4">
 					<div bind:this={tabsSlider}>
 						<Splide
 							aria-label="products"

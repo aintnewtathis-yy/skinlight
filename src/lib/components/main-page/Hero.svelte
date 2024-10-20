@@ -91,7 +91,7 @@
 </script>
 
 {#snippet slides(content)}
-	<div class="grid grid-cols-2 max-md:flex max-md:h-dvh max-md:flex-col">
+	<div class="grid grid-cols-2 max-md:flex max-md:h-svh max-md:flex-col">
 		<div
 			class="max-md:w-[calc(100%_-_40px)] z-10 flex w-3/4 flex-col justify-center gap-4 pl-5 max-xl:w-full max-md:absolute max-md:bottom-32"
 			in:fade={{ duration: 300 }}
@@ -103,7 +103,7 @@
 				{content.h1}
 			</h1>
 			<p
-				class="w-3/4 text-xl text-textDull max-lg:text-base max-md:text-lg max-md:text-bgColorBright"
+				class="w-3/4 text-xl text-textDull max-lg:text-base max-md:text-lg max-md:w-full max-md:text-bgColorBright"
 			>
 				{content.p}
 			</p>
@@ -111,7 +111,7 @@
 		</div>
 		<a
 			href={content.btnLink}
-			class="max-md:h-dvh"
+			class="max-md:h-svh"
 			in:fade={{ duration: 300 }}
 			out:fade={{ duration: 0 }}
 		>

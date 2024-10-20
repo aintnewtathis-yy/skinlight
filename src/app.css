@@ -48,7 +48,7 @@
 		max-width: 1920px;
 		margin-inline: auto;
 
-		@apply mb-32 max-lg:mb-20;
+		@apply mb-32 max-lg:mb-16;
 	}
 	.no-scrollbar {
 		-ms-overflow-style: none;
@@ -60,5 +60,36 @@
 	.thin-scrollbar {
 		scrollbar-color: rgba(31, 27, 22, 0.12) #fff;
 		scrollbar-width: thin;
+	}
+
+
+	
+	.heading {
+		@apply font-serif text-2xl max-md:text-xl *:font-serif;
+	}
+
+	.rich-text-block img {
+		@apply rounded w-full object-cover;
+	}
+	.rich-text-block ul {
+		@apply flex flex-col;
+	}
+	.rich-text-block li{
+		@apply pl-5;
+	}
+	.rich-text-block li::before{
+		content: '';
+		position: absolute;
+		top: 50%;
+		left: 0;
+		transform: translateY(-50%);
+		display: flex;
+		border-radius: 100%;
+		height: 8px;
+		width: 8px;
+		background-color: #CFBBA5;
+	}
+	.rich-text-block a{
+		@apply text-[#C6A07D] underline underline-offset-2
 	}
 }

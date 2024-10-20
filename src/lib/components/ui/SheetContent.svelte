@@ -17,7 +17,7 @@
 <!-- svelte-ignore a11y_click_events_have_key_events -->
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <div
-    class="fixed w-screen transition duration-300 z-50 h-screen top-0 left-0 bg-black/30 inset-0 backdrop-blur-sm"
+    class="fixed w-screen transition duration-300 z-50 h-dvh top-0 left-0 bg-black/30 inset-0 backdrop-blur-sm"
     class:pointer-events-all={open}
     class:opacity-0={!open}
     class:pointer-events-none={!open}
@@ -27,7 +27,7 @@
 ></div>
 
 <div
-    class="fixed flex p-5 z-50 transition duration-300 top-0 right-0 h-screen w-2/5 bg-white shadow-lg inset-y-0 max-lg:w-3/5 max-sm:w-full"
+    class="fixed flex p-5 z-50 transition duration-300 top-0 right-0 h-dvh w-2/5 bg-white shadow-lg inset-y-0 max-lg:w-3/5 max-sm:w-full"
     class:translate-x-[110%]={!open}
     class:translate-x-0={open}
 >

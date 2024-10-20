@@ -2,13 +2,18 @@
 	import '../app.css';
 	import '@splidejs/svelte-splide/css/core';
 	import Header from '$lib/components/global/Header.svelte';
-
+	import { page } from '$app/stores';
 	import { afterNavigate } from '$app/navigation';
 
 	let { data, children } = $props();
 
+	let currentPath = $page.url.path
+
 	afterNavigate(() => {
-		window.scrollTo(0)
+		if (currentPath != $page.url.path) {
+			window.scrollTo({ top: 0, behavior: 'auto' });
+			currentPath = $page.url.path;
+		}
 	});
 </script>
 
