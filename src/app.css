@@ -48,7 +48,7 @@
 		max-width: 1920px;
 		margin-inline: auto;
 
-		@apply mb-32 max-lg:mb-16;
+		@apply mb-32 max-lg:mb-20 max-md:mb-16;
 	}
 	.no-scrollbar {
 		-ms-overflow-style: none;

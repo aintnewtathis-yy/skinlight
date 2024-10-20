@@ -2,8 +2,12 @@
 	import { page } from '$app/stores';
 	import HeaderCatalog from '../ui/HeaderCatalog.svelte';
 
+	$inspect($page);
+
 	let headerShadow = $derived(
-		['/cart', '/checkout', '/catalog/[slug]', '/courses/[slug]'].includes($page.route.id) ? false : true
+		['/cart', '/checkout', '/catalog/[slug]', '/courses/[slug]', '/brand'].includes($page.route.id)
+			? false
+			: true
 	);
 
 	const topMenu = [
@@ -27,7 +31,7 @@
 </script>
 
 <header
-	class="fixed left-0 top-0 z-30 w-full border-b border-borderColor bg-white py-6 max-md:bottom-0 max-md:top-auto max-md:border-b-0 max-md:border-t max-md:py-4"
+	class="fixed left-0 top-0 z-30 w-full border-b border-borderColor bg-white py-6 max-md:bottom-0 max-md:top-auto max-md:border-b-0 max-md:border-t max-md:py-3"
 	class:max-lg:shadow-[0_-2px_8px_0_rgb(0,0,0,0.1)]={headerShadow}
 >
 	<div class="container">
@@ -47,7 +51,7 @@
 			</a>
 			<nav class="flex items-center justify-end max-md:w-full">
 				<ul class="flex items-center justify-end gap-7 max-md:w-full max-md:justify-between">
-					<li>
+					<li class="max-lg:hidden">
 						<a href="#">
 							<img src="/search.svg" alt="search icon" />
 						</a>
@@ -61,6 +65,15 @@
 					<div class="hidden max-md:flex">
 						<HeaderCatalog className="" />
 					</div>
+					<li class="lg:hidden">
+						<a href="/">
+							<img
+								class="aspect-square max-h-9 object-contain"
+								src="/logoIcon.svg"
+								alt="search icon"
+							/>
+						</a>
+					</li>
 
 					<li>
 						<a href="/cart">

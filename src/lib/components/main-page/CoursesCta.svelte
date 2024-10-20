@@ -36,7 +36,7 @@
 	<div class="container">
 		<div class="flex flex-col gap-12">
 			<div class="grid grid-cols-2 max-md:flex max-md:flex-col gap-8 ">
-				<div class="flex w-4/5 flex-col gap-6 max-lg:w-full max-lg:pr-6 max-md:gap-4">
+				<div class="flex w-4/5 flex-col gap-6 max-lg:w-full  max-md:pr-0 max-md:gap-4">
 					<h5 class="font-serif text-5xl max-xl:text-4xl max-md:text-3xl">Измените свою жизнь</h5>
 					<!-- svelte-ignore a11y_click_events_have_key_events -->
 					<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
