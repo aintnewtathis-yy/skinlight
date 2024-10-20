@@ -17,5 +17,5 @@
 	<p class="mt-auto text-sm text-textDull max-xl:line-clamp-2 max-md:text-xs">
 		{content.description}
 	</p>
-	<p class=" text-lg max-2xl:text-base max-md:text-sm">{content.price} руб</p>
+	<p class=" text-lg max-2xl:text-base max-md:text-sm">{content.price} руб</p>	
 </a>
