@@ -4,7 +4,7 @@
 <section>
 	<div class="container">
 		<div class="grid grid-cols-2 max-md:flex max-md:flex-col max-md:gap-8">
-			<div class="flex flex-col gap-6 pr-16 justify-center max-lg:pr-8 max-md:gap-4">
+			<div class="flex flex-col gap-6 pr-16 justify-center max-lg:pr-8 max-md:pr-0 max-md:gap-4">
 				<h3 class="font-serif text-5xl max-xl:text-4xl max-md:text-3xl">Доступ к специальным ценам</h3>
 				<p class="text-textDull w-3/4">
 					Зарегистрируйтесь сейчас и получите доступ к специальным условиям для мастеров:

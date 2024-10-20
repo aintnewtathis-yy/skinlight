@@ -18,6 +18,6 @@
 </script>
 
 <Header />
-<main class="mt-[76px] max-md:mt-0">
+<main class="mt-[76px] max-md:mt-0 max-md:mb-36">
 	{@render children()}
 </main>
