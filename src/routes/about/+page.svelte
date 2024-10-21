@@ -1,9 +1,10 @@
 <script>
+
 </script>
 
 <svelte:head>
-    <link rel="stylesheet" href="node_modules/lite-youtube-embed/src/lite-yt-embed.css" />
-    <script src="node_modules/lite-youtube-embed/src/lite-yt-embed.js"></script>
+    <link rel="stylesheet" href="/lite-yt-embed.css" />
+    <script src="/lite-yt-embed.js"></script>
 </svelte:head>
 
 <section class="mb-20 pt-10 max-md:pt-6">
@@ -13,7 +14,7 @@
 				История компании SKIN LIGHT
 			</h1>
 			<lite-youtube
-				class=" w-full h-full max-w-full"
+				class=" w-full h-full rounded max-w-full"
 				style="background-image: url(&quot;https://i.ytimg.com/vi_webp/PEk8_3nV54E/maxresdefault.webp&quot;);"
 				videoid="PEk8_3nV54E"
 				playlabel="История компании Skinlight"

@@ -3,9 +3,9 @@
 
 <footer class="max-lg:hidden">
 	<div class="container">
-		<div class="flex flex-col gap-8 py-16 pb-5 border-t border-borderColor">
+		<div class="flex flex-col gap-6 py-16 pb-5 border-t border-borderColor">
 			<div class="grid grid-cols-4 gap-16">
-				<div class="flex flex-col gap-8">
+				<div class="flex flex-col gap-6">
 					<h6 class="text-xl">Покупателям</h6>
 					<a class="hover:text-accentHover focus:text-accentHover" href="#">Доставка и Оплата</a>
 					<a class="hover:text-accentHover focus:text-accentHover" href="#">Вопросы и Ответы</a>
@@ -13,14 +13,14 @@
 					<a class="hover:text-accentHover focus:text-accentHover" href="#">Мастерам и Косметологам</a>
 					<a class="hover:text-accentHover focus:text-accentHover" href="#">Контакты</a>
 				</div>
-				<div class="flex flex-col gap-8">
+				<div class="flex flex-col gap-6">
 					<h6 class="text-xl">О компании</h6>
 					<a class="hover:text-accentHover focus:text-accentHover" href="/about">История</a>
 					<a class="hover:text-accentHover focus:text-accentHover" href="/about">Блог</a>
 					<a class="hover:text-accentHover focus:text-accentHover" href="/about">Партнеры</a>
 					<a class="hover:text-accentHover focus:text-accentHover" href="/about">Команда</a>
 				</div>
-				<div class="flex flex-col gap-8">
+				<div class="flex flex-col gap-6">
 					<h6 class="text-xl">Обучение</h6>
 					<a class="hover:text-accentHover focus:text-accentHover" href="/courses">Курсы шугаринга</a>
 					<a class="hover:text-accentHover focus:text-accentHover" href="/courses">Курсы восковой депиляции</a>
