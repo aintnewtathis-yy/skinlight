@@ -41,7 +41,7 @@
 				<div class="flex flex-col gap-6">
 					<!-- svelte-ignore a11y_click_events_have_key_events -->
 					<!-- svelte-ignore a11y_no_static_element_interactions -->
-					<div class="flex flex-col gap-6 overflow-hidden max-md:gap-2">
+					<div class="flex flex-col gap-6 overflow-hidden max-md:gap-4">
 						<p class="font-serif text-2xl max-lg:text-xl">
 							С 1956 года BABOR определяет вектор развития медицинской косметологии с акцентом на
 							экологичность и профессионализм.

@@ -8,21 +8,21 @@
 			SKU: 'VE23033',
 			quantity: 1,
 			price: 5258,
-			thumbnail: '/cartProduct.png'
+			thumbnail: '/product1.png'
 		},
 		{
 			title: 'Увлажняющий крем-плампер Ella Bache, 50 мл',
 			SKU: 'VE23033',
 			quantity: 1,
 			price: 5258,
-			thumbnail: '/cartProduct.png'
+			thumbnail: '/product1.png'
 		}
 	];
 </script>
 
 {#snippet cartElement(content)}
 	<div class="grid grid-cols-[1fr_3fr_1.5fr] gap-6 max-md:grid-cols-[2fr_2fr_1fr] max-md:gap-4">
-		<div class=" flex items-center justify-center border border-borderColor bg-bgColor px-3">
+		<div class=" flex items-center justify-center rounded border border-borderColor bg-bgColor px-3">
 			<img
 				class="my-auto aspect-square w-full rounded object-contain"
 				src={content.thumbnail}
@@ -176,7 +176,7 @@
 						</p>
 						<div class="mt-4 flex flex-col gap-4">
 							<a href="#" class="btn w-full">Оплатить заказ</a>
-							<p class="max-md:text-sm max-md:text-center">
+							<p class="text-sm  max-md:text-center">
 								Нажимая на кнопку «оплатить заказ», я принимаю
 								<a class="underline" href="#">условия публичной оферты</a>
 								и <a class="underline" href="#">политики конфиденциальности</a>

@@ -57,7 +57,6 @@
 	<a
 		class="-ml-3 grid w-[calc(100%+24px)] grid-cols-[1.5fr_4fr_2.5fr] *:w-full items-center gap-16 px-3 py-6 *:text-lg hover:bg-bgColor focus:bg-bgColor active:bg-bgColor max-xl:grid-cols-[2fr_4fr_2.5fr] max-xl:gap-8 *:max-xl:text-base max-lg:py-4 max-md:flex max-md:flex-col *:max-md:text-lg"
 		href={content.href}
-		class:max-md:bg-bgColor={(index % 2) - 1}
 	>
 		<p>{content.date}</p>
 		<p class="flex items-start gap-2">

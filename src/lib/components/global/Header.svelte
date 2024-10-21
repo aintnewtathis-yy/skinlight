@@ -22,10 +22,6 @@
 		{
 			label: 'Дистрибьюторы',
 			href: '#'
-		},
-		{
-			label: 'Контакты',
-			href: '#'
 		}
 	];
 </script>
@@ -57,7 +53,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="#">
+						<a href="/wishlist">
 							<img src="/favorite.svg" alt="favorite icon" />
 						</a>
 					</li>

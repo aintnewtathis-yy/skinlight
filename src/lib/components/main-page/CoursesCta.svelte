@@ -62,7 +62,7 @@
 						</span>
 						<span class="gradient absolute bottom-0 left-0 hidden h-6 w-full max-md:flex"></span>
 					</p>
-					<a href="#" class="btn-dull mt-3 max-md:mt-0">Записаться на обучение</a>
+					<a href="/courses" class="btn-dull mt-3 max-md:mt-0">Записаться на обучение</a>
 				</div>
 				<div>
 					<img class="rounded" src="/coursescta.png" alt="" />

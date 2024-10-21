@@ -37,17 +37,24 @@
 	}
 
 	$effect(() => {
-		window.addEventListener('click', (e) => {
-			if (e.target !== btn && !btn.contains(e.target)) {
-				open = false;
-			}
-		});
+		if (window.innerWidth > 1024) {
+			window.addEventListener('click', (e) => {
+				if (e.target !== btn && !btn.contains(e.target)) {
+					open = false;
+				}
+			});
+		} else {
+			open = true;
+		}
 	});
 </script>
 
-<div bind:this={btn} class="z-10 -ml-2">
+<div
+	bind:this={btn}
+	class="z-10 -ml-2 max-lg:m-0 max-lg:flex max-lg:w-full max-lg:flex-col max-lg:gap-2"
+>
 	<button
-		class="flex items-center gap-2 rounded-sm px-3 py-2 transition duration-300 hover:bg-bgColor focus:bg-bgColor active:bg-bgColor"
+		class="flex items-center gap-2 rounded-sm px-3 py-2 transition duration-300 hover:bg-bgColor focus:bg-bgColor active:bg-bgColor max-lg:p-0"
 		type="button"
 		onclick={() => {
 			open = !open;
@@ -57,12 +64,12 @@
 		<img
 			src="arrow-filter.svg"
 			alt="arrow icon"
-			class="transition duration-300"
+			class="transition duration-300 max-lg:hidden"
 			class:rotate-180={open}
 		/>
 	</button>
 	<div
-		class="absolute bg-white left-0 top-[120%] flex flex-col gap-4 rounded border border-borderColor p-4 shadow transition duration-300"
+		class="absolute left-0 top-[120%] flex flex-col gap-4 rounded border border-borderColor bg-white p-4 shadow transition duration-300 max-lg:relative max-lg:top-0 max-lg:w-full max-lg:gap-6 max-lg:border-0 max-lg:px-0 max-lg:shadow-none"
 		class:opacity-0={!open}
 		class:opacity-100={open}
 		class:translate-y-0={open}

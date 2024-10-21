@@ -14,7 +14,7 @@
 		</button>
 	</div>
 	<h4 class="text-lg -mb-1 max-2xl:text-base max-md:text-sm">{content.title}</h4>
-	<p class="mt-auto text-sm text-textDull max-xl:line-clamp-2 max-md:text-xs">
+	<p class="mt-auto line-clamp-3 text-sm text-textDull max-xl:line-clamp-2 max-md:text-xs">
 		{content.description}
 	</p>
 	<p class=" text-lg max-2xl:text-base max-md:text-sm">{content.price} руб</p>	

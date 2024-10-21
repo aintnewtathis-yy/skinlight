@@ -10,7 +10,7 @@
         `,
 		aboutImage: '/aboutBlockImage.png',
 		btnText: 'Узнать больше',
-		btnHref: '#'
+		btnHref: '/about'
 	};
 </script>
 
