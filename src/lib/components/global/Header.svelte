@@ -13,7 +13,7 @@
 	const topMenu = [
 		{
 			label: 'Обучение',
-			href: '#'
+			href: '/timetable'
 		},
 		{
 			label: 'О нас',
