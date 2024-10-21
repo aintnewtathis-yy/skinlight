@@ -78,7 +78,7 @@
 		{#each variants as variant}
 			<button
 				class="whitespace-nowrap text-start max-lg:-ml-2 max-lg:w-full max-lg:px-2 max-lg:py-3"
-				class:bg-bgColor={currentVariant === variant.label}
+				class:max-lg:bg-bgColor={currentVariant === variant.label}
 				onclick={() => {
 					if (window.innerWidth > 1024) {
 						currentVariant = variant.label;

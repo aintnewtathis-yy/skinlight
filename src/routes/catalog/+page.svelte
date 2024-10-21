@@ -515,13 +515,13 @@
 				</div>
 				<div class="flex flex-col gap-5">
 					<div
-						class="top-[76px] flex sticky w-full items-center justify-between bg-white max-lg:relative max-lg:top-auto"
+						class="top-[76px] lg:z-20 flex sticky w-full items-center justify-between bg-white max-lg:relative max-lg:top-auto"
 					>
 						<div
 							class="z-20 flex w-full items-center gap-8 py-5 transition max-lg:gap-16 duration-300 max-lg:fixed max-lg:left-0 max-lg:top-0 max-lg:z-20 max-lg:h-[calc(100vh-60px)] max-lg:w-full max-lg:flex-col max-lg:items-start max-lg:bg-white max-lg:px-5"
 							bind:this={filters}
-							class:translate-y-0={open}
-							class:translate-y-[100%]={!open}
+							class:max-lg:translate-y-0={open}
+							class:max-lg:translate-y-[100%]={!open}
 						>
 							<p class="text-center text-lg flex lg:hidden -mb-5">Фильтры</p>
 							<button
