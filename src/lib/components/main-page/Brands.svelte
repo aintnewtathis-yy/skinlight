@@ -36,7 +36,7 @@
 				drag: 'free',
 				gap: '1rem',
 				arrows: false,
-				width: 'max-content',
+				width: 'full',
 				pagination: false,
 				breakpoints: {
 					1024: {

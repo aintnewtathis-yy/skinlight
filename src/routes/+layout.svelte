@@ -4,6 +4,7 @@
 	import Header from '$lib/components/global/Header.svelte';
 	import { page } from '$app/stores';
 	import { afterNavigate } from '$app/navigation';
+	import Footer from '../lib/components/global/Footer.svelte';
 
 	let { data, children } = $props();
 
@@ -21,3 +22,4 @@
 <main class="mt-[76px] max-md:mt-0 max-md:mb-36">
 	{@render children()}
 </main>
+<Footer />

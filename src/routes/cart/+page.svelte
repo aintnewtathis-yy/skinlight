@@ -89,7 +89,7 @@
 				</div>
 			</div>
 			<div
-				class="grid grid-cols-[2fr_1fr] gap-4 transition duration-300 border-t max-lg:grid-cols-[3fr_2fr] border-borderColor pt-12 max-md:fixed max-md:bottom-[60px] max-md:flex max-md:h-[calc(100vh-60px)] max-md:z-20 overflow-y-auto max-md:left-0 max-md:p-5 max-md:bg-white max-md:flex-col max-md:gap-10"
+				class="grid grid-cols-[2fr_1fr] gap-4 transition duration-300 border-t max-lg:grid-cols-[3fr_2fr] border-borderColor pt-12 max-md:top-0 max-md:fixed max-md:bottom-[60px] max-md:flex max-md:h-[calc(100vh-60px)] max-md:z-20 overflow-y-auto max-md:left-0 max-md:p-5 max-md:bg-white max-md:flex-col max-md:gap-10"
                 class:max-md:-translate-x-full={!open}
                 class:max-md:translate-x-0={open}
                 >
