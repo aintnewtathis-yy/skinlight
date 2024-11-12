@@ -1,42 +1,43 @@
-/* import { CMS_URL } from '$env/static/private';
-import { initialPayment } from '$lib/yookassa.js';
-import { json, redirect } from '@sveltejs/kit';
+import { CMS_URL } from '$lib/globals.js';
+import { redirect, fail } from '@sveltejs/kit';
+import { cartDataSchema } from '$lib/schemas';
+
+export async function load({ locals }) {
+	return {
+		user: locals.user
+	};
+}
 
 export const actions = {
-    buy: async ({ request }) => {
-        const formData = await request.formData();
+	buy: async ({ request }) => {
+		let url;
+		const formData = await request.formData();
 
-        console.log(formData, 'formData')
-        const productsArray = JSON.parse(formData.get('productsArray'));
+		const cartData = JSON.parse(formData.get('cartData'));
 
-        const response = await fetch(`${CMS_URL}/api/orders`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                data: productsArray
-            })
-        });
-        const responseData = await response.json();
+		try {
+			const validatedData = cartDataSchema.parse(cartData.userData);
 
-        console.log(responseData, 'responseData')
-        
-        const { url, id } = await initialPayment(productsArray);
+			const response = await fetch(`${CMS_URL}/api/getOrderRequest`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					data: cartData
+				})
+			});
+			const responseData = await response.json();
+			url = responseData.url;
+		} catch (err) {
+			const errors = err.flatten();
+			console.log(errors);
+			return fail(400, {
+				formData: cartData,
+				errors: errors.fieldErrors
+			});
+		}
 
-        const documentId = responseData.data.documentId;
-
-        await fetch(`${CMS_URL}/api/orders/${documentId}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                data: {
-                    order_id: id
-                }
-            })
-        });
-
-        return redirect(303, url);
-    }
+		redirect(303, url);
+	}
 };
- */

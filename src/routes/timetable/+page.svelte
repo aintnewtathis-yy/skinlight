@@ -1,6 +1,7 @@
 <script>
 	import HeroTimetable from '$lib/components/heroPages/HeroTimetable.svelte';
 
+	let { data } = $props();
 	const courses = [
 		{
 			title: 'Ella Bache: Обзорный видеокурс по линиям',
@@ -54,11 +55,13 @@
 </script>
 
 {#snippet courseRow(content, index)}
+	{@const date = new Date(content.date)}
+	{@const dateVisual = `${String(date.getUTCDate()).padStart(2, '0')}.${String(date.getUTCMonth() + 1).padStart(2, '0')} начало в ${String(date.getUTCHours()).padStart(2, '0')}.${String(date.getUTCMinutes()).padStart(2, '0')} `}
 	<a
-		class="-ml-3 grid w-[calc(100%+24px)] grid-cols-[1.5fr_4fr_2.5fr] *:w-full items-center gap-16 px-3 py-6 *:text-lg hover:bg-bgColor focus:bg-bgColor active:bg-bgColor max-xl:grid-cols-[2fr_4fr_2.5fr] max-xl:gap-8 *:max-xl:text-base max-lg:py-4 max-md:flex max-md:flex-col *:max-md:text-lg"
+		class="-ml-3 grid w-[calc(100%+24px)] grid-cols-[1.5fr_4fr_2.5fr] items-center gap-16 px-3 py-6 *:w-full *:text-lg hover:bg-bgColor focus:bg-bgColor active:bg-bgColor max-xl:grid-cols-[2fr_4fr_2.5fr] max-xl:gap-8 *:max-xl:text-base max-lg:py-4 max-md:flex max-md:flex-col *:max-md:text-lg"
 		href={content.href}
 	>
-		<p>{content.date}</p>
+		<p>{dateVisual}</p>
 		<p class="flex items-start gap-2">
 			<span class="mt-[10px] h-2 w-2 rounded-full bg-[#CFBBA5] max-xl:mt-2 max-md:mt-[10px]"></span>
 			<span>{content.title}</span>
@@ -72,14 +75,14 @@
 	</a>
 {/snippet}
 
-<HeroTimetable />
+<HeroTimetable sliderContent = {data?.data} />
 
 <section id="timetable">
 	<div class="container">
 		<div class="flex flex-col gap-16">
 			<h2 class="text-center font-serif text-3xl">Ближайшие обучающие программы</h2>
 			<div class="group123 group1 flex flex-col gap-6 max-md:gap-4">
-				{#each courses as course, i}
+				{#each data?.data?.timetableEntity as course, i}
 					<div class="h-px w-full rounded bg-borderColor"></div>
 					{@render courseRow(course, i)}
 				{/each}
@@ -90,7 +93,9 @@
 
 <section>
 	<div class="container">
-		<div class="mx-auto flex w-3/5 flex-col gap-16 *:text-lg max-xl:w-4/5 max-lg:w-full max-md:*:text-base rich-text-block max-md:gap-14">
+		<div
+			class="rich-text-block mx-auto flex w-3/5 flex-col gap-16 *:text-lg max-xl:w-4/5 max-lg:w-full max-md:gap-14 max-md:*:text-base"
+		>
 			<div class="flex flex-col gap-6 max-md:gap-4">
 				<h3 class="heading">
 					Система поэтапного обучения с присвоением соответствующей квалификации способствует
@@ -178,7 +183,10 @@
 			</div>
 			<div>
 				<p class="heading">
-					Если вам нужна помощь с выбором обучающей программы или остались вопросы, пожалуйста, <a class="font-serif" href="#">свяжитесь с нами</a>.
+					Если вам нужна помощь с выбором обучающей программы или остались вопросы, пожалуйста, <a
+						class="font-serif"
+						href="#">свяжитесь с нами</a
+					>.
 				</p>
 			</div>
 		</div>
@@ -186,7 +194,7 @@
 </section>
 
 <style>
-	ul{
+	ul {
 		@apply gap-6 max-md:gap-4;
 	}
 </style>

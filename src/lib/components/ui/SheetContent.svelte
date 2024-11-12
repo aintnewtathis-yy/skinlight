@@ -33,7 +33,7 @@
 >
     <div class="flex flex-col gap-10 w-full">
         <p class="text-3xl max-md:w-11/12">{content.title}</p>
-        <div class="flex flex-col gap-2 h-full overflow-y-auto overflow-x-hidden max-lg:gap-1">
+        <div class="flex flex-col gap-6 h-full overflow-y-auto rich-text-block overflow-x-hidden max-lg:gap-3">
             {@html  marked.parse(content.content)}
         </div>
         <button

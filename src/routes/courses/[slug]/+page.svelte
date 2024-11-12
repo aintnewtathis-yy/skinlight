@@ -1,109 +1,38 @@
 <script>
 	import HeroSoloCourse from '$lib/components/heroPages/HeroSoloCourse.svelte';
+	import { CMS_URL } from '$lib/globals.js';
+	import { marked } from 'marked';
+
+	let { data, form } = $props();
+
+	let formState = $derived(form) 
 </script>
 
-<HeroSoloCourse />
+<HeroSoloCourse sliderContent={data?.heroCourses} {formState} {data} />
 <section class="max-md:-mt-8">
 	<div class="container">
 		<div
-			class="rich-text-block mx-auto flex w-3/5 flex-col gap-12 *:text-lg max-xl:w-4/5 max-lg:w-full max-md:*:text-base max-md:gap-8"
+			class="rich-text-block mx-auto flex w-3/5 flex-col gap-12 *:text-lg max-xl:w-4/5 max-lg:w-full max-md:gap-8 max-md:*:text-base"
 		>
-			<div class="flex flex-col gap-4">
-				<h2 class="heading">Биоэнергетический массаж для лица гуа-ша</h2>
-				<p>
-					Учебный центр «Скин Лайт» предлагает для мастеров депиляции возможность предложить своим
-					клиентам необычный и очень эффективный массаж, основанный на методах древней китайской
-					медицины.
-				</p>
-			</div>
-			<div class="flex flex-col gap-4">
-				<h3 class="heading">Для кого этот курс</h3>
-				<p>
-					Для косметологов-эстетистов и мастеров базового уровня (спа уходы).  Модели и расходные
-					материалы предоставляются учебным центром.
-				</p>
-				<p>
-					По окончании курса вручается сертификат и ставится отметка в международный паспорт
-					PANDHY'S
-				</p>
-			</div>
-			<div class="flex flex-col gap-4">
-				<h4 class="heading">Продолжительность</h4>
-				<p>Обучение проходит 1 день, в будние дни. <a href="/timetable"> Расписание</a></p>
-			</div>
-			<div class="flex flex-col gap-4">
-				<h5 class="heading">Стоимость</h5>
-				<p>Стоимость 4 992 рубля или закупка на 10 000 рублей</p>
-			</div>
-			<div class="flex flex-col gap-4">
-				<h6 class="heading">Программа</h6>
-				<ul class="gap-3">
-					<li>Методика Гуа Ша: преимущества, эффект и воздействие на организм</li>
-					<li>Создание атмосферы в кабинете</li>
-					<li>Этапы базовой процедуры по типу кожи</li>
-					<li>Последовательность и действие каждого этапа Гуа-Ша PANDHY’S</li>
-					<li>Показания и противопоказания</li>
-					<li>Знакомство с продукцией, необходимой для проведения процедуры</li>
-					<li>Разбор схемы массажа</li>
-					<li>Демонстрация массажа Гуа Ша для лица на модели</li>
-					<li>Правильная постановка руки и отработка массажа на модели</li>
-					<li>Вопрос-ответ</li>
-					<li>Вручение сертификатов и отметка в международный паспорт Pandhy’s</li>
-				</ul>
-			</div>
-			<div class="flex flex-col gap-4">
-				<h6 class="heading">
-					Гуа Ша (刮痧guāshā) – одна из наиболее древних китайских традиционных целебных техник.
-				</h6>
-				<p>
-					Выражение «Гуа Ша» переводится как «соскабливание каждой плохой вещи». Гуа Ша является
-					одним из методов рефлексотерапии в китайской медицине. Небольшая пластинка из кости или
-					камня используется в качестве инструмента воздействия на меридианы или акупрессурные
-					точки.
-				</p>
-				<p>
-					Специальные растительные масла наносимые на поверхность кожи в сочетании со скребковыми
-					движениями приводят к системному движению интенсивной энергии в меридианах, устранению
-					блоков, восстановлению микроциркуляции, запуску процессов детоксикации, которые улучшают
-					состояние органов и организма в целом. Метод прост и безопасен, овладение этой техникой -
-					несложный процесс, и не требует специальных навыков.
-				</p>
-			</div>
-			<div class="flex flex-col gap-4">
-				<h6 class="heading">
-					Гуа Ша лица - впечатляющая по результатам анти-эйдж терапия, которая может:
-				</h6>
-				<ul class="gap-3">
-					<li>Уменьшить морщины</li>
-					<li>Подтянуть и укрепить дряблую кожу</li>
-					<li>Обеспечить пассивную гимнастику мышц лица</li>
-					<li>Моментально уменьшить отёки под глазами</li>
-					<li>Наполнить энергией усталую кожу и кожу в стрессе</li>
-					<li>Вернуть лицу здоровый розовый цвет лица</li>
-				</ul>
-			</div>
-			<div>
-				<img src="/solocase.png" alt="" />
-			</div>
-			<div>
-				<p class="heading">
-					Если вам нужна помощь с выбором обучающей программы или остались вопросы, пожалуйста, <a
-						href="#">свяжитесь с нами</a
-					>.
-				</p>
-			</div>
-			<div>
-				<ul>
-					<li>
-						<a href="tel:+74956091010">+7 (495) 609-10-10</a>
-						,
-						<a href="tel:+79854574577">+7 (985) 457-45-77</a>
-					</li>
-					<li>
-						WhatsApp: <a href="+79039636903">+7 (903) 963-69-03</a>
-					</li>
-				</ul>
-			</div>
+			{#each data?.blockCourses as block}
+				<div class="flex flex-col gap-4">
+					<h2 class="heading">{block.title}</h2>
+					<p>
+						{@html marked.parse(block.content)}
+					</p>
+					{#if block.image}
+						<img
+							class="rounded mt-12 max-lg:mt-8 max-md:mt-6 "
+							src={block.image?.formats?.large?.url
+								? CMS_URL + block.image?.formats?.large?.url
+								: CMS_URL + block.image?.url}
+							width={block.image?.width}
+							height={block.image?.height}
+							alt={block.image?.alternativeText ?? ''}
+						/>
+					{/if}
+				</div>
+			{/each}
 		</div>
 	</div>
 </section>

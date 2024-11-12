@@ -3,491 +3,132 @@
 	import ProductCard from '$lib/components/ui/ProductCard.svelte';
 	import PriceFilter from '$lib/components/ui/PriceFilter.svelte';
 	import SortFilters from '$lib/components/ui/SortFilters.svelte';
+	import { scrollTopCatalog } from '$lib/utils';
+	import { page } from '$app/stores';
+	import { goto, afterNavigate, beforeNavigate } from '$app/navigation';
 
-	let filters;
+	let { data } = $props();
+
+	let sidebarData = {
+		title: 'Каталог',
+		brands: data.brands
+	};
+	let bottomAnchor;
 	let open = $state(false);
+	let searchParams = $derived(new URLSearchParams($page.url.search));
 
-	let sidebar;
-	let lastScrollPosition;
-	let initialSidebarPosition;
-	let pinnedBottom = false;
-	let pinnedTop = false;
-	let setTop = false;
-	let setTopScroll = 0;
-	let innerScrollDifference = false;
-	let currentFixBot = 0;
-	let currentFixBotScroll = 0;
-	let scrolledDistanceDown = 0;
-	let currentOffsetTop = 0;
+	let pagination = $derived(
+		searchParams.get('pageLimit') ? parseInt(searchParams.get('pageLimit')) : 24
+	);
 
-	$effect(() => {
-		lastScrollPosition = 0;
-		initialSidebarPosition = sidebar.getBoundingClientRect().top;
-	});
+	let minPriceFilter = $derived(parseInt(searchParams.get('minPrice')) ?? '');
+	let maxPriceFilter = $derived(parseInt(searchParams.get('maxPrice')) ?? '');
+	let sortFilter = $derived(searchParams.get('sorting') ?? 'default');
+	let filteredProducts = $derived.by(() =>
+		getFilteredProducts(data.products, sortFilter, minPriceFilter, maxPriceFilter)
+	);
 
-	function sidebarStickyPositionCalculation() {
-		if (window.innerWidth < 1025) {
-			return;
+	function getFilteredProducts(products, sortFilter, minPriceFilter, maxPriceFilter) {
+		if (maxPriceFilter && minPriceFilter) {
+			products = products.filter(
+				(product) =>
+					parseInt(product.priceRUB) >= minPriceFilter &&
+					parseInt(product.priceRUB) <= maxPriceFilter
+			);
 		}
-		currentOffsetTop = sidebar.offsetTop;
-		if (lastScrollPosition > window.scrollY) {
-			//up
-			if (window.scrollY < initialSidebarPosition - 76) {
-				/* console.log('#1 t'); */
-				sidebar.style.top = `0`;
-				sidebar.style.position = 'relative';
-			} else if (Math.round(sidebar.getBoundingClientRect().top) >= 76) {
-				/* console.log('#2 t'); */
-				sidebar.style.top = `${76}px`;
-				sidebar.style.position = 'sticky';
-				pinnedTop = true;
-			} else {
-				if (pinnedTop) {
-					pinnedBottom = false;
-					lastScrollPosition = window.scrollY;
-					return;
-				}
-				/* console.log('#3 t'); */
-				sidebar.style.top = `${scrolledDistanceDown}px`;
-				sidebar.style.position = 'relative';
-			}
-			pinnedBottom = false;
-			lastScrollPosition = window.scrollY;
-		} else {
-			//down
 
-			scrolledDistanceDown = currentFixBot ? window.scrollY - currentFixBotScroll : 0;
-			const difference = sidebar.offsetHeight - window.innerHeight + initialSidebarPosition;
-			pinnedTop = false;
-
-			if (pinnedBottom) {
-				lastScrollPosition = window.scrollY;
-				return;
-			}
-			if (sidebar.offsetTop > 0) {
-				/* console.log('#1 b'); */
-
-				if (!setTop && !innerScrollDifference) {
-					sidebar.style.position = 'relative';
-					sidebar.style.top = `${currentOffsetTop}px`;
-					setTop = true;
-					setTopScroll = window.scrollY;
-				} else if (setTop && innerScrollDifference) {
-					/* console.log('#3 b'); */
-					setTop = false;
-					innerScrollDifference = 0;
-					currentFixBot = sidebar.getBoundingClientRect().top;
-					sidebar.style.position = 'sticky';
-					sidebar.style.top = `${currentFixBot}px`;
-					pinnedBottom = true;
-				} else {
-					lastScrollPosition = window.scrollY;
-					innerScrollDifference =
-						Math.round(sidebar.offsetHeight - window.innerHeight + 76) <=
-						Math.round(window.scrollY - setTopScroll);
-
-					return;
-				}
-			} else if (window.scrollY > difference) {
-				/* console.log('#2 b'); */
-				currentFixBot = sidebar.getBoundingClientRect().top;
-				sidebar.style.position = 'sticky';
-				sidebar.style.top = `${currentFixBot}px`;
-				currentFixBotScroll = window.scrollY;
-				pinnedBottom = true;
-			}
-
-			lastScrollPosition = window.scrollY;
+		switch (sortFilter) {
+			case 'priceUp':
+				return products.sort((a, b) => parseInt(a.priceRUB) - parseInt(b.priceRUB));
+			case 'priceDown':
+				return products.sort((a, b) => parseInt(b.priceRUB) - parseInt(a.priceRUB));
+			case 'old':
+				return products.sort((a, b) => new Date(a.publishedAt) - new Date(b.publishedAt));
+			default:
+				return products;
 		}
 	}
 
-	let demoData = {
-		title: 'Ella Bache',
-		categories: [
-			{
-				label: 'Очищение и демакияж',
-				href: '#'
-			},
-			{
-				label: 'Тонизирование',
-				href: '#'
-			},
-			{
-				label: 'Увлажнение',
-				href: '#'
-			},
-			{
-				label: 'Пилинги',
-				href: '#'
-			},
-			{
-				label: 'Сыворотки',
-				href: '#'
-			},
-			{
-				label: 'Маски',
-				href: '#'
-			},
-			{
-				label: 'Масла',
-				href: '#'
-			},
-			{
-				label: 'Защита от солнца SPF',
-				href: '#'
-			},
-			{
-				label: 'Уход за кожей вокруг глаз',
-				href: '#'
-			},
-			{
-				label: 'Уход за сухой кожей',
-				href: '#'
-			},
-			{
-				label: 'Уход за жирной и проблемной кожей',
-				href: '#'
-			},
-			{
-				label: 'Уход за чувствительной кожей',
-				href: '#'
-			},
-			{
-				label: 'Уход 20+',
-				href: '#'
-			},
-			{
-				label: 'Уход 27+',
-				href: '#'
-			},
-			{
-				label: 'Уход 48+',
-				href: '#'
-			},
-			{
-				label: 'Уход 60+',
-				href: '#'
-			},
-			{
-				label: 'Увлажняющая линия Hydra Plumping',
-				href: '#'
-			},
-			{
-				label: 'Линия мезопил Tomate Glow',
-				href: '#'
-			}
-		]
-	};
-	const products = [
-		{
-			title: 'Очищающий мусс с ликопеном Элла Баше, 150 мл',
-			description:
-				'Очищает кожу лица, шеи и декольте от загрязнений и остатков декоративной косметики, глубоко очищает поры.',
-			price: '3 927',
-			thumbnail: '/product1.png',
-			href: '/catalog/123'
-		},
-		{
-			title: 'Увлажняющая сыворотка-плампер Super Serum Элла Баше, 30 мл',
-			description:
-				'Высококонцентрированная космецевтическая сыворотка гарантирует увлажнение на 48 часов.',
-			price: '7 293',
-			thumbnail: '/product2.png',
-			href: '/catalog/123'
-		},
-		{
-			title: 'Крем-филлер для век спирулина крио, 15 мл',
-			description:
-				'Нежный крем с охлаждающим аппликатором создан специально для решения специфических проблем области..',
-			price: '6 192',
-			thumbnail: '/product3.png',
-			href: '/catalog/123'
-		},
-		{
-			title: 'Очищающий мусс с ликопеном Элла Баше, 150 мл',
-			description:
-				'Очищает кожу лица, шеи и декольте от загрязнений и остатков декоративной косметики, глубоко очищает поры.',
-			price: '3 927',
-			thumbnail: '/product1.png',
-			href: '/catalog/123'
-		},
-		{
-			title: 'Увлажняющая сыворотка-плампер Super Serum Элла Баше, 30 мл',
-			description:
-				'Высококонцентрированная космецевтическая сыворотка гарантирует увлажнение на 48 часов.',
-			price: '7 293',
-			thumbnail: '/product2.png',
-			href: '/catalog/123'
-		},
-		{
-			title: 'Крем-филлер для век спирулина крио, 15 мл',
-			description:
-				'Нежный крем с охлаждающим аппликатором создан специально для решения специфических проблем области..',
-			price: '6 192',
-			thumbnail: '/product3.png',
-			href: '/catalog/123'
-		},
-		{
-			title: 'Очищающий мусс с ликопеном Элла Баше, 150 мл',
-			description:
-				'Очищает кожу лица, шеи и декольте от загрязнений и остатков декоративной косметики, глубоко очищает поры.',
-			price: '3 927',
-			thumbnail: '/product1.png',
-			href: '/catalog/123'
-		},
-		{
-			title: 'Увлажняющая сыворотка-плампер Super Serum Элла Баше, 30 мл',
-			description:
-				'Высококонцентрированная космецевтическая сыворотка гарантирует увлажнение на 48 часов.',
-			price: '7 293',
-			thumbnail: '/product2.png',
-			href: '/catalog/123'
-		},
-		{
-			title: 'Крем-филлер для век спирулина крио, 15 мл',
-			description:
-				'Нежный крем с охлаждающим аппликатором создан специально для решения специфических проблем области..',
-			price: '6 192',
-			thumbnail: '/product3.png',
-			href: '/catalog/123'
-		},
-		{
-			title: 'Очищающий мусс с ликопеном Элла Баше, 150 мл',
-			description:
-				'Очищает кожу лица, шеи и декольте от загрязнений и остатков декоративной косметики, глубоко очищает поры.',
-			price: '3 927',
-			thumbnail: '/product1.png',
-			href: '/catalog/123'
-		},
-		{
-			title: 'Увлажняющая сыворотка-плампер Super Serum Элла Баше, 30 мл',
-			description:
-				'Высококонцентрированная космецевтическая сыворотка гарантирует увлажнение на 48 часов.',
-			price: '7 293',
-			thumbnail: '/product2.png',
-			href: '/catalog/123'
-		},
-		{
-			title: 'Крем-филлер для век спирулина крио, 15 мл',
-			description:
-				'Нежный крем с охлаждающим аппликатором создан специально для решения специфических проблем области..',
-			price: '6 192',
-			thumbnail: '/product3.png',
-			href: '/catalog/123'
-		},
-		{
-			title: 'Очищающий мусс с ликопеном Элла Баше, 150 мл',
-			description:
-				'Очищает кожу лица, шеи и декольте от загрязнений и остатков декоративной косметики, глубоко очищает поры.',
-			price: '3 927',
-			thumbnail: '/product1.png',
-			href: '/catalog/123'
-		},
-		{
-			title: 'Увлажняющая сыворотка-плампер Super Serum Элла Баше, 30 мл',
-			description:
-				'Высококонцентрированная космецевтическая сыворотка гарантирует увлажнение на 48 часов.',
-			price: '7 293',
-			thumbnail: '/product2.png',
-			href: '/catalog/123'
-		},
-		{
-			title: 'Крем-филлер для век спирулина крио, 15 мл',
-			description:
-				'Нежный крем с охлаждающим аппликатором создан специально для решения специфических проблем области..',
-			price: '6 192',
-			thumbnail: '/product3.png',
-			href: '/catalog/123'
-		},
-		{
-			title: 'Очищающий мусс с ликопеном Элла Баше, 150 мл',
-			description:
-				'Очищает кожу лица, шеи и декольте от загрязнений и остатков декоративной косметики, глубоко очищает поры.',
-			price: '3 927',
-			thumbnail: '/product1.png',
-			href: '/catalog/123'
-		},
-		{
-			title: 'Увлажняющая сыворотка-плампер Super Serum Элла Баше, 30 мл',
-			description:
-				'Высококонцентрированная космецевтическая сыворотка гарантирует увлажнение на 48 часов.',
-			price: '7 293',
-			thumbnail: '/product2.png',
-			href: '/catalog/123'
-		},
-		{
-			title: 'Крем-филлер для век спирулина крио, 15 мл',
-			description:
-				'Нежный крем с охлаждающим аппликатором создан специально для решения специфических проблем области..',
-			price: '6 192',
-			thumbnail: '/product3.png',
-			href: '/catalog/123'
-		},
-		{
-			title: 'Очищающий мусс с ликопеном Элла Баше, 150 мл',
-			description:
-				'Очищает кожу лица, шеи и декольте от загрязнений и остатков декоративной косметики, глубоко очищает поры.',
-			price: '3 927',
-			thumbnail: '/product1.png',
-			href: '/catalog/123'
-		},
-		{
-			title: 'Увлажняющая сыворотка-плампер Super Serum Элла Баше, 30 мл',
-			description:
-				'Высококонцентрированная космецевтическая сыворотка гарантирует увлажнение на 48 часов.',
-			price: '7 293',
-			thumbnail: '/product2.png',
-			href: '/catalog/123'
-		},
-		{
-			title: 'Крем-филлер для век спирулина крио, 15 мл',
-			description:
-				'Нежный крем с охлаждающим аппликатором создан специально для решения специфических проблем области..',
-			price: '6 192',
-			thumbnail: '/product3.png',
-			href: '/catalog/123'
-		},
-		{
-			title: 'Очищающий мусс с ликопеном Элла Баше, 150 мл',
-			description:
-				'Очищает кожу лица, шеи и декольте от загрязнений и остатков декоративной косметики, глубоко очищает поры.',
-			price: '3 927',
-			thumbnail: '/product1.png',
-			href: '/catalog/123'
-		},
-		{
-			title: 'Увлажняющая сыворотка-плампер Super Serum Элла Баше, 30 мл',
-			description:
-				'Высококонцентрированная космецевтическая сыворотка гарантирует увлажнение на 48 часов.',
-			price: '7 293',
-			thumbnail: '/product2.png',
-			href: '/catalog/123'
-		},
-		{
-			title: 'Крем-филлер для век спирулина крио, 15 мл',
-			description:
-				'Нежный крем с охлаждающим аппликатором создан специально для решения специфических проблем области..',
-			price: '6 192',
-			thumbnail: '/product3.png',
-			href: '/catalog/123'
-		},
-		{
-			title: 'Очищающий мусс с ликопеном Элла Баше, 150 мл',
-			description:
-				'Очищает кожу лица, шеи и декольте от загрязнений и остатков декоративной косметики, глубоко очищает поры.',
-			price: '3 927',
-			thumbnail: '/product1.png',
-			href: '/catalog/123'
-		},
-		{
-			title: 'Увлажняющая сыворотка-плампер Super Serum Элла Баше, 30 мл',
-			description:
-				'Высококонцентрированная космецевтическая сыворотка гарантирует увлажнение на 48 часов.',
-			price: '7 293',
-			thumbnail: '/product2.png',
-			href: '/catalog/123'
-		},
-		{
-			title: 'Крем-филлер для век спирулина крио, 15 мл',
-			description:
-				'Нежный крем с охлаждающим аппликатором создан специально для решения специфических проблем области..',
-			price: '6 192',
-			thumbnail: '/product3.png',
-			href: '/catalog/123'
-		},
-		{
-			title: 'Очищающий мусс с ликопеном Элла Баше, 150 мл',
-			description:
-				'Очищает кожу лица, шеи и декольте от загрязнений и остатков декоративной косметики, глубоко очищает поры.',
-			price: '3 927',
-			thumbnail: '/product1.png',
-			href: '/catalog/123'
-		},
-		{
-			title: 'Увлажняющая сыворотка-плампер Super Serum Элла Баше, 30 мл',
-			description:
-				'Высококонцентрированная космецевтическая сыворотка гарантирует увлажнение на 48 часов.',
-			price: '7 293',
-			thumbnail: '/product2.png',
-			href: '/catalog/123'
-		},
-		{
-			title: 'Крем-филлер для век спирулина крио, 15 мл',
-			description:
-				'Нежный крем с охлаждающим аппликатором создан специально для решения специфических проблем области..',
-			price: '6 192',
-			thumbnail: '/product3.png',
-			href: '/catalog/123'
-		},
-		{
-			title: 'Очищающий мусс с ликопеном Элла Баше, 150 мл',
-			description:
-				'Очищает кожу лица, шеи и декольте от загрязнений и остатков декоративной косметики, глубоко очищает поры.',
-			price: '3 927',
-			thumbnail: '/product1.png',
-			href: '/catalog/123'
-		},
-		{
-			title: 'Увлажняющая сыворотка-плампер Super Serum Элла Баше, 30 мл',
-			description:
-				'Высококонцентрированная космецевтическая сыворотка гарантирует увлажнение на 48 часов.',
-			price: '7 293',
-			thumbnail: '/product2.png',
-			href: '/catalog/123'
-		},
-		{
-			title: 'Крем-филлер для век спирулина крио, 15 мл',
-			description:
-				'Нежный крем с охлаждающим аппликатором создан специально для решения специфических проблем области..',
-			price: '6 192',
-			thumbnail: '/product3.png',
-			href: '/catalog/123'
-		},
-		{
-			title: 'Очищающий мусс с ликопеном Элла Баше, 150 мл',
-			description:
-				'Очищает кожу лица, шеи и декольте от загрязнений и остатков декоративной косметики, глубоко очищает поры.',
-			price: '3 927',
-			thumbnail: '/product1.png',
-			href: '/catalog/123'
-		},
-		{
-			title: 'Увлажняющая сыворотка-плампер Super Serum Элла Баше, 30 мл',
-			description:
-				'Высококонцентрированная космецевтическая сыворотка гарантирует увлажнение на 48 часов.',
-			price: '7 293',
-			thumbnail: '/product2.png',
-			href: '/catalog/123'
-		},
-		{
-			title: 'Крем-филлер для век спирулина крио, 15 мл',
-			description:
-				'Нежный крем с охлаждающим аппликатором создан специально для решения специфических проблем области..',
-			price: '6 192',
-			thumbnail: '/product3.png',
-			href: '/catalog/123'
+	function gotoNextPage() {
+		if (maxPriceFilter) {
+			searchParams.set('maxPrice', maxPriceFilter);
+			searchParams.set('minPrice', minPriceFilter);
 		}
-	];
+		if (sortFilter) {
+			searchParams.set('sorting', sortFilter);
+		}
+		if (data.pagination.total > pagination) {
+			searchParams.set('pageLimit', pagination + 24);
+		} else if (data.pagination.total < 24) {
+			searchParams.set('pageLimit', 24);
+			return;
+		} else {
+			searchParams.set('pageLimit', data.pagination.total);
+			return;
+		}
+
+		goto(`/catalog?${searchParams.toString()}`, {
+			replaceState: true,
+			noScroll: true
+		});
+	}
+
+	$effect(() => {
+		const observer = new IntersectionObserver(
+			(entries) => {
+				if (entries[0].isIntersecting) {
+					gotoNextPage();
+				}
+			},
+			{
+				rootMargin: '0px 0px 500px 0px'
+			}
+		);
+		observer.observe(bottomAnchor);
+		return () => observer.disconnect();
+	});
 </script>
 
-<svelte:window onscroll={sidebarStickyPositionCalculation} />
-
-{#snippet sidebarSnippet(content)}
-	<div class="sticky bottom-5 -ml-2 flex h-fit flex-col gap-5" bind:this={sidebar}>
-		<h1 class="ml-2 py-5 text-2xl">{content.title}</h1>
-		<nav>
-			<ul class="-mt-3 flex flex-col">
-				{#each content.categories as category}
-					<li
-						class=" group h-full w-full flex-grow rounded transition duration-300 hover:bg-bgColor max-md:hover:bg-white"
+{#snippet sidebarNav(content)}
+	<nav>
+		<ul class="-mt-3 flex flex-col pb-5">
+			<li
+				class=" group h-full w-full flex-grow rounded bg-bgColor transition duration-300 max-lg:-ml-2 max-lg:px-2"
+			>
+				<a
+					onclick={() => {
+						scrollTopCatalog();
+					}}
+					data-sveltekit-noscroll
+					class="flex h-full w-full px-2 py-3 max-md:px-0"
+					href="#"
+				>
+					Смотреть всё
+				</a>
+			</li>
+			{#each content.brands as brand}
+				<li
+					class=" group h-full w-full flex-grow rounded transition duration-300 hover:bg-bgColor max-lg:-ml-2 max-lg:px-2 max-md:hover:bg-white"
+				>
+					<a
+						onclick={() => {
+							scrollTopCatalog();
+						}}
+						data-sveltekit-noscroll
+						class="flex h-full w-full px-2 py-3 max-md:px-0"
+						href={'/catalog/' + brand.seo.slug}>{brand.name}</a
 					>
-						<a class="flex h-full w-full px-2 py-3 max-md:px-0" href={category.href}
-							>{category.label}</a
-						>
-					</li>
-				{/each}
-			</ul>
-		</nav>
+				</li>
+			{/each}
+		</ul>
+	</nav>
+{/snippet}
+{#snippet sidebarSnippet(content)}
+	<div
+		class="no-scrollbar sticky bottom-5 top-[76px] -ml-2 flex h-fit max-h-[calc(100dvh-76px)] flex-col gap-5"
+	>
+		<h1 class="ml-2 py-5 text-2xl">{content.title}</h1>
+		{@render sidebarNav(content)}
 	</div>
 {/snippet}
 
@@ -509,21 +150,20 @@
 			<div class="max-lg:hidden">
 				<Breadcrumbs />
 			</div>
-			<div class="grid grid-cols-[1fr_4fr] gap-4 max-lg:flex">
+			<div class="grid grid-cols-[1fr_4fr] gap-4 max-lg:flex" id="catalog">
 				<div class="h-full max-lg:hidden">
-					{@render sidebarSnippet(demoData)}
+					{@render sidebarSnippet(sidebarData)}
 				</div>
 				<div class="flex flex-col gap-5">
 					<div
-						class="top-[76px] lg:z-20 flex sticky w-full items-center justify-between bg-white max-lg:relative max-lg:top-auto"
+						class="sticky top-[76px] flex w-full items-center justify-between bg-white max-lg:relative max-lg:top-auto lg:z-20"
 					>
 						<div
-							class="z-20 flex w-full items-center gap-8 py-5 transition max-lg:gap-16 duration-300 max-lg:fixed max-lg:left-0 max-lg:top-0 max-lg:z-20 max-lg:h-[calc(100vh-60px)] max-lg:w-full max-lg:flex-col max-lg:items-start max-lg:bg-white max-lg:px-5"
-							bind:this={filters}
+							class="z-20 flex w-full items-center gap-8 py-5 transition duration-300 max-lg:fixed max-lg:left-0 max-lg:top-0 max-lg:z-20 max-lg:h-[calc(100vh-60px)] max-lg:w-full max-lg:flex-col max-lg:items-start max-lg:gap-16 max-lg:overflow-y-auto max-lg:bg-white max-lg:px-5"
 							class:max-lg:translate-y-0={open}
 							class:max-lg:translate-y-[100%]={!open}
 						>
-							<p class="text-center text-lg flex lg:hidden -mb-5">Фильтры</p>
+							<p class="-mb-5 flex text-center text-lg lg:hidden">Фильтры</p>
 							<button
 								type="button"
 								class="fixed right-5 top-5 hidden h-6 w-6 p-1 max-lg:flex"
@@ -533,10 +173,14 @@
 							>
 								<img class="w-full object-contain" src="/cross.svg" alt="cross icon" />
 							</button>
-							<PriceFilter />
+							<PriceFilter maxPrice={data.maxPrice} />
 							<SortFilters />
+							<div class="flex w-full flex-col gap-8 lg:hidden">
+								<p>Категории</p>
+								{@render sidebarNav(sidebarData)}
+							</div>
 						</div>
-						<h1 class="hidden font-serif text-xl max-lg:flex">{demoData.title}</h1>
+						<h1 class="hidden font-serif text-xl max-lg:flex">{sidebarData.title}</h1>
 						<button
 							type="button"
 							class="hidden max-lg:flex"
@@ -547,10 +191,18 @@
 							<img src="filters.svg" alt="filters icon" />
 						</button>
 					</div>
-					<div class="grid grid-cols-4 gap-4 max-lg:grid-cols-3 max-md:grid-cols-2">
-						{#each products as product}
-							<ProductCard content={product} />
-						{/each}
+					<div class="flex flex-col justify-between gap-5">
+						{#key filteredProducts}
+							<div
+								class="grid min-h-[60vh] grid-cols-4 gap-4 max-lg:grid-cols-3 max-md:grid-cols-2"
+							>
+								{#each filteredProducts as product}
+									<ProductCard content={product} />
+								{/each}
+							</div>
+						{/key}
+
+						<div bind:this={bottomAnchor}></div>
 					</div>
 				</div>
 			</div>

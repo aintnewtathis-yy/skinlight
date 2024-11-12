@@ -1,6 +1,7 @@
 <script>
 	import { page } from '$app/stores';
-	import { goto } from '$app/navigation';
+	import { goto, invalidateAll } from '$app/navigation';
+	import { scrollTopCatalog } from '$lib/utils';
 
 	let btn;
 	let variants = [
@@ -17,31 +18,38 @@
 			slug: 'priceDown'
 		},
 		{
-			label: 'По новизне',
-			slug: 'new'
+			label: 'Сначала старые',
+			slug: 'old'
 		}
 	];
-	let currentVariant = $state(variants[0].label);
+	let searchParams = $derived(new URLSearchParams($page.url.search))
+	let currentVariant = $state(variants.find((element) => element.slug === searchParams.get('sorting'))?.label ?? variants[0].label);
 	let open = $state(false);
 
 	function updateUrl(value) {
 		const params = new URLSearchParams($page.url.search);
 		params.set('sorting', value);
-		goto(`?${params.toString()}`, { replaceState: true });
+		params.set('pageLimit', 24);
+		goto(`?${params.toString()}`, { replaceState: true, noScroll: true });
+		scrollTopCatalog()
 	}
 
 	$effect(() => {
-		if (window.innerWidth > 1024) {
-			window.addEventListener('click', (e) => {
-				if (e.target !== btn && !btn.contains(e.target)) {
-					open = false;
-				}
-			});
-		} else {
+		if (window.innerWidth < 1024) {
 			open = true;
 		}
 	});
 </script>
+
+<svelte:window
+	onclick={(e) => {
+		if (window.innerWidth > 1024) {
+			if (e.target !== btn && !btn.contains(e.target)) {
+				open = false;
+			}
+		}
+	}}
+/>
 
 <div
 	class="z-10 ml-auto max-lg:m-0 max-lg:flex max-lg:w-full max-lg:flex-col max-lg:gap-2"
@@ -60,7 +68,7 @@
 		<span class="leading-none lg:hidden">Сортировка:</span>
 		<span class="leading-none">{currentVariant}</span>
 		<img
-			src="arrow-filter.svg"
+			src="/arrow-filter.svg"
 			alt="arrow icon"
 			class="transition duration-300 max-lg:hidden"
 			class:rotate-180={open}

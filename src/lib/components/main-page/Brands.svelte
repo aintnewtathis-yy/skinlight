@@ -1,27 +1,10 @@
 <script>
 	import { Splide, SplideSlide } from '@splidejs/svelte-splide';
-	const brands = [
-		{
-			image: '/EllaBache.png',
-			label: 'Ella Bache',
-			href: '/brand'
-		},
-		{
-			image: '/Pandhys.png',
-			label: `Pandhy's`,
-			href: '/brand'
-		},
-		{
-			image: '/Babor.png',
-			label: 'Babor',
-			href: '/brand'
-		},
-		{
-			image: '/christina.png',
-			label: 'Christina',
-			href: '/brand'
-		}
-	];
+	import { CMS_URL } from '$lib/globals.js';
+
+	let { brands } = $props()
+	
+	
 </script>
 
 <section>
@@ -51,10 +34,17 @@
 			}}
 		>
 			{#each brands as brand}
+				{@const imageSrc = brand.image?.formats?.large?.url ? CMS_URL + brand.image?.formats?.large?.url : CMS_URL + brand.image?.url}
 				<SplideSlide>
 					<a href={brand.href} class="flex flex-col gap-3">
-						<img class="aspect-[368/320] rounded object-cover border border-borderColor" src={brand.image} alt="" />
-						<p class="font-serif text-2xl">{brand.label}</p>
+						<img
+							class="aspect-[368/320] rounded border border-borderColor object-cover"
+							src={imageSrc}
+							width={brand.image?.width}
+							height={brand.image?.height}
+							alt={brand.image?.alternativeText}
+						/>
+						<p class="font-serif text-2xl">{brand.name}</p>
 					</a>
 				</SplideSlide>
 			{/each}

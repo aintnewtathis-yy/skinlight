@@ -1,48 +1,51 @@
 <script>
+	import { CMS_URL } from '$lib/globals.js';
+	import { marked } from 'marked';
 	let paragraph;
-	let aboutData = {
-		preTitle: '/aboutBlockPreTitle.svg',
-		mainText:
-			'Более 15 лет нашей продукцией пользуются профессиональные косметологи и их клиенты, что обусловлено высокой эффективностью косметических средств и подтверждено европейскими центрами сертифицирования.',
-		additionalText: `
-            <p>Группа компаний «Скин Лайт» - с 2002 года представляет на российском рынке профессиональную косметику ведущих европейских брендов.</p>
-            <p>Компания «Скин Лайт» - это надежный партнерв области бьюти-индустрии. Широкая сеть дистрибуции охватывает всю территорию России и количество наших партнеров профессиональной косметики постоянно расширяется.</p>
-        `,
-		aboutImage: '/aboutBlockImage.png',
-		btnText: 'Узнать больше',
-		btnHref: '/about'
-	};
+
+	let { content } = $props();
+	
 </script>
 
 <section id="about">
 	<div class="container">
 		<div class="flex flex-col items-center gap-8 max-md:gap-6">
-			<img class="max-w-40 max-md:max-w-32" src={aboutData.preTitle} alt="skinlight group" />
+			<p class="text-center">
+				<span class="italic">(</span>
+				{content.miniTitle}
+				<span class="italic">)</span>
+			</p>
 			<h6
 				class="w-4/5 text-balance text-center font-serif text-5xl max-lg:w-full max-lg:text-4xl max-md:text-2xl"
 			>
-				{aboutData.mainText}
+				{content.title}
 			</h6>
 			<div
-				class="grid w-2/4 grid-cols-2 gap-4 mt-3 max-lg:w-2/3 max-md:flex max-md:w-full max-md:flex-col max-md:gap-6"
+				class="mt-3 grid w-2/4 grid-cols-2 gap-4 max-lg:w-2/3 max-md:flex max-md:w-full max-md:flex-col max-md:gap-6"
 			>
-				<img src={aboutData.aboutImage} class="h-full rounded max-md:aspect-[4/3]" alt="cosmetics" />
+				<img
+					src={content.image?.formats?.large?.url ? CMS_URL + content.image?.formats?.large?.url : CMS_URL + content.image?.url}
+					width={content.image?.width}
+					height={content.image?.height}
+					alt={content.image?.alternativeText}
+					class="h-full rounded max-md:aspect-[4/3]"
+				/>
 				<div class="flex flex-col gap-6">
 					<!-- svelte-ignore a11y_click_events_have_key_events -->
 					<!-- svelte-ignore a11y_no_static_element_interactions -->
 					<div
-						class="flex flex-col gap-2 overflow-hidden  *:text-textDull *:max-xl:text-sm max-lg:text-sm max-md:max-h-20 max-md:gap-2"
+						class="flex flex-col gap-2 overflow-hidden *:text-textDull *:max-xl:text-sm max-lg:text-sm max-md:max-h-20 max-md:gap-2"
 						bind:this={paragraph}
 						onclick={() => {
 							paragraph.classList.toggle('max-md:max-h-20');
 							paragraph.querySelector('.gradient').classList.toggle('max-md:flex');
 						}}
 					>
-						{@html aboutData.additionalText}
+						{@html marked.parse(content.description)}
 						<span class="gradient absolute bottom-0 left-0 hidden h-6 w-full max-md:flex"></span>
 					</div>
-					<a href={aboutData.btnHref} class="btn-dull">
-						{aboutData.btnText}
+					<a href='/about' class="btn-dull">
+						Узнать больше
 					</a>
 				</div>
 			</div>

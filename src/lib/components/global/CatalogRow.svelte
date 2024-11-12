@@ -2,116 +2,19 @@
 	import { Splide, SplideSlide } from '@splidejs/svelte-splide';
 	import ProductCard from '$lib/components/ui/ProductCard.svelte';
 
-	let { content } = $props();
-
-	const products = [
-		{
-			title: 'Очищающий мусс с ликопеном Элла Баше, 150 мл',
-			description:
-				'Очищает кожу лица, шеи и декольте от загрязнений и остатков декоративной косметики, глубоко очищает поры.',
-			price: '3 927',
-			thumbnail: '/product1.png',
-			href: '/catalog/test'
-		},
-		{
-			title: 'Увлажняющая сыворотка-плампер Super Serum Элла Баше, 30 мл',
-			description:
-				'Высококонцентрированная космецевтическая сыворотка гарантирует увлажнение на 48 часов.',
-			price: '7 293',
-			thumbnail: '/product2.png',
-			href: '/catalog/test'
-		},
-		{
-			title: 'Крем-филлер для век спирулина крио, 15 мл',
-			description:
-				'Нежный крем с охлаждающим аппликатором создан специально для решения специфических проблем области..',
-			price: '6 192',
-			thumbnail: '/product3.png',
-			href: '/catalog/test'
-		},
-		{
-			title: 'Очищающий мусс с ликопеном Элла Баше, 150 мл',
-			description:
-				'Очищает кожу лица, шеи и декольте от загрязнений и остатков декоративной косметики, глубоко очищает поры.',
-			price: '3 927',
-			thumbnail: '/product1.png',
-			href: '/catalog/test'
-		},
-		{
-			title: 'Увлажняющая сыворотка-плампер Super Serum Элла Баше, 30 мл',
-			description:
-				'Высококонцентрированная космецевтическая сыворотка гарантирует увлажнение на 48 часов.',
-			price: '7 293',
-			thumbnail: '/product2.png',
-			href: '/catalog/test'
-		},
-		{
-			title: 'Крем-филлер для век спирулина крио, 15 мл',
-			description:
-				'Нежный крем с охлаждающим аппликатором создан специально для решения специфических проблем области..',
-			price: '6 192',
-			thumbnail: '/product3.png',
-			href: '/catalog/test'
-		},
-		{
-			title: 'Очищающий мусс с ликопеном Элла Баше, 150 мл',
-			description:
-				'Очищает кожу лица, шеи и декольте от загрязнений и остатков декоративной косметики, глубоко очищает поры.',
-			price: '3 927',
-			thumbnail: '/product1.png',
-			href: '/catalog/test'
-		},
-		{
-			title: 'Увлажняющая сыворотка-плампер Super Serum Элла Баше, 30 мл',
-			description:
-				'Высококонцентрированная космецевтическая сыворотка гарантирует увлажнение на 48 часов.',
-			price: '7 293',
-			thumbnail: '/product2.png',
-			href: '/catalog/test'
-		},
-		{
-			title: 'Крем-филлер для век спирулина крио, 15 мл',
-			description:
-				'Нежный крем с охлаждающим аппликатором создан специально для решения специфических проблем области..',
-			price: '6 192',
-			thumbnail: '/product3.png',
-			href: '/catalog/test'
-		},
-		{
-			title: 'Очищающий мусс с ликопеном Элла Баше, 150 мл',
-			description:
-				'Очищает кожу лица, шеи и декольте от загрязнений и остатков декоративной косметики, глубоко очищает поры.',
-			price: '3 927',
-			thumbnail: '/product1.png',
-			href: '/catalog/test'
-		},
-		{
-			title: 'Увлажняющая сыворотка-плампер Super Serum Элла Баше, 30 мл',
-			description:
-				'Высококонцентрированная космецевтическая сыворотка гарантирует увлажнение на 48 часов.',
-			price: '7 293',
-			thumbnail: '/product2.png',
-			href: '/catalog/test'
-		},
-		{
-			title: 'Крем-филлер для век спирулина крио, 15 мл',
-			description:
-				'Нежный крем с охлаждающим аппликатором создан специально для решения специфических проблем области..',
-			price: '6 192',
-			thumbnail: '/product3.png',
-			href: '/catalog/test'
-		}
-	];
+	let { content, products } = $props();
 </script>
 
 <section>
 	<div class="flex flex-col gap-6 px-5 max-md:px-0">
 		<div class="flex items-end justify-between max-md:px-5">
 			<h3 class="font-serif text-3xl">{content.title}</h3>
-			<a href={content.href} class="flex items-center gap-3 max-md:hidden">
-				<span class="transition duration-300 hover:text-accentTextHover">Посмотреть все</span>
-				<img src="/arrow-catalog.svg" alt="arrow" />
-			</a>
+			{#if content.href}
+				<a href={content.href} class="flex items-center gap-3 max-md:hidden">
+					<span class="transition duration-300 hover:text-accentTextHover">Посмотреть все</span>
+					<img src="/arrow-catalog.svg" alt="arrow" />
+				</a>
+			{/if}
 		</div>
 		<div class="max-lg:overflow-hidden">
 			<Splide

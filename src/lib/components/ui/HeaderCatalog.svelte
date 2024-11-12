@@ -1,192 +1,33 @@
 <script>
-	import { afterNavigate } from '$app/navigation';
-	import { marked } from 'marked';
+	import { afterNavigate, beforeNavigate } from '$app/navigation';
+	import { tick } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import { twMerge } from 'tailwind-merge';
 
 	let open = $state(false);
 	let secondMenuItems = $state([]);
+	let activeBrand = $state();
 	let secondLevelActive = $state(false);
 	let windowWidth = $state();
+	let firstLevelInfo;
 
-	let { className } = $props();
+	let { className, topMenu, botMenu } = $props();
+
 
 	function openFilters() {
 		open = !open;
 		secondMenuItems = [];
 	}
-	const secondMenu = [
-		{
-			label: 'Сахарная паста для депиляции',
-			href: '/catalog'
-		},
-		{
-			label: 'Пред- и постдепиляционный уход',
-			href: '/catalog'
-		},
-		{
-			label: 'Средства ухода',
-			href: '/catalog'
-		},
-		{
-			label: 'Фитотоники',
-			href: '/catalog'
-		},
-		{
-			label: 'Травяные смеси',
-			href: '/catalog'
-		},
-		{
-			label: 'Масла и масляные аромакомплексы',
-			href: '/catalog'
-		},
-		{
-			label: 'Массажные средства',
-			href: '/catalog'
-		},
-		{
-			label: 'Аксессуары для работы',
-			href: '/catalog'
-		},
-		{
-			label: 'Очищающие уходы',
-			href: '/catalog'
-		},
-		{
-			label: 'Текстиль для кабинета',
-			href: '/catalog'
-		}
-	];
-	const topMenu = [
-		{
-			label: 'Новинки',
-			href: '/catalog'
-		},
-		{
-			label: 'Акции',
-			href: '/catalog'
-		},
-		{
-			label: 'Подборки',
-			href: '/catalog',
-			subMenu: secondMenu
-		},
-		{
-			label: 'Линейки',
-			href: '/catalog',
-			subMenu: [
-				{
-					label: 'Фитотоники',
-					href: '/catalog'
-				},
-				{
-					label: 'Травяные смеси',
-					href: '/catalog'
-				},
-				{
-					label: 'Масла и масляные аромакомплексы',
-					href: '/catalog'
-				},
-				{
-					label: 'Массажные средства',
-					href: '/catalog'
-				},
-				{
-					label: 'Аксессуары для работы',
-					href: '/catalog'
-				}
-			]
-		},
-		{
-			label: 'PANDHY`S',
-			href: '/brand',
-			subMenu: secondMenu
-		},
-		{
-			label: 'Ella Bache',
-			href: '/brand',
-			subMenu: [
-				{
-					label: 'Фитотоники',
-					href: '/catalog'
-				},
-				{
-					label: 'Травяные смеси',
-					href: '/catalog'
-				},
-				{
-					label: 'Масла и масляные аромакомплексы',
-					href: '/catalog'
-				},
-				{
-					label: 'Массажные средства',
-					href: '/catalog'
-				},
-				{
-					label: 'Аксессуары для работы',
-					href: '/catalog'
-				}
-			]
-		},
-		{
-			label: 'Babor',
-			href: '/brand',
-			subMenu: secondMenu
-		},
-		{
-			label: 'Christina',
-			href: '/brand',
-			subMenu: [
-				{
-					label: 'Фитотоники',
-					href: '/catalog'
-				},
-				{
-					label: 'Травяные смеси',
-					href: '/catalog'
-				},
-				{
-					label: 'Масла и масляные аромакомплексы',
-					href: '/catalog'
-				},
-				{
-					label: 'Массажные средства',
-					href: '/catalog'
-				},
-				{
-					label: 'Аксессуары для работы',
-					href: '/catalog'
-				}
-			]
-		}
-	];
-	const bottomMenu = [
-		{
-			label: 'Skin light group',
-			href: '/about'
-		},
-		{
-			label: 'Покупателям',
-			href: '/about'
-		},
-		{
-			label: 'Мастерам и косметологам',
-			href: '#'
-		},
-		{
-			label: 'Вакансии',
-			href: '#'
-		},
-		{
-			label: 'Связаться с нами',
-			href: '#'
-		}
-	];
 
-	afterNavigate(() => {
+	beforeNavigate(() => {
 		open = false;
 		secondLevelActive = false;
 		secondMenuItems = [];
+		firstLevelInfo.style.pointerEvents = 'none';
+		tick();
+		setTimeout(() => {
+			firstLevelInfo.style.pointerEvents = 'all';
+		}, 300);
 	});
 </script>
 
@@ -208,7 +49,7 @@
 	<p
 		class="text-start transition duration-300 group-hover:text-accentTextHover max-xl:text-sm max-md:hidden"
 	>
-		Каталог
+		Меню
 	</p>
 </button>
 
@@ -242,49 +83,82 @@
 				onclick={() => {
 					if (secondLevelActive === true) {
 						secondLevelActive = false;
+						activeBrand = '';
 					} else {
 						open = false;
 						secondMenuItems = [];
+						activeBrand = '';
 					}
 				}}
 			>
 				<img class="w-3 rotate-180" src="/arrow-header.svg" alt="" />
 			</button>
 		</div>
-		<div class="flex h-full flex-col" class:-translate-x-full={secondLevelActive}>
+		<div
+			class="flex h-full flex-col"
+			class:-translate-x-full={secondLevelActive}
+			bind:this={firstLevelInfo}
+		>
 			<div>
 				<ul class="flex flex-col">
+					<li
+						class="123 group w-full rounded transition duration-300 hover:bg-bgColor max-md:hover:bg-white"
+					>
+						<!-- svelte-ignore a11y_mouse_events_have_key_events -->
+						<a
+							href="/catalog"
+							class="flex items-center justify-between px-2 py-3 max-md:px-0"
+							onmouseover={() => {
+								if (windowWidth > 767) {
+									secondMenuItems = [];
+									activeBrand = '';
+								}
+							}}
+							onclick={(e) => {
+								if (windowWidth < 767) {
+									secondMenuItems = [];
+									activeBrand = '';
+								}
+							}}
+						>
+							<span>Каталог</span>
+						</a>
+					</li>
 					{#each topMenu as link}
 						<li
 							class="group w-full rounded transition duration-300 hover:bg-bgColor max-md:hover:bg-white"
 						>
 							<!-- svelte-ignore a11y_mouse_events_have_key_events -->
 							<a
-								href={link.href}
+								href={`/catalog/${link.href}`}
 								class="flex items-center justify-between px-2 py-3 max-md:px-0"
 								onmouseover={() => {
-									if ((window, innerWidth > 767)) {
-										if (link.subMenu) {
-											secondMenuItems = link.subMenu;
+									if (windowWidth > 767) {
+										if (link.secondLevel) {
+											secondMenuItems = link.secondLevel;
+											activeBrand = link.href;
 										} else {
 											secondMenuItems = [];
+											activeBrand = '';
 										}
 									}
 								}}
 								onclick={(e) => {
-									if ((window, innerWidth < 767)) {
-										if (link.subMenu) {
+									if (windowWidth < 767) {
+										if (link.secondLevel) {
 											e.preventDefault();
-											secondMenuItems = link.subMenu;
+											secondMenuItems = link.secondLevel;
 											secondLevelActive = true;
+											activeBrand = link.href;
 										} else {
 											secondMenuItems = [];
+											activeBrand = '';
 										}
 									}
 								}}
 							>
 								<span>{link.label}</span>
-								{#if link.subMenu}
+								{#if link.secondLevel}
 									<img class="pr-2 max-md:pr-0" src="/arrow-header.svg" alt="arrow icon" />
 								{/if}
 							</a>
@@ -295,7 +169,7 @@
 			<div class="mx-2 mt-3 h-px border-t border-borderColor pt-3 max-md:mx-0"></div>
 			<div>
 				<ul class="flex flex-col">
-					{#each bottomMenu as link}
+					{#each botMenu as link}
 						<!-- svelte-ignore a11y_mouse_events_have_key_events -->
 						<li
 							class="group w-full rounded transition duration-300 hover:bg-bgColor max-md:hover:bg-white"
@@ -306,16 +180,18 @@
 								onmouseover={() => {
 									if ((window, innerWidth > 767)) {
 										secondMenuItems = [];
+										activeBrand = '';
 									}
 								}}
 								onclick={() => {
 									if ((window, innerWidth < 767)) {
-										secondMenuItems = link.subMenu;
+										secondMenuItems = link.secondLevel;
+										activeBrand = link.href;
 									}
 								}}
 							>
 								<span>{link.label}</span>
-								{#if link.subMenu}
+								{#if link.secondLevel}
 									<img class="pr-2 max-md:pr-0" src="/arrow-header.svg" alt="arrow icon" />
 								{/if}
 							</a>
@@ -348,7 +224,7 @@
 							>
 								<a
 									class="flex items-center justify-between px-2 py-3 max-md:px-0"
-									href={subLink.href}>{subLink.label}</a
+									href={'/catalog/' + activeBrand + '?categorySlug=' + subLink.href}>{subLink.label}</a
 								>
 							</li>
 						{/each}
@@ -357,7 +233,7 @@
 			{/key}
 		{:else}
 			<div
-				class="123 fixed left-full top-0 z-30 flex h-dvh w-full max-w-96 flex-col border-l border-borderColor bg-white pb-5 pl-5 pt-16 transition duration-300 max-md:z-20 max-md:w-screen max-md:max-w-full max-md:pt-5"
+				class="fixed left-full top-0 z-30 flex h-dvh w-full max-w-96 flex-col border-l border-borderColor bg-white pb-5 pl-5 pt-16 transition duration-300 max-md:z-20 max-md:w-screen max-md:max-w-full max-md:pt-5"
 				class:flex={secondMenuItems?.length}
 				class:hidden={!secondMenuItems?.length}
 				class:-translate-x-full={secondLevelActive}
@@ -372,7 +248,7 @@
 						<li
 							class="group w-full rounded transition duration-300 hover:bg-bgColor max-md:hover:bg-white"
 						>
-							<a class="flex items-center justify-between px-2 py-3 max-md:px-0" href={subLink.href}
+							<a class="flex items-center justify-between px-2 py-3 max-md:px-0" href={'/catalog/' + activeBrand + '?categorySlug=' + subLink.href}
 								>{subLink.label}</a
 							>
 						</li>

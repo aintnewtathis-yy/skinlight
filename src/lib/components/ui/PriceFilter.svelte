@@ -1,13 +1,16 @@
 <script>
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
+	import { scrollTopCatalog } from '$lib/utils';
 
+	let { maxPrice } = $props();
+	let params = $state(new URLSearchParams($page.url.search));
 	let progress;
 	let open = $state(false);
-	let maxEdge = 20000;
+	let maxEdge = Math.round(maxPrice / 100) * 100;
 	let minEdge = 0;
-	let minValue = $state(minEdge);
-	let maxValue = $state(maxEdge);
+	let minValue = $state(params.get('minPrice') ?? minEdge);
+	let maxValue = $state(params.get('maxPrice') ?? maxPrice);
 	let minGap = 1000;
 	let btn;
 
@@ -15,7 +18,9 @@
 		const params = new URLSearchParams($page.url.search);
 		params.set('minPrice', minValue);
 		params.set('maxPrice', maxValue);
+		params.set('pageLimit', 24);
 		goto(`?${params.toString()}`, { replaceState: true });
+		scrollTopCatalog()
 	}
 
 	function rangeHandle(e) {
@@ -37,17 +42,21 @@
 	}
 
 	$effect(() => {
-		if (window.innerWidth > 1024) {
-			window.addEventListener('click', (e) => {
-				if (e.target !== btn && !btn.contains(e.target)) {
-					open = false;
-				}
-			});
-		} else {
+		if (window.innerWidth < 1024) {
 			open = true;
 		}
 	});
 </script>
+
+<svelte:window
+	onclick={(e) => {
+		if (window.innerWidth > 1024) {
+			if (e.target !== btn && !btn.contains(e.target)) {
+				open = false;
+			}
+		}
+	}}
+/>
 
 <div
 	bind:this={btn}
@@ -62,7 +71,7 @@
 	>
 		<span class="leading-none">Цена</span>
 		<img
-			src="arrow-filter.svg"
+			src="/arrow-filter.svg"
 			alt="arrow icon"
 			class="transition duration-300 max-lg:hidden"
 			class:rotate-180={open}

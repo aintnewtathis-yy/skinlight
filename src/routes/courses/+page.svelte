@@ -1,113 +1,41 @@
 <script>
-	let courses = [
-		{
-			thumbnail: '/course.png',
-			title: 'Индивидуальный тренинг',
-			ul: [
-				'Повышение квалификации мастера ваксинга',
-				'Особенности работы в зоне бикини',
-				'Сертификат об окончании',
-				'Стоимость 4992 рублей'
-			],
-			btnText: 'Узнать больше',
-			btnHref: '/courses/123',
-			category: 'Курсы шугаринга'
-		},
-		{
-			thumbnail: '/course.png',
-			title: 'Индивидуальный тренинг',
-			ul: [
-				'Повышение квалификации мастера ваксинга',
-				'Особенности работы в зоне бикини',
-				'Сертификат об окончании',
-				'Стоимость 4992 рублей'
-			],
-			btnText: 'Узнать больше',
-			btnHref: '/courses/123',
-			category: 'Курсы шугаринга'
-		},
-		{
-			thumbnail: '/course.png',
-			title: 'Индивидуальный тренинг',
-			ul: [
-				'Повышение квалификации мастера ваксинга',
-				'Особенности работы в зоне бикини',
-				'Сертификат об окончании',
-				'Стоимость 4992 рублей'
-			],
-			btnText: 'Узнать больше',
-			btnHref: '/courses/123',
-			category: 'Курсы восковой депиляции'
-		},
-		{
-			thumbnail: '/course.png',
-			title: 'Индивидуальный тренинг',
-			ul: [
-				'Повышение квалификации мастера ваксинга',
-				'Особенности работы в зоне бикини',
-				'Сертификат об окончании',
-				'Стоимость 4992 рублей'
-			],
-			btnText: 'Узнать больше',
-			btnHref: '/courses/123',
-			category: 'Обучение массажу'
-		},
-		{
-			thumbnail: '/course.png',
-			title: 'Индивидуальный тренинг',
-			ul: [
-				'Повышение квалификации мастера ваксинга',
-				'Особенности работы в зоне бикини',
-				'Сертификат об окончании',
-				'Стоимость 4992 рублей'
-			],
-			btnText: 'Узнать больше',
-			btnHref: '/courses/123',
-			category: 'Эстетическая косметология'
-		},
-		{
-			thumbnail: '/course.png',
-			title: 'Индивидуальный тренинг',
-			ul: [
-				'Повышение квалификации мастера ваксинга',
-				'Особенности работы в зоне бикини',
-				'Сертификат об окончании',
-				'Стоимость 4992 рублей'
-			],
-			btnText: 'Узнать больше',
-			btnHref: '/courses/123',
-			category: 'Косметология для мастера депиляции'
-		},
-		{
-			thumbnail: '/course.png',
-			title: 'Индивидуальный тренинг',
-			ul: [
-				'Повышение квалификации мастера ваксинга',
-				'Особенности работы в зоне бикини',
-				'Сертификат об окончании',
-				'Стоимость 4992 рублей'
-			],
-			btnText: 'Узнать больше',
-			btnHref: '/courses/123',
-			category: 'Online курсы'
-		}
-	];
-	let categories = new Set();
-	courses.forEach((el) => categories.add(el.category));
+	import { CMS_URL } from '$lib/globals.js';
+	import { page } from '$app/stores';
+	import { marked } from 'marked';
+	let { data } = $props();
+	let { courses, categories } = data;
+	let params = $state($page.url.searchParams);
+	let currentFilter = $derived(params.get('category') ?? '');
+
+	const getFilteredCourses = (courses, currentFilter) => {
+		if (currentFilter === '') return courses;
+		return courses.filter((course) => course.category.seo.slug === currentFilter);
+	};
+
+	const filteredCourses = $derived.by(() => getFilteredCourses(courses, currentFilter));
+
+	$effect(() => {
+		params = $page.url.searchParams;
+	});
 </script>
 
 {#snippet courseElement(content)}
+	{@const imageSrc = content.heroCourses?.image?.formats?.large?.url
+		? CMS_URL + content.heroCourses?.image?.formats?.large?.url
+		: CMS_URL + content.heroCourses?.image?.url}
 	<div class=" flex flex-col gap-4">
-		<img class="aspect-video rounded" src={content.thumbnail} alt="" />
-		<h2 class="font-serif text-2xl">{content.title}</h2>
+		<img
+			class="aspect-video w-full rounded"
+			src={imageSrc}
+			width={content.heroCourses?.image?.width}
+			height={content.heroCourses?.image?.height}
+			alt={content.heroCourses?.image?.alternativeText ?? ''}
+		/>
+		<h2 class="font-serif text-2xl">{content.heroCourses?.title}</h2>
 		<div class="rich-text-block">
-			<ul class="mt-2 gap-3">
-				{#each content.ul as text}
-					<li>{text}</li>
-				{/each}
-			</ul>
+			{@html marked.parse(content.bullets)}
 		</div>
-		<a class="btn-dull mt-2" href={content.btnHref}>{content.btnText}</a>
+		<a class="btn-dull mt-2" href={'/courses/' + content.seo.slug}>Узнать больше</a>
 	</div>
 {/snippet}
 
@@ -122,20 +50,31 @@
 					<a
 						href="/timetable"
 						class="-ml-2 w-[calc(100%+8px)] flex-shrink-0 flex-grow-0 rounded px-2 py-3 transition duration-300 hover:bg-bgColor active:bg-bgColor max-md:m-0 max-md:w-fit"
-						class:max-md:bg-bgColor={true}>Расписание</a
 					>
+						Расписание
+					</a>
+					<a
+						href="/courses"
+						class="-ml-2 w-[calc(100%+8px)] flex-shrink-0 flex-grow-0 rounded px-2 py-3 transition duration-300 hover:bg-bgColor active:bg-bgColor max-md:m-0 max-md:w-fit"
+						class:bg-bgColor={currentFilter === ''}
+					>
+						Все категории
+					</a>
 					{#each categories as category}
 						<a
-							href="#"
+							class:bg-bgColor={currentFilter === category.seo.slug}
+							href={'?category=' + category.seo.slug}
 							class="-ml-2 w-[calc(100%+8px)] flex-shrink-0 flex-grow-0 rounded px-2 py-3 transition duration-300 hover:bg-bgColor active:bg-bgColor max-md:m-0 max-md:w-fit"
 						>
-							{category}
+							{category.title}
 						</a>
 					{/each}
 				</div>
 				<div class="grid grid-cols-2 gap-x-4 gap-y-16 max-lg:grid-cols-1 max-md:gap-y-12">
-					{#each courses as course}
-						{@render courseElement(course)}
+					{#each filteredCourses as course}
+						{#key filteredCourses}
+							{@render courseElement(course)}
+						{/key}
 					{/each}
 				</div>
 			</div>

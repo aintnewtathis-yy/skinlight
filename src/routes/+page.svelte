@@ -1,23 +1,47 @@
 <script>
-
 	import Hero from '$lib/components/main-page/Hero.svelte';
-	import CatalogRow from '../lib/components/global/CatalogRow.svelte';
-	import LineCatalog from '../lib/components/LineCatalog.svelte';
-	import Advantages from '../lib/components/main-page/Advantages.svelte';
-	import Brands from '../lib/components/main-page/Brands.svelte';
-	import CoursesCta from '../lib/components/main-page/CoursesCta.svelte';
-	import AboutBlock from '../lib/components/main-page/AboutBlock.svelte';
+	import CatalogRow from '$lib/components/global/CatalogRow.svelte';
+	import LineCatalog from '$lib/components/LineCatalog.svelte';
+	import Advantages from '$lib/components/main-page/Advantages.svelte';
+	import Brands from '$lib/components/main-page/Brands.svelte';
+	import CoursesCta from '$lib/components/main-page/CoursesCta.svelte';
+	import AboutBlock from '$lib/components/main-page/AboutBlock.svelte';
+
+	let { data } = $props();
+
 
 	const sales = {
 		title: 'Новинки',
-		href: '#'
+		href: '/catalog'
 	};
 </script>
 
-<Hero />
+{#if data?.homeData?.heroSlider}
+	<Hero sliderContent={data?.homeData?.heroSlider} />
+{/if}
+
 <Advantages />
-<LineCatalog />
+
+{#if data?.homeData?.shownLine}
+	<LineCatalog
+		title={data?.homeData?.shownLine?.title}
+		image={data?.homeData?.shownLine?.image}
+		products={data?.homeData?.shownLine?.products}
+		brandSlug={data?.homeData?.shownLine?.shownOnBrand?.seo.slug}
+		slug={data?.homeData?.shownLine?.seo?.slug}
+	/>
+{/if}
+
 <CoursesCta />
-<CatalogRow content={sales} />
-<Brands />
-<AboutBlock />
+
+{#if data?.products}
+	<CatalogRow content={sales} products={data?.products} />
+{/if}
+
+{#if data?.homeData?.homeBrands}
+	<Brands brands={data?.homeData?.homeBrands} />
+{/if}
+
+{#if data?.homeData?.heroAbout}
+	<AboutBlock content={data?.homeData?.heroAbout} />
+{/if}

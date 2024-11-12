@@ -17,6 +17,7 @@ export default {
 			white: '#ffffff',
 			black: '#000000',
 			transparent: 'transparent',
+			error: '#D0230C'
 		},
 		extend: {
 			fontFamily: {

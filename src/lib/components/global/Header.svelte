@@ -1,8 +1,13 @@
 <script>
 	import { page } from '$app/stores';
 	import HeaderCatalog from '../ui/HeaderCatalog.svelte';
+	import { getCartState, getWishlistState } from '$lib/globals.svelte';
 
-	$inspect($page);
+	let cartState = getCartState();
+	let wishlistState = getWishlistState();
+
+	let { topMenu, botMenu } = $props();
+	
 
 	let headerShadow = $derived(
 		['/cart', '/checkout', '/catalog/[slug]', '/courses/[slug]', '/brand'].includes($page.route.id)
@@ -10,19 +15,19 @@
 			: true
 	);
 
-	const topMenu = [
-		{
-			label: 'Обучение',
-			href: '/timetable'
-		},
+	let topMenuNav = [
 		{
 			label: 'О нас',
 			href: '/about'
 		},
 		{
-			label: 'Дистрибьюторы',
-			href: '#'
-		}
+			label: 'Курсы',
+			href: '/courses'
+		},
+		{
+			label: 'Расписание',
+			href: '/timetable'
+		},
 	];
 </script>
 
@@ -33,9 +38,9 @@
 	<div class="container">
 		<div class="grid grid-cols-[1fr_190px_1fr] gap-4 max-md:grid-cols-1">
 			<nav class="flex items-center gap-6 max-md:hidden">
-				<HeaderCatalog className={'max-md:hidden'} />
+				<HeaderCatalog {topMenu} {botMenu} className={'max-md:hidden'} />
 				<ul class="-ml-2 flex items-center gap-6">
-					{#each topMenu as link}
+					{#each topMenuNav as link}
 						<li class="transition duration-300 hover:text-accentTextHover max-xl:hidden">
 							<a class="px-2 py-3 max-md:px-0" href={link.href}>{link.label}</a>
 						</li>
@@ -47,19 +52,28 @@
 			</a>
 			<nav class="flex items-center justify-end max-md:w-full">
 				<ul class="flex items-center justify-end gap-7 max-md:w-full max-md:justify-between">
-					<li class="max-lg:hidden">
+					<!-- <li class="max-lg:hidden">
 						<a href="#">
 							<img src="/search.svg" alt="search icon" />
 						</a>
-					</li>
+					</li> -->
 					<li>
 						<a href="/wishlist">
 							<img src="/favorite.svg" alt="favorite icon" />
+							{#if wishlistState.products.length > 0}
+								<div
+									class="absolute -right-2 -top-2 flex aspect-square h-4 w-4 items-center justify-start rounded-full border border-white bg-accent p-[2px]"
+								>
+									<span class="w-full text-center text-[8px] text-white"
+										>{wishlistState.products.length}</span
+									>
+								</div>
+							{/if}
 						</a>
 					</li>
 
 					<div class="hidden max-md:flex">
-						<HeaderCatalog className="" />
+						<HeaderCatalog {topMenu} {botMenu} className={''} />
 					</div>
 					<li class="lg:hidden">
 						<a href="/">
@@ -74,10 +88,19 @@
 					<li>
 						<a href="/cart">
 							<img src="/cart.svg" alt="cart icon" />
+							{#if cartState.products.length > 0}
+								<div
+									class="absolute -right-2 -top-2 flex aspect-square h-4 w-4 items-center justify-start rounded-full border border-white bg-accent p-[2px]"
+								>
+									<span class="w-full text-center text-[8px] text-white"
+										>{cartState.products.length}</span
+									>
+								</div>
+							{/if}
 						</a>
 					</li>
 					<li>
-						<a href="#">
+						<a href="/profile">
 							<img src="/account.svg" alt="account icon" />
 						</a>
 					</li>

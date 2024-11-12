@@ -1,36 +1,11 @@
 <script>
+	import { CMS_URL } from '$lib/globals.js';
 	import { fade } from 'svelte/transition';
-	import { cubicIn } from 'svelte/easing';
 
+	let { sliderContent } = $props();
 	let pagination;
 	let interval;
 	let paginationElmts;
-	let sliderContent = [
-		{
-			h1: 'Наборы DOCTOR BABOR CLASSIC',
-			p: 'Бестселлеры космецевтики в стильной косметичке',
-			btnText: 'Перейти в каталог',
-			btnLink: '/catalog',
-			bgImage: '/hero1.png',
-			bgImageMobile: '/heroMobile1.png'
-		},
-		{
-			h1: 'Наборы DOCTOR BABOR',
-			p: 'Набор из трех продуктов по цене крема',
-			btnText: 'Перейти в каталог',
-			btnLink: '/catalog',
-			bgImage: '/hero3.png',
-			bgImageMobile: '/heroMobile2.png'
-		},
-		{
-			h1: 'Дневной крем для век LIFTING CELLULAR',
-			p: 'В подарок при покупке любых 2-х продуктов линии SKINOVAGE*',
-			btnText: 'Перейти в каталог',
-			btnLink: '/catalog',
-			bgImage: '/hero2.png',
-			bgImageMobile: '/heroMobile1.png'
-		}
-	];
 
 	function sliderOnClick(e, idInput) {
 		clearInterval(interval);
@@ -86,42 +61,49 @@
 	$effect(() => {
 		paginationElmts = pagination.querySelectorAll(`[data-visible] div`);
 
-		sliderOnClick(null, 0);	
+		sliderOnClick(null, 0);
+
+		return () => {
+			clearInterval(interval);
+			paginationElmts = null
+		};
 	});
 </script>
 
 {#snippet slides(content)}
+	{@const imageSrc = content.image?.formats?.large?.url ?? content.image?.url}
+	{@const imageMobileSrc = content.imageMobile?.formats?.large?.url ?? content.imageMobile?.url}
 	<div class="grid grid-cols-2 max-md:flex max-md:h-svh max-md:flex-col">
 		<div
-			class="max-md:w-[calc(100%_-_40px)] z-10 flex w-3/4 flex-col justify-center gap-4 pl-5 max-xl:w-full max-md:absolute max-md:bottom-32"
+			class="z-10 flex w-3/4 flex-col justify-center gap-4 pl-5 max-xl:w-full max-md:absolute max-md:bottom-32 max-md:w-[calc(100%_-_40px)]"
 			in:fade={{ duration: 300 }}
 			out:fade={{ duration: 0 }}
 		>
 			<h1
 				class="text-balance font-serif text-5xl max-lg:text-4xl max-md:text-5xl max-md:text-bgColorBright"
 			>
-				{content.h1}
+				{content.title}
 			</h1>
 			<p
-				class="w-3/4 text-xl text-textDull max-lg:text-base max-md:text-lg max-md:w-full max-md:text-bgColorBright"
+				class="w-3/4 text-xl text-textDull max-lg:text-base max-md:w-full max-md:text-lg max-md:text-bgColorBright"
 			>
-				{content.p}
+				{content.description}
 			</p>
-			<a href={content.btnLink} class="btn text-lg py-3 mt-4 max-md:hidden">{content.btnText}</a>
+			<a href={content.btnHref} class="btn mt-4 py-3 text-lg max-md:hidden">{content.btnText}</a>
 		</div>
 		<a
-			href={content.btnLink}
+			href={content.btnHref}
 			class="max-md:h-svh"
 			in:fade={{ duration: 300 }}
 			out:fade={{ duration: 0 }}
 		>
 			<picture>
-				<source media="(max-width: 767px)" srcset={content.bgImageMobile} type="image/png" />
-				<source media="(min-width: 768px)" srcset={content.bgImage} type="image/png" />
+				<source media="(max-width: 767px)" srcset={CMS_URL + imageMobileSrc} type="image/png" />
+				<source media="(min-width: 768px)" srcset={CMS_URL + imageSrc} type="image/png" />
 				<img
 					class="aspect-[800/700] h-full w-full object-cover object-center"
-					src={content.bgImageMobile}
-					alt="product"
+					src={CMS_URL + imageMobileSrc}
+					alt={content.image?.alternativeText}
 				/>
 			</picture>
 		</a>
