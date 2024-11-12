@@ -39,7 +39,7 @@ jobs:
       - name: Debug Dockerfile
         run: |
           cat Dockerfile
-          
+           
       - name: Deploy on CapRover
         uses: caprover/deploy-from-github@v1.1.2
         with:
@@ -47,3 +47,4 @@ jobs:
           app: 'sveltekit-app'
           token: ${{ secrets.APP_TOKEN }}
           image: 'ghcr.io/aintnewtathis-yy/skinlight-sveltekit:latest'
+          
