@@ -27,7 +27,9 @@ export const actions = {
 					data: cartData
 				})
 			});
+
 			const responseData = await response.json();
+
 			url = responseData.url;
 		} catch (err) {
 			const errors = err.flatten();

@@ -3,6 +3,7 @@ import { CMS_URL } from '$lib/globals';
 export const handle = async ({ event, resolve }) => {
 	const jwt = event.cookies.get('Authorization');
 
+	console.log(jwt, 'JWT')
 	if (jwt) {
 		try {
 			const userResponse = await fetch(`${CMS_URL}/api/users/me`, {
@@ -11,9 +12,12 @@ export const handle = async ({ event, resolve }) => {
 				}
 			});
 
+			console.log(userResponse, 'userResponse')
+
 			if (userResponse.ok) {
 				const userData = await userResponse.json();
 				event.locals.user = userData;
+				console.log(userData, 'USER LOCALS')
 			} else {
 				event.cookies.delete('Authorization', { path: '/' });
 				event.locals.user = null;

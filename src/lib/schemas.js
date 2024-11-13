@@ -66,7 +66,8 @@ export const courseSignUpSchema = z.object({
 	name: z.string({ required_error: 'Имя обязательно' }),
 	phone: z
 		.string({ required_error: 'Телефон обязателен' })
-		.regex(russianPhoneRegex, 'Введите корректный номер')
+		.regex(russianPhoneRegex, 'Введите корректный номер'),
+	course: z.string()
 });
 
 export const sendMessageSchema = z.object({
