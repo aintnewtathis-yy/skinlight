@@ -24,7 +24,7 @@
 
 {#if data?.homeData?.shownLine}
 	<LineCatalog
-		title={data?.homeData?.shownLine?.title}
+		title={data?.homeData?.shownLine?.name}
 		image={data?.homeData?.shownLine?.image}
 		products={data?.homeData?.shownLine?.products}
 		brandSlug={data?.homeData?.shownLine?.shownOnBrand?.seo.slug}

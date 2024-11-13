@@ -104,11 +104,18 @@
 					<label for="course" class="sr-only">Название курса</label>
 					<input
 						class="basic-input max-md:w-full"
-						name="course"
+						name="course1"
 						type="text"
 						placeholder="Название курса*"
 						bind:value={course}
 						disabled
+					/>
+					<input
+						class="hidden"
+						name="course"
+						type="hidden"
+						placeholder="Название курса*"
+						bind:value={course}
 					/>
 				</div>
 				<button class="btn mt-5 w-full" type="submit">Оставить заявку</button>
