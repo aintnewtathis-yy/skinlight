@@ -84,14 +84,14 @@
 	}
 
 	$effect(() => {	
-		/* currentCategory = searchParams.get('categorySlug');
-		currentLine = searchParams.get('lineSlug'); */
 
 		sidebarData = {
 			title: data.currentBrand?.name,
 			categories: data.categories,
 			lines: data.lines
 		};
+
+		$inspect(sidebarData)
 
 		const observer = new IntersectionObserver(
 			(entries) => {

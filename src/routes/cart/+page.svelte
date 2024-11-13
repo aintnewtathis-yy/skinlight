@@ -55,7 +55,7 @@
 	>
 		<a
 			href={'/catalog/' + content.brand.seo.slug + '/' + content.seo.slug}
-			class=" flex items-center justify-center rounded border border-borderColor bg-bgColor px-3"
+			class=" flex items-center justify-center rounded border border-borderColor bg-[#FAFAFA] px-3"
 		>
 			<img
 				class="my-auto aspect-square w-full rounded object-contain"

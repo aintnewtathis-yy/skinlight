@@ -43,7 +43,7 @@
 					width={brand?.brandAbout?.image?.width}
 					height={brand?.brandAbout?.image?.height}
 					alt={brand?.brandAbout?.image?.allternativeText}
-					class="h-full rounded max-md:aspect-[4/3]"
+					class="h-full w-full rounded max-md:aspect-[4/3]"
 				/>
 				<div class="flex flex-col gap-6">
 					<!-- svelte-ignore a11y_click_events_have_key_events -->
@@ -62,7 +62,7 @@
 	</div>
 </section>
 <LineCatalog
-	title={brand?.shownLine?.title}
+	title={brand?.shownLine?.name}
 	image={brand?.shownLine?.image}
 	products={brand?.shownLine?.products}
 	brandSlug={brand?.seo?.slug}

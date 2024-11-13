@@ -117,7 +117,7 @@
 			/>
 		</div>
 		<div class="grid grid-cols-[2fr_1fr] gap-16 max-lg:flex max-lg:flex-col max-lg:gap-8">
-			<div class="flex h-fit items-center justify-center rounded bg-bgColor max-md:h-svh">
+			<div class="flex h-fit items-center justify-center rounded bg-[#FAFAFA] max-md:h-svh">
 				<div class="gradient absolute left-0 top-0 hidden h-16 w-full max-md:flex"></div>
 				<button
 					type="button"
