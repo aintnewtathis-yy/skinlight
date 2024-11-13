@@ -32,5 +32,7 @@ RUN npm ci --only=production
 COPY --from=sk-build /usr/src/app/build /usr/src/app/build
 
 ENV CMS_URL=$CMS_URL
+
+RUN echo "CMS_URL is set to: $CMS_URL"
 EXPOSE 3000
 CMD ["node", "build/index.js"]
