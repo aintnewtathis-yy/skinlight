@@ -1,5 +1,6 @@
 <script>
 	import { CMS_URL } from '$lib/globals.js';
+	import { marked } from 'marked';
 	import Breadcrumbs from '$lib/components/ui/Breadcrumbs.svelte';
 	import { Splide, SplideSlide } from '@splidejs/svelte-splide';
 	import '@splidejs/svelte-splide/css/core';
@@ -292,7 +293,7 @@
 					<div bind:this={tabs}>
 						{#if data.product.fullDesc}
 							<div class="product-card-desc hidden flex-col gap-3">
-								{@html data.product.fullDesc}
+								{@html marked.parse(data.product.fullDesc)}
 							</div>
 						{/if}
 						{#if data.product.usage}
