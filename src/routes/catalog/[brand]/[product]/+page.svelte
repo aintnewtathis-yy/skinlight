@@ -21,8 +21,10 @@
 	let tabsSliderElements;
 
 	let { data, form } = $props();
-	
-	let formState = $derived(form) 
+
+	$inspect(data.product.crosssales);
+
+	let formState = $derived(form);
 
 	function goBack() {
 		window.history.back();
@@ -102,7 +104,7 @@
 `
 	};
 	let contactContent = {
-		title: 'Связаться с нами',
+		title: 'Связаться с нами'
 	};
 	const crosssalesContent = {
 		title: 'Вместе берут'
@@ -292,7 +294,7 @@
 					</div>
 					<div bind:this={tabs}>
 						{#if data.product.fullDesc}
-							<div class="product-card-desc hidden flex-col gap-3">
+							<div class="product-card-desc rich-text-block hidden flex-col gap-3">
 								{@html marked.parse(data.product.fullDesc)}
 							</div>
 						{/if}
@@ -319,10 +321,21 @@
 	<div class="splide__list hidden"></div>
 </section>
 {#key data}
-	<CatalogRow
-		content={crosssalesContent}
-		products={data.crosssales.filter((product) => product.documentId !== data.product.documentId)}
-	/>
+	{#if data?.product?.crosssales?.length > 0}
+		<CatalogRow
+			content={crosssalesContent}
+			products={data.product.crosssales.filter(
+				(product) => product.documentId !== data.product.documentId
+			)}
+		/>
+	{:else}
+		<CatalogRow
+			content={crosssalesContent}
+			products={data.crosssales.filter(
+				(product) => product.documentId !== data.product.documentId
+			)}
+		/>
+	{/if}
 {/key}
 <RegistrationCta />
 

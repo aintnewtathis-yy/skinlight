@@ -3,6 +3,8 @@
 	import ProductCard from '$lib/components/ui/ProductCard.svelte';
 
 	let { content, products } = $props();
+
+	$inspect(products)
 </script>
 
 <section>
