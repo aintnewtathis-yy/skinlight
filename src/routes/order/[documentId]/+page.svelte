@@ -1,8 +1,17 @@
 <script>
 	import { CMS_URL } from '$lib/globals.js';
+	import Seo from '$lib/components/utils/SEO.svelte';
+
 	let { data } = $props();
 </script>
 
+<Seo
+	title={`Заказ №${data?.order?.id}`}
+	description={`Заказ №${data?.order?.id}`}
+/>
+<svelte:head>
+	<meta name="robots" content="noindex">
+</svelte:head>
 {#snippet miniCard(content, quantity)}
 	{@const src = content.thumbnail?.formats?.large?.url ?? content.thumbnail?.url}
 	<div class="grid grid-cols-[1fr_2fr] gap-6">

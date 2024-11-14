@@ -1,16 +1,23 @@
 <script>
 	import { marked } from 'marked';
+	import Seo from '$lib/components/utils/SEO.svelte';
 
 	let { data } = $props();
 
+	$inspect(data);
 	const { distributors } = data;
 
 	$inspect(distributors);
 </script>
 
+<Seo
+	title={"Дистрибьюторы"}
+	description={"Адреса и контакты салонов, где можно купить профессиональную косметику и средства для шугаринга Pandhy's, Ella Bache, Val Mi и Perron Rigot"}
+/>
+
 {#snippet distributorsRow(content)}
 	<div
-		class="rich-text-block -ml-3 grid w-[calc(100%+24px)] px-3 grid-cols-[1fr_1fr_1fr_1fr_0.5fr] gap-4 py-6 transition duration-300 hover:bg-bgColorBright focus:bg-bgColorBright active:bg-bgColorBright max-md:flex max-md:flex-col max-md:gap-10 max-md:py-4"
+		class="rich-text-block -ml-3 grid w-[calc(100%+24px)] grid-cols-[1fr_1fr_1fr_1fr_0.5fr] gap-6 px-3 py-6 transition duration-300 hover:bg-bgColorBright focus:bg-bgColorBright active:bg-bgColorBright max-md:flex max-md:flex-col max-md:gap-10 max-md:py-4"
 	>
 		<p>
 			{content.town}

@@ -10,7 +10,9 @@ export async function load({ fetch }) {
 			error(404, 'Ошибка при загрузке');
 		}
         
-		return res;
+		return {
+			contactsData: res
+		};
 	} catch (err) {
 		error(404, 'Ошибка при загрузке');
 	}

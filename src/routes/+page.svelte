@@ -6,15 +6,23 @@
 	import Brands from '$lib/components/main-page/Brands.svelte';
 	import CoursesCta from '$lib/components/main-page/CoursesCta.svelte';
 	import AboutBlock from '$lib/components/main-page/AboutBlock.svelte';
+	import Seo from '../lib/components/utils/SEO.svelte';
 
 	let { data } = $props();
 
+	$inspect(data);
 
 	const sales = {
 		title: 'Новинки',
 		href: '/catalog'
 	};
 </script>
+
+<Seo
+	title={data?.homeData?.seo?.title}
+	description={data?.homeData?.seo?.description}
+	image={data?.homeData?.seo?.image}
+/>
 
 {#if data?.homeData?.heroSlider}
 	<Hero sliderContent={data?.homeData?.heroSlider} />

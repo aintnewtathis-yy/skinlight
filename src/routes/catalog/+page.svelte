@@ -6,6 +6,7 @@
 	import { scrollTopCatalog } from '$lib/utils';
 	import { page } from '$app/stores';
 	import { goto, afterNavigate, beforeNavigate } from '$app/navigation';
+	import Seo from '../../lib/components/utils/SEO.svelte';
 
 	let { data } = $props();
 
@@ -88,6 +89,11 @@
 		return () => observer.disconnect();
 	});
 </script>
+
+<Seo
+	title={"Каталог"}
+	description={"Продукция брендов Ella Bache, Pandhy's, Perron Rigot и Val Mi"}
+/>
 
 {#snippet sidebarNav(content)}
 	<nav>

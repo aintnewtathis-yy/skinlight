@@ -2,11 +2,18 @@
 	import HeroSoloCourse from '$lib/components/heroPages/HeroSoloCourse.svelte';
 	import { CMS_URL } from '$lib/globals.js';
 	import { marked } from 'marked';
+	import Seo from '$lib/components/utils/SEO.svelte';
 
 	let { data, form } = $props();
 
 	let formState = $derived(form) 
 </script>
+
+<Seo
+	title={data?.seo?.title}
+	description={data?.seo?.description}
+	image={data?.seo?.image}
+/>
 
 <HeroSoloCourse sliderContent={data?.heroCourses} {formState} {data} />
 <section class="max-md:-mt-8">

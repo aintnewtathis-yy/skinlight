@@ -4,6 +4,7 @@
 	import Promocode from '$lib/components/ui/Promocode.svelte';
 	import { getToastState, getCartState } from '$lib/globals.svelte';
 	import { page } from '$app/stores';
+	import Seo from '../../lib/components/utils/SEO.svelte';
 
 	let { data, form } = $props();
 
@@ -46,6 +47,11 @@
 		formState = form ?? null;
 	});
 </script>
+
+<Seo
+	title={"Корзина"}
+	description={"Корзина"}
+/>
 
 {#snippet cartElement(content)}
 	{@const thumbnailSrc = content.thumbnail?.formats?.thumbnail?.url ?? content.thumbnail?.url}

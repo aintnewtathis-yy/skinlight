@@ -6,8 +6,11 @@
 	import { scrollTopCatalog } from '$lib/utils';
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
+	import Seo from '../../../lib/components/utils/SEO.svelte';
 
 	let { data } = $props();
+
+	$inspect(data)
 
 	let sidebarData = $state({
 		title: data.currentBrand?.name,
@@ -107,6 +110,12 @@
 		return () => observer.disconnect();
 	});
 </script>
+
+<Seo
+	title={data?.currentBrand?.seo?.title}
+	description={data?.currentBrand?.seo?.description}
+	image={data?.currentBrand?.seo?.image}
+/>
 
 {#snippet sidebarNav(content)}
 	<nav class="overflow-x-visible">

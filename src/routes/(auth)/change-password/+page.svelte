@@ -1,4 +1,5 @@
 <script>
+	import Seo from '$lib/components/utils/SEO.svelte';
 	import { enhance } from '$app/forms';
 	import { getToastState } from '$lib/globals.svelte';
 
@@ -17,6 +18,11 @@
 	});
 
 </script>
+
+<Seo
+	title={'Сменить пароль'}
+	description={'Сменить пароль'}
+/>
 
 <section>
 	<div class="container">

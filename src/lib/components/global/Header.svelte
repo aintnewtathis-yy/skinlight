@@ -6,7 +6,7 @@
 	let cartState = getCartState();
 	let wishlistState = getWishlistState();
 
-	let { topMenu, botMenu } = $props();
+	let { topMenu, botMenu, formState } = $props();
 	
 
 	let headerShadow = $derived(
@@ -38,7 +38,7 @@
 	<div class="container">
 		<div class="grid grid-cols-[1fr_190px_1fr] gap-4 max-md:grid-cols-1">
 			<nav class="flex items-center gap-6 max-md:hidden">
-				<HeaderCatalog {topMenu} {botMenu} className={'max-md:hidden'} />
+				<HeaderCatalog {topMenu} {botMenu} className={'max-md:hidden'} {formState} />
 				<ul class="-ml-2 flex items-center gap-6">
 					{#each topMenuNav as link}
 						<li class="transition duration-300 hover:text-accentTextHover max-xl:hidden">

@@ -1,4 +1,7 @@
 import { getContext, onDestroy, onMount, setContext } from 'svelte';
+import { writable } from 'svelte/store';
+
+export let popupState = writable(false)
 
 //toast state handler
 export class ToastState {
@@ -14,7 +17,7 @@ export class ToastState {
 		});
 	}
 
-	add(message, durationMs = 5000) {
+	add(message, durationMs = 2000) {
 		const id = crypto.randomUUID();
 
 		this.toasts.push({

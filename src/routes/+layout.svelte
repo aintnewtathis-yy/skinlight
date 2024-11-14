@@ -5,10 +5,12 @@
 	import Footer from '$lib/components/global/Footer.svelte';
 	import Toast from '$lib/components/ui/Toast.svelte';
 	import { setToastState, setCartState, setWishlistState } from '$lib/globals.svelte';
+	import PopupEmail from '../lib/components/ui/PopupEmail.svelte';
 
-	let { data, children } = $props();
+	let { data, children, form } = $props();
 
 	
+	let formState = $derived(form) 
 	setToastState()
 	setCartState()
 	setWishlistState()
@@ -21,3 +23,4 @@
 	{@render children()}
 </main>
 <Footer footerNavigation={data?.footerNavigation} />
+<PopupEmail action={'/actions/?emailSubscribe'} {formState} />

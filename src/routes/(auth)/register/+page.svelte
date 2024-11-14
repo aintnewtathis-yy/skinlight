@@ -1,4 +1,5 @@
 <script>
+	import Seo from '$lib/components/utils/SEO.svelte';
 	import { enhance } from '$app/forms';
 
 	let { data, form } = $props();
@@ -15,6 +16,11 @@
 	});
 
 </script>
+
+<Seo
+	title={'Регистрация'}
+	description={'Регистрация'}
+/>
 
 <section>
 	<div class="container">

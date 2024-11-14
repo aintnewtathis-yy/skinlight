@@ -2,6 +2,7 @@
 	import { CMS_URL } from '$lib/globals.js';
 	import { page } from '$app/stores';
 	import { marked } from 'marked';
+	import Seo from '$lib/components/utils/SEO.svelte';
 	let { data } = $props();
 	let { courses, categories } = data;
 	let params = $state($page.url.searchParams);
@@ -18,6 +19,12 @@
 		params = $page.url.searchParams;
 	});
 </script>
+
+<Seo
+	title={"Обучающие программы по шугарингу и косметологии центра Скин Лайт"}
+	description={"Учебный центр Скин Лайт: обучающие программы по шугарингу и косметологии. Курсы шугаринга - сахарной депиляции, обучение массажам, эстетическая косметология."}
+/>
+
 
 {#snippet courseElement(content)}
 	{@const imageSrc = content.heroCourses?.image?.formats?.large?.url

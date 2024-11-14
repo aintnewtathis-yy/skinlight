@@ -4,8 +4,10 @@
 	import HeroBrand from '$lib/components/heroPages/HeroBrand.svelte';
 	import LineCatalog from '$lib/components/LineCatalog.svelte';
 	import CatalogRow from '$lib/components/global/CatalogRow.svelte';
+	import Seo from '$lib/components/utils/SEO.svelte';
 
 	let { data } = $props();
+	
 	const { brand, products } = data.data;
 
 
@@ -14,6 +16,12 @@
 		href: '/catalog/' + brand?.seo?.slug
 	};
 </script>
+
+<Seo
+	title={brand?.seo?.title}
+	description={brand?.seo?.description}
+	image={brand?.seo?.image}
+/>
 
 <HeroBrand
 	title={brand?.brandHero?.title}

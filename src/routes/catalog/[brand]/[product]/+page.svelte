@@ -9,6 +9,7 @@
 	import { getToastState, getCartState, getWishlistState } from '$lib/globals.svelte';
 	import { page } from '$app/stores';
 	import FormMessageSheet from '../../../../lib/components/ui/FormMessageSheet.svelte';
+	import Seo from '../../../../lib/components/utils/SEO.svelte';
 
 	let toastState = getToastState();
 	let cartState = getCartState();
@@ -19,7 +20,6 @@
 	let tabsSliderElements;
 
 	let { data, form } = $props();
-
 	
 	let formState = $derived(form) 
 
@@ -107,6 +107,12 @@
 		title: 'Вместе берут'
 	};
 </script>
+
+<Seo
+	title={data?.product?.seo?.title}
+	description={data?.product?.seo?.description}
+	image={data?.product?.seo?.image}
+/>
 
 <section>
 	<div class="flex flex-col gap-6 px-5 pt-6 max-md:px-0 max-md:pt-0">

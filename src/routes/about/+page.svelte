@@ -1,10 +1,16 @@
 <script>
+	import Seo from '$lib/components/utils/SEO.svelte';
 </script>
 
 <svelte:head>
 	<link rel="stylesheet" href="/lite-yt-embed.css" />
 	<script src="/lite-yt-embed.js"></script>
 </svelte:head>
+
+<Seo
+	title={'Информация о компании Скин Лайт'}
+	description={'Группа компаний «Скин Лайт» - с 2000 года представляет на российском рынке профессиональную косметику ведущих европейских брендов. Компания «Скин Лайт» - это надежный партнер в области бьюти-индустрии.'}
+/>
 
 <section class="mb-20 pt-10 max-md:pt-6">
 	<div class="container">

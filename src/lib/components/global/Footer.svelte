@@ -1,5 +1,7 @@
 <script>
-	let { footerNavigation } = $props();
+	import { popupState } from '$lib/globals.svelte.js';
+
+	let { footerNavigation, formState } = $props();
 </script>
 
 {#if footerNavigation}
@@ -20,7 +22,7 @@
 					<div class="flex flex-col justify-between">
 						<div class="flex flex-col gap-6">
 							<p class="text-lg">{footerNavigation.footerSocials.text}</p>
-							<button type="button" class="btn-dull w-full">Подписаться</button>
+							<button type="button" class="btn-dull w-full" onclick={() => {$popupState = !$popupState;}}>Подписаться</button>
 						</div>
 						<div class="flex gap-6">
 							{#each footerNavigation.footerSocials.link as link}

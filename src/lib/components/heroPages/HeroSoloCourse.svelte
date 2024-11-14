@@ -2,7 +2,6 @@
 	import { CMS_URL } from '$lib/globals.js';
 	import FormSheet from '../ui/FormSheet.svelte';
 	let { sliderContent, formState, data } = $props();
-	$inspect(formState, 'fromState')
 </script>
 
 {#snippet slide(content)}

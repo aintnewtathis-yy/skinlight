@@ -1,4 +1,5 @@
 <script>
+	import { popupState } from '$lib/globals.svelte.js';
 	import { afterNavigate, beforeNavigate } from '$app/navigation';
 	import { tick } from 'svelte';
 	import { fade } from 'svelte/transition';
@@ -11,7 +12,7 @@
 	let windowWidth = $state();
 	let firstLevelInfo;
 
-	let { className, topMenu, botMenu } = $props();
+	let { className, topMenu, botMenu, formState } = $props();
 
 
 	function openFilters() {
@@ -202,7 +203,7 @@
 
 			<div class="mx-2 mt-auto flex flex-col gap-6 pt-3 max-md:mx-0">
 				<p>Наши подписчики в курсе всех новинок и специальных предложений</p>
-				<a href="#" class="btn-dull w-full">Подписаться</a>
+				<button type="button" class="btn-dull w-full" onclick={() => {$popupState = !$popupState;}}>Подписаться</button>
 			</div>
 		</div>
 

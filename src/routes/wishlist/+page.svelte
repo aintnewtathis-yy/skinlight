@@ -2,11 +2,17 @@
 	import Breadcrumbs from '$lib/components/ui/Breadcrumbs.svelte';
 	import ProductCard from '$lib/components/ui/ProductCard.svelte';
 	import { getWishlistState } from '$lib/globals.svelte';
+	import Seo from '$lib/components/utils/SEO.svelte';
 
 	let wishlistState = getWishlistState();
 
 	let open = $state(false);
 </script>
+
+<Seo
+	title={"Вишлист"}
+	description={"Вишлист"}
+/>
 
 <section class="pt-6 ">
 	<div class="container">

@@ -1,9 +1,16 @@
 <script>
-	import Breadcrumbs from '$lib/components/ui/Breadcrumbs.svelte';
 	import { marked } from 'marked';
+	import Seo from '$lib/components/utils/SEO.svelte';
 
 	let { data } = $props();
+	$inspect(data)
 </script>
+
+<Seo
+	title={data?.contactsData?.seo?.title}
+	description={data?.contactsData?.seo?.description}
+	image={data?.contactsData?.seo?.image}
+/>
 
 <section class="mb-20 pt-10 max-md:pt-6">
 	<div class="container">
@@ -14,12 +21,12 @@
 				<p>Контакты</p>
 			</div>
 			<div class="mx-auto flex w-3/5 flex-col gap-6 max-lg:w-full rich-text-block">
-				<h1 class="max-md:2xl font-serif text-3xl">{data?.title}</h1>
+				<h1 class="max-md:2xl font-serif text-3xl">{data?.contactsData?.title}</h1>
 				<p>
-					{data?.description}
+					{data?.contactsData?.description}
 				</p>
 				<div class="mt-3 flex flex-col gap-6">
-					{#each data?.contactsBlock as block}
+					{#each data?.contactsData?.contactsBlock as block}
 						<div class="flex flex-col gap-4">
 							<p>{block.label}</p>
 							<div class="flex flex-col gap-3">

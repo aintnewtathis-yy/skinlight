@@ -1,6 +1,7 @@
 <script>
 	import { CMS_URL } from '$lib/globals.js';
 	import { page } from '$app/stores';
+	import Seo from '$lib/components/utils/SEO.svelte';
 
 	let { data, form } = $props();
 
@@ -12,6 +13,11 @@
 		paramsState = $page.url.searchParams;
 	});
 </script>
+
+<Seo
+	title={"Информация для покупателей"}
+	description={"Информация для покупателей - Скин Лайт"}
+/>
 
 <section class="mb-20 pt-6 max-md:pt-6">
 	<div class="container">

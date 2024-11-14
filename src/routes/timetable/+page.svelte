@@ -1,7 +1,9 @@
 <script>
 	import HeroTimetable from '$lib/components/heroPages/HeroTimetable.svelte';
+	import Seo from '$lib/components/utils/SEO.svelte';
 
 	let { data } = $props();
+	$inspect(data)
 	const courses = [
 		{
 			title: 'Ella Bache: Обзорный видеокурс по линиям',
@@ -53,6 +55,12 @@
 		}
 	];
 </script>
+
+<Seo
+	title={data?.data.seo?.title}
+	description={data?.data.seo?.description}
+	image={data?.data.seo?.image}
+/>
 
 {#snippet courseRow(content, index)}
 	{@const date = new Date(content.date)}

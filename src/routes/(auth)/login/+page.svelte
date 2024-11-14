@@ -1,5 +1,8 @@
 <script>
+	import Seo from '$lib/components/utils/SEO.svelte';
 	import { enhance } from '$app/forms';
+	import { onMount } from 'svelte';
+	import { invalidateAll } from '$app/navigation';
 
 	let { data, form } = $props();
 
@@ -13,7 +16,16 @@
 	$effect(() => {
 		formState = form;
 	});
+
+	onMount(async () => {
+		await invalidateAll();
+	});
 </script>
+
+<Seo
+	title={'Вход в профиль'}
+	description={'Вход в профиль'}
+/>
 
 <section>
 	<div class="container">
@@ -69,7 +81,10 @@
 				<button class="btn w-full" disabled={!formFilled} type="submit">Войти</button>
 			</form>
 
-			<p><a class="btn-text" href="/register">Зарегестрироваться</a> или <a class="btn-text" href="/change-password">Восстановить пароль</a></p>
+			<p>
+				<a class="btn-text" href="/register">Зарегестрироваться</a> или
+				<a class="btn-text" href="/change-password">Восстановить пароль</a>
+			</p>
 		</div>
 	</div>
 </section>

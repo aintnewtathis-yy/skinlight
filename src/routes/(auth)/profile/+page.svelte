@@ -1,4 +1,5 @@
 <script>
+	import Seo from '$lib/components/utils/SEO.svelte';
 	import { CMS_URL } from '$lib/globals.js';
 	import { page } from '$app/stores';
 	import { getToastState } from '$lib/globals.svelte';
@@ -24,6 +25,11 @@
 		formState = form ?? null;
 	});
 </script>
+
+<Seo
+	title={'Профиль'}
+	description={'Профиль'}
+/>
 
 {#snippet miniCard(content, quantity)}
 	{@const src = content.thumbnail?.formats?.large?.url ?? content.thumbnail?.url}
