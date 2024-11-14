@@ -8,9 +8,12 @@ export async function load({ url, fetch }) {
 	const segments = url.pathname.split('/');
 	const productSlug = segments[segments.length - 1];
 	const slug = `${CMS_URL}/api/products/getProduct?productSlug=${productSlug}`;
+
+	console.log(slug)
 	try {
 		const req = await fetch(slug);
 		const res = await req.json();
+		
 
 		if (res.error) {
 			error(404, 'Товар не найден');
