@@ -1,6 +1,6 @@
 import { CMS_URL } from '$lib/globals.js';
 import { redirect, fail } from '@sveltejs/kit';
-import { cartDataSchema } from '$lib/schemas';
+import { cartDataSchema, promocodeSchema, emailSchema } from '$lib/schemas';
 
 export async function load({ locals }) {
 	return {
@@ -41,5 +41,96 @@ export const actions = {
 		}
 
 		redirect(303, url);
+	},
+	getDiscount: async ({ request }) => {
+		const formData = await request.formData();
+		const promocodeName = formData.get('promocodeName');
+
+		try {
+			const validatedData = promocodeSchema.parse(promocodeName);
+
+			const req = await fetch(
+				`${CMS_URL}/api/promocode/getDiscount?promocodeName=${validatedData}`,
+				{
+					method: 'GET',
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				}
+			);
+
+			const res = await req.json();
+
+			console.log(res);
+
+			if (res.error) {
+				return fail(400, {
+					data: {
+						promocodeName: promocodeName
+					},
+					notFound: true
+				});
+			}
+
+			return {
+				promocode: res
+			};
+		} catch (err) {
+			console.log(err);
+			const errors = err.flatten();
+			console.log(errors);
+			return fail(400, {
+				formData: {
+					promocodeName: promocodeName
+				},
+				errors: errors.fieldErrors
+			});
+		}
+	},
+	massemail: async ({ request }) => {
+		const formData = await request.formData();
+		const email = formData.get('email');
+
+		try {
+			const validatedData = emailSchema.parse(email);
+
+			const req = await fetch(`${CMS_URL}/api/updateEmailsList`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					data: {
+						email: email
+					}
+				})
+			});
+
+			const res = await req.json();
+
+			console.log(res);
+
+			if (res.error) {
+				return fail(400, {
+					data: {
+						email: email
+					}
+				});
+			}
+
+			return {
+				email: email
+			};
+		} catch (err) {
+			console.log(err);
+			const errors = err.flatten();
+			console.log(errors);
+			return fail(400, {
+				formData: {
+					email: email
+				},
+				errors: errors.fieldErrors
+			});
+		}
 	}
 };

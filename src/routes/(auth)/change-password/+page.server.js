@@ -8,7 +8,6 @@ export async function load({ locals, url, params }) {
 		if(url.searchParams.get('code')){
 			return
 		}
-		console.log(url.searchParams.get('code'))
 	} catch (err) {
 		console.warn(err)
 	}

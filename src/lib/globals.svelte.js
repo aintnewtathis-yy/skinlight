@@ -1,7 +1,7 @@
 import { getContext, onDestroy, onMount, setContext } from 'svelte';
 import { writable } from 'svelte/store';
 
-export let popupState = writable(false)
+export let popupState = writable(false);
 
 //toast state handler
 export class ToastState {
@@ -51,17 +51,34 @@ export function getToastState() {
 
 export class CartState {
 	localStorageCart = null;
+	localStoragePromocode = null;
 	products = $state([]);
-	total = $state(this.products.reduce((sum, product) => sum + product.quantity, 0));
+	total = $derived(this.products.reduce((sum, product) => sum + product.quantity, 0));
+	totalRUBOpt = $derived(
+		this.products.reduce(
+			(acc, product) => acc + parseInt(product.priceRUBOpt) * parseInt(product.quantity),
+			0
+		)
+	);
+	totalRUB = $derived(
+		this.products.reduce(
+			(acc, product) => acc + parseInt(product.priceRUB) * parseInt(product.quantity),
+			0
+		)
+	);
+	promocode = $state(null);
 
 	constructor() {
 		onMount(() => {
 			this.localStorageCart = JSON.parse(localStorage.getItem('cartProducts')) ?? [];
+			this.localStoragePromocode = JSON.parse(localStorage.getItem('promocode')) ?? null;
 			this.products = this.localStorageCart;
+			this.promocode = this.localStoragePromocode;
 		});
 
 		$effect(() => {
 			localStorage.setItem('cartProducts', JSON.stringify(this.products));
+			localStorage.setItem('promocode', JSON.stringify(this.promocode));
 		});
 	}
 
@@ -87,6 +104,10 @@ export class CartState {
 
 	remove(documentId) {
 		this.products = this.products.filter((product) => product.documentId !== documentId);
+	}
+
+	addPromocode(v) {
+		this.promocode = v;
 	}
 }
 

@@ -20,10 +20,8 @@ export async function load({ fetch, params }) {
 export const actions = {
 	courseSignUp: async ({ request }) => {
 		const initialFormData = await request.formData();
-		console.log(initialFormData);
 		const { formData, errors } = await validateData(initialFormData, courseSignUpSchema);
 
-		console.log(formData, errors);
 		if (errors) {
 			return fail(400, {
 				data: formData,

@@ -4,13 +4,15 @@
 	import ProductCard from '$lib/components/ui/ProductCard.svelte';
 
 	let { title, image, products, slug, brandSlug } = $props();
+
+	let brandUrlSlug = brandSlug ?? products[0].brand?.seo?.slug
 </script>
 
 <section>
 	<div class="flex flex-col gap-6 px-5 max-md:px-0">
 		<div class="flex items-end justify-between max-md:px-5">
 			<h3 class="font-serif text-3xl">{title}</h3>
-			<a href={'/catalog/' + brandSlug + '?lineSlug=' + slug} class="flex items-center gap-3 max-md:hidden">
+			<a href={'/catalog/' + brandUrlSlug + '?lineSlug=' + slug} class="flex items-center gap-3 max-md:hidden">
 				<span class="whitespace-nowrap transition duration-300 hover:text-accentTextHover"
 					>Посмотреть все</span
 				>
@@ -19,7 +21,7 @@
 		</div>
 		<div class="flex gap-4 max-lg:flex-col max-md:flex">
 			<a
-				href={'/catalog/' + brandSlug + '?lineSlug=' + slug}
+				href={'/catalog/' + brandUrlSlug + '?lineSlug=' + slug}
 				class=" w-[calc((100%_-_16px)_/_5_*_2)] max-lg:w-full max-md:px-5"
 			>
 				<img

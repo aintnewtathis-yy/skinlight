@@ -16,6 +16,11 @@ const allowedMimeTypes = [
 	'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' // Excel
 ];
 
+export const promocodeSchema = z.string().min(1, { message: 'Промокод обязателен' });
+export const emailSchema = z
+	.string({ required_error: 'Email обязателен' })
+	.email({ message: 'Введите корректный Email' });
+
 export const cartDataSchema = z.object({
 	email: z
 		.string({ required_error: 'Email обязателен' })

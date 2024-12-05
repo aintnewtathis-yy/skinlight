@@ -3,7 +3,6 @@
 	import Seo from '$lib/components/utils/SEO.svelte';
 
 	let { data } = $props();
-	$inspect(data)
 </script>
 
 <Seo

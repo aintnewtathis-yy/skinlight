@@ -3,7 +3,6 @@
 	import Seo from '$lib/components/utils/SEO.svelte';
 
 	let { data } = $props();
-	$inspect(data)
 	const courses = [
 		{
 			title: 'Ella Bache: Обзорный видеокурс по линиям',

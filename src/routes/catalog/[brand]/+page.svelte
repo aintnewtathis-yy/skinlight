@@ -10,7 +10,6 @@
 
 	let { data } = $props();
 
-	$inspect(data)
 
 	let sidebarData = $state({
 		title: data.currentBrand?.name,
@@ -30,7 +29,6 @@
 	let maxPriceFilter = $derived(parseInt(searchParams.get('maxPrice')) ?? '');
 	let sortFilter = $derived(searchParams.get('sorting') ?? 'default');
 
-	$inspect(pagination);
 	let filteredProducts = $derived.by(() =>
 		getFilteredProducts(data.products, sortFilter, minPriceFilter, maxPriceFilter)
 	);
@@ -94,7 +92,6 @@
 			lines: data.lines
 		};
 
-		$inspect(sidebarData)
 
 		const observer = new IntersectionObserver(
 			(entries) => {

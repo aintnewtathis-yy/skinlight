@@ -6,7 +6,6 @@ export async function load({ locals }) {
 	try {
 		const req = await fetch(`${CMS_URL}/api/getNavigationData`);
 		const res = await req.json();
-		console.log('layout DATA')
 
 		return {
 			botMenu: res.botMenu,

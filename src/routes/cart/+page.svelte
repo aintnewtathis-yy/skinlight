@@ -1,10 +1,11 @@
 <script>
 	import { enhance } from '$app/forms';
-	import { CMS_URL } from '$lib/globals.js';
+	import { CMS_URL, deliveryContent, profiContent } from '$lib/globals.js';
 	import Promocode from '$lib/components/ui/Promocode.svelte';
 	import { getToastState, getCartState } from '$lib/globals.svelte';
 	import { page } from '$app/stores';
-	import Seo from '../../lib/components/utils/SEO.svelte';
+	import Seo from '$lib/components/utils/SEO.svelte';
+	import SheetContent from '$lib/components/ui/SheetContent.svelte';
 
 	let { data, form } = $props();
 
@@ -19,39 +20,30 @@
 	let phone = $state(data?.user?.phone ?? '');
 	let email = $state(data?.user?.email ?? '');
 
-	let total = $derived(
-		$page.data?.user?.masterStatus === 'Проверен'
-			? cartState.products.reduce(
-					(acc, product) => acc + parseInt(product.priceRUBOpt) * parseInt(product.quantity),
-					0
-				)
-			: cartState.products.reduce(
-					(acc, product) => acc + parseInt(product.priceRUB) * parseInt(product.quantity),
-					0
-				)
-	);
-	let discount = $derived(
-		$page.data?.user?.masterStatus === 'Проверен'
-			? cartState.products.reduce(
-					(acc, product) => acc + parseInt(product.priceRUB) * parseInt(product.quantity),
-					0
-				) -
-					cartState.products.reduce(
-						(acc, product) => acc + parseInt(product.priceRUBOpt) * parseInt(product.quantity),
-						0
-					)
-			: 0
-	);
+	let total = $derived.by(() => {
+		let price = data.user?.masterStatus === 'Проверен' ? cartState.totalRUBOpt : cartState.totalRUB;
+
+		return parseInt(
+			cartState.promocode ? price - (price * cartState.promocode.discount) / 100 : price
+		);
+	});
+	let discount = $derived.by(() => {
+		let price = data.user?.masterStatus === 'Проверен' ? cartState.totalRUBOpt : cartState.totalRUB;
+
+		let priceGap =
+			data.user?.masterStatus === 'Проверен' ? cartState.totalRUB - cartState.totalRUBOpt : 0;
+
+		return parseInt(
+			cartState.promocode ? priceGap + (price * cartState.promocode.discount) / 100 : priceGap
+		);
+	});
 
 	$effect(() => {
 		formState = form ?? null;
 	});
 </script>
 
-<Seo
-	title={"Корзина"}
-	description={"Корзина"}
-/>
+<Seo title={'Корзина'} description={'Корзина'} />
 
 {#snippet cartElement(content)}
 	{@const thumbnailSrc = content.thumbnail?.formats?.thumbnail?.url ?? content.thumbnail?.url}
@@ -113,7 +105,8 @@
 		>
 			{#if $page.data?.user?.masterStatus === 'Проверен'}
 				<p class="py-3 text-center max-md:py-0 max-md:text-end max-md:text-sm">
-					{content.priceRUBOpt * content.quantity} руб
+					<span>{content.priceRUBOpt * content.quantity} руб</span>
+					<!-- <span class=" line-through ">{content.priceRUB * content.quantity} руб</span> -->
 				</p>
 			{:else}
 				<p class="py-3 text-center max-md:py-0 max-md:text-end max-md:text-sm">
@@ -152,7 +145,7 @@
 				>
 					<div class="flex flex-col gap-10">
 						<div class="flex items-start justify-between">
-							<Promocode />
+							<Promocode {formState} />
 							<button
 								type="button"
 								class="text-sm md:hidden"
@@ -168,7 +161,7 @@
 								<div
 									class="grid grid-cols-[1fr_3fr] items-center gap-4 max-md:flex max-md:w-full max-md:flex-col max-md:items-start max-md:justify-start"
 								>
-									<label for="email" class="text-sm">Email</label>
+									<label for="email5" class="text-sm">Email</label>
 									<input
 										class="basic-input max-md:w-full"
 										name="email"
@@ -312,40 +305,32 @@
 										</a>
 									</li>
 								{/if}
-								<li
-									class="group w-full rounded transition duration-300 hover:bg-bgColor max-md:hover:bg-white"
-								>
-									<a class="flex items-center justify-between px-2 py-3 max-md:px-0" href="#">
-										<span>Условия доставки</span>
-										<img src="/arrow-header.svg" alt="arrow icon" />
-									</a>
+								<li>
+									<SheetContent content={deliveryContent} />
 								</li>
 								<li
 									class="group w-full rounded transition duration-300 hover:bg-bgColor max-md:hover:bg-white"
 								>
-									<a class="flex items-center justify-between px-2 py-3 max-md:px-0" href="#">
-										<span>Условия обмена и возврата</span>
-										<img src="/arrow-header.svg" alt="arrow icon" />
-									</a>
-								</li>
-								<li
-									class="group w-full rounded transition duration-300 hover:bg-bgColor max-md:hover:bg-white"
-								>
-									<a class="flex items-center justify-between px-2 py-3 max-md:px-0" href="#">
-										<span>Информация об оплате</span>
-										<img src="/arrow-header.svg" alt="arrow icon" />
-									</a>
+									<SheetContent content={profiContent} />
 								</li>
 							</ul>
 						</nav>
 						<div class="flex flex-col gap-6 max-md:gap-4">
+							{#if cartState.promocode}
+								<p class="flex items-end justify-between gap-4 max-md:justify-center">
+									<span class="text-sm max-md:text-base">Промокод:</span>
+									<span class="text-sm max-md:text-base">{cartState.promocode.promocode}</span>
+								</p>
+							{/if}
+							{#if cartState.promocode || data?.user?.masterStatus === 'Проверен'}
+								<p class="flex items-end justify-between gap-4 max-md:justify-center">
+									<span class="text-sm max-md:text-base">Скидка:</span>
+									<span class="text-sm max-md:text-base">{discount} руб</span>
+								</p>
+							{/if}
 							<p class="flex items-end justify-between gap-4 max-md:justify-center">
-								<span class="text-lg max-md:text-base">Скидка:</span>
-								<span class="text-sm max-md:text-base">{discount} руб</span>
-							</p>
-							<p class="flex items-end justify-between gap-4 max-md:justify-center">
-								<span class="text-lg max-md:text-base">Итого:</span>
-								<span class="text-2xl max-md:text-base">{total} руб</span>
+								<span class="text-sm max-md:text-base">Итого:</span>
+								<span class="text-xl max-md:text-base">{total} руб</span>
 							</p>
 							<div class="mt-4 flex flex-col gap-4">
 								<form
@@ -354,7 +339,6 @@
 										return async ({ update, result }) => {
 											await update();
 
-											console.log(result);
 											if (result.status === 303) {
 												cartState.products = [];
 											} else if (result.status === 400) {
@@ -376,6 +360,7 @@
 												quantity: p.quantity,
 												title: p.name
 											})),
+											promocode: cartState.promocode,
 											userData: {
 												firstName: firstName,
 												secondName: secondName,

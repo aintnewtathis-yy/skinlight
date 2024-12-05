@@ -45,7 +45,6 @@ export const actions = {
 					});
 				}
 			}
-			console.log(data, 'login data')
 			if (data.jwt && data.user) {
 				locals.jwt = data.jwt;
 				locals.user = data.user;

@@ -4,10 +4,8 @@
 
 	let { data } = $props();
 
-	$inspect(data);
 	const { distributors } = data;
 
-	$inspect(distributors);
 </script>
 
 <Seo

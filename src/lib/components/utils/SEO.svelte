@@ -3,6 +3,18 @@
 	import { page } from '$app/stores';
 
 	let { title, description, image } = $props();
+
+	let imageSrc = $state('');
+
+	if(image) {
+		if(image.formats.medium) {
+			imageSrc = image.formats.medium.url
+		} else if(image.formats.thumbnail) {
+			imageSrc = image.formats.thumbnail.url
+		} else {
+			imageSrc = image.url
+		}
+	}
 </script>
 
 <svelte:head>
@@ -17,7 +29,7 @@
 	{/if}
 
 	{#if image}
-		<meta property="og:image" content={CMS_URL + image.formats.medium.url} />
+		<meta property="og:image" content={CMS_URL + imageSrc} />
 	{/if}
 
 	<meta name="og:url" content={$page.url.href} />

@@ -1,16 +1,16 @@
 <script>
-	import { CMS_URL } from '$lib/globals.js';
+	import { CMS_URL, deliveryContent, profiContent } from '$lib/globals.js';
 	import { marked } from 'marked';
-	import Breadcrumbs from '$lib/components/ui/Breadcrumbs.svelte';
+	import { getToastState, getCartState, getWishlistState } from '$lib/globals.svelte';
+	import { page } from '$app/stores';
 	import { Splide, SplideSlide } from '@splidejs/svelte-splide';
 	import '@splidejs/svelte-splide/css/core';
+	import Breadcrumbs from '$lib/components/ui/Breadcrumbs.svelte';
 	import SheetContent from '$lib/components/ui/SheetContent.svelte';
 	import CatalogRow from '$lib/components/global/CatalogRow.svelte';
 	import RegistrationCta from '$lib/components/ui/RegistrationCta.svelte';
-	import { getToastState, getCartState, getWishlistState } from '$lib/globals.svelte';
-	import { page } from '$app/stores';
-	import FormMessageSheet from '../../../../lib/components/ui/FormMessageSheet.svelte';
-	import Seo from '../../../../lib/components/utils/SEO.svelte';
+	import FormMessageSheet from '$lib/components/ui/FormMessageSheet.svelte';
+	import Seo from '$lib/components/utils/SEO.svelte';
 
 	let toastState = getToastState();
 	let cartState = getCartState();
@@ -21,8 +21,6 @@
 	let tabsSliderElements;
 
 	let { data, form } = $props();
-
-	$inspect(data.product.crosssales);
 
 	let formState = $derived(form);
 
@@ -57,52 +55,6 @@
 		tabsSliderElements[0].click();
 	});
 
-	let deliveryContent = {
-		title: 'Доставка',
-		content: `<div class="flex flex-col gap-4">
-								<p>Три способа доставки заказа для розничных клиентов:</p>
-							</div>
-							<div class="flex flex-col gap-3" id="fromoffice">
-								<h3 class="font-serif text-xl">Самовывоз из офиса</h3>
-								<p>
-									Товары можно забрать по адресу
-									<a
-										href="https://yandex.ru/maps/213/moscow/house/2_ya_frunzenskaya_ulitsa_10/Z04Ycw9iS0EFQFtvfXtzcnRnYg==/?ll=37.582242%2C55.723846&z=16.9"
-									>
-										г. Москва, 2-я Фрунзенская 10/1
-									</a>
-								</p>
-							</div>
-							<div class="flex flex-col gap-3" id="courier">
-								<h3 class="font-serif text-xl">Курьерская доставка</h3>
-								<p>
-									Доставка собственной курьерской службой по г. Москва (в пределах МКАД) "до двери"-
-									400 рублей, при заказе от 3 000 рублей - бесплатно. Оплата наличными.
-								</p>
-							</div>
-							<div class="flex flex-col gap-3" id="cdek">
-								<h3 class="font-serif text-xl">Пункты выдачи СДЭК</h3>
-								<p>
-									Доставка по г. Москва и России осуществляется
-									<a href="https://www.cdek.ru/">транспортной компанией СДЭК до пункта ПВЗ</a> (ПВЗ согласовывается
-									при оформлении заказа).
-								</p>
-							</div>
-							<div class="flex flex-col gap-3">
-								<h3 class="font-serif text-xl">Доставка для оптовых клиентов</h3>
-								<p>
-									Условия оплаты и доставки уточняйте у вашего менеджера
-									<a href="tel:+74956091010"> +7 (495) 609-10-10 </a>.
-								</p>
-							</div>
-`
-	};
-	let profiContent = {
-		title: 'Мастерам и косметологам',
-		content: `<p><a href="/register">Зарегестрируйтесь</a> и подтвердите статус мастера в профиле, чтобы получить доступ к специальным ценам на продукцию</p>
-		
-`
-	};
 	let contactContent = {
 		title: 'Связаться с нами'
 	};
@@ -311,8 +263,8 @@
 					</div>
 				</div>
 				<div class="w-full border-t border-borderColor pt-3">
-					<SheetContent content={deliveryContent} />
-					<SheetContent content={profiContent} />
+					<SheetContent content={deliveryContent} classNames='-ml-2 flex w-[calc(100%_+_16px)] px-2 py-3' />
+					<SheetContent content={profiContent} classNames='-ml-2 flex w-[calc(100%_+_16px)] px-2 py-3' />
 					<FormMessageSheet content={contactContent} {formState} {data} action={'?/sendMessage'} />
 				</div>
 			</div>
@@ -331,9 +283,7 @@
 	{:else}
 		<CatalogRow
 			content={crosssalesContent}
-			products={data.crosssales.filter(
-				(product) => product.documentId !== data.product.documentId
-			)}
+			products={data.crosssales.filter((product) => product.documentId !== data.product.documentId)}
 		/>
 	{/if}
 {/key}

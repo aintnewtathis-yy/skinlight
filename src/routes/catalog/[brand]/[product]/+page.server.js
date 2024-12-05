@@ -9,7 +9,6 @@ export async function load({ url, fetch }) {
 	const productSlug = segments[segments.length - 1];
 	const slug = `${CMS_URL}/api/products/getProduct?productSlug=${productSlug}`;
 
-	console.log(slug)
 	try {
 		const req = await fetch(slug);
 		const res = await req.json();
@@ -30,15 +29,12 @@ export const actions = {
 	sendMessage: async ({ request }) => {
 		const { formData, errors } = await validateData(await request.formData(), sendMessageSchema);
 
-		console.log(formData, errors);
 		if (errors) {
 			return fail(400, {
 				data: formData,
 				errors: errors.fieldErrors
 			});
 		}
-
-		console.log(formData);
 
 		const response = await fetch(`${CMS_URL}/api/sendFormMessageToAdmin`, {
 			method: 'POST',

@@ -9,9 +9,6 @@
 	import Seo from '../lib/components/utils/SEO.svelte';
 
 	let { data } = $props();
-
-	$inspect(data);
-
 	const sales = {
 		title: 'Новинки',
 		href: '/catalog'
@@ -35,7 +32,7 @@
 		title={data?.homeData?.shownLine?.name}
 		image={data?.homeData?.shownLine?.image}
 		products={data?.homeData?.shownLine?.products}
-		brandSlug={data?.homeData?.shownLine?.shownOnBrand?.seo.slug}
+		brandSlug={data?.homeData?.shownLine?.brand?.seo.slug}
 		slug={data?.homeData?.shownLine?.seo?.slug}
 	/>
 {/if}
