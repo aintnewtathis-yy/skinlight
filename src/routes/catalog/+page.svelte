@@ -129,7 +129,7 @@
 		</ul>
 	</nav>
 {/snippet}
-{#snippet sidebarSnippet(content)}
+{#snippet sidebarSnippet(content, sidebarNav)}
 	<div
 		class="no-scrollbar sticky bottom-5 top-[76px] -ml-2 flex h-fit max-h-[calc(100dvh-76px)] flex-col gap-5"
 	>
@@ -158,7 +158,7 @@
 			</div>
 			<div class="grid grid-cols-[1fr_4fr] gap-4 max-lg:flex" id="catalog">
 				<div class="h-full max-lg:hidden">
-					{@render sidebarSnippet(sidebarData)}
+					{@render sidebarSnippet(sidebarData, sidebarNav)}
 				</div>
 				<div class="flex flex-col gap-5">
 					<div

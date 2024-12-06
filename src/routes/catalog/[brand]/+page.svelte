@@ -157,7 +157,7 @@
 		</ul>
 	</nav>
 {/snippet}
-{#snippet sidebarSnippet(content)}
+{#snippet sidebarSnippet(content, sidebarNav)}
 	<!-- svelte-ignore a11y_no_static_element_interactions -->
 	<!-- svelte-ignore a11y_mouse_events_have_key_events -->
 	<div
@@ -188,7 +188,7 @@
 			</div>
 			<div class="grid grid-cols-[1fr_4fr] gap-4 max-lg:flex" id="catalog">
 				<div class="h-full max-lg:hidden">
-					{@render sidebarSnippet(sidebarData)}
+					{@render sidebarSnippet(sidebarData, sidebarNav)}
 				</div>
 				<div class="flex flex-col gap-5">
 					<div
