@@ -4,6 +4,7 @@
 
 	let { content, products } = $props();
 
+	$inspect(products)
 </script>
 
 <section>

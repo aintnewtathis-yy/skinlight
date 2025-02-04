@@ -33,7 +33,7 @@ export const actions = {
 			url = responseData.url;
 		} catch (err) {
 			const errors = err.flatten();
-			console.log(errors);
+            
 			return fail(400, {
 				formData: cartData,
 				errors: errors.fieldErrors

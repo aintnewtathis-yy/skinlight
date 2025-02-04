@@ -32,7 +32,7 @@
 />
 
 {#snippet miniCard(content, quantity)}
-	{@const src = content.thumbnail?.formats?.large?.url ?? content.thumbnail?.url}
+	{@const src = content?.thumbnail?.formats?.large?.url ?? content?.thumbnail?.url}
 	<div class="grid grid-cols-[1fr_2fr] gap-6">
 		<div
 			class="flex h-full w-full items-center justify-center overflow-hidden rounded-sm border border-[#EAE9E5] bg-[#FAFAFA] px-5 max-md:px-0"
@@ -40,18 +40,18 @@
 			<img
 				class="h-full w-full max-w-24 object-contain"
 				src={CMS_URL + src}
-				alt={content.thumbnail?.alternativeText}
-				width={content.thumbnail?.width}
-				height={content.thumbnail?.height}
+				alt={content?.thumbnail?.alternativeText}
+				width={content?.thumbnail?.width}
+				height={content?.thumbnail?.height}
 			/>
 		</div>
 		<div class="flex flex-col gap-2">
-			<h2 class="font-serif">{content.name}</h2>
+			<h2 class="font-serif">{content?.name}</h2>
 			<div class="flex gap-1">
-				<p class="whitespace-nowrap text-xs text-textDull">Артикул: {content.SKU}</p>
+				<p class="whitespace-nowrap text-xs text-textDull">Артикул: {content?.SKU}</p>
 				<p class="whitespace-nowrap text-xs text-textDull">{quantity} шт</p>
 			</div>
-			<h3 class="mt-2">{content.priceRUB * quantity} руб</h3>
+			<h3 class="mt-2">{content?.priceRUB * quantity} руб</h3>
 		</div>
 	</div>
 {/snippet}

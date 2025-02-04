@@ -30,7 +30,8 @@ export const cartDataSchema = z.object({
 	secondName: z.string({ required_error: 'Фамилия обязательна' }),
 	phone: z
 		.string({ required_error: 'Телефон обязателен' })
-		.regex(russianPhoneRegex, 'Введите корректный номер')
+		.regex(russianPhoneRegex, 'Введите корректный номер'),
+	isMaster: z.boolean()
 });
 
 export const registerUserSchema = z.object({

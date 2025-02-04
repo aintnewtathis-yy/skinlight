@@ -41,6 +41,8 @@
 	$effect(() => {
 		formState = form ?? null;
 	});
+
+    $inspect(data?.user?.masterStatus === "Проверен")
 </script>
 
 <Seo title={'Корзина'} description={'Корзина'} />
@@ -354,6 +356,7 @@
 										value={JSON.stringify({
 											order_status: 'Ожидает оплату',
 											total: total,
+                                            discount: discount,
 											order_id: crypto.randomUUID(),
 											products: cartState.products.map((p) => ({
 												product: { connect: [p.documentId] },
@@ -366,7 +369,8 @@
 												secondName: secondName,
 												phone: phone,
 												address: address,
-												email: email
+												email: email,
+                                                isMaster: data?.user?.masterStatus === "Проверен"
 											},
 											userDocumentId: data?.user?.documentId ?? null
 										})}
