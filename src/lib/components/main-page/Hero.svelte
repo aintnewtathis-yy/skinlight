@@ -80,12 +80,12 @@
 			out:fade={{ duration: 0 }}
 		>
 			<h1
-				class="text-balance font-serif text-5xl max-lg:text-4xl max-md:text-5xl max-md:text-bgColorBright"
+				class="text-balance font-serif text-5xl max-lg:text-4xl max-md:text-5xl max-md:text-bgColorBright "
 			>
 				{content.title}
 			</h1>
 			<p
-				class="w-3/4 text-xl text-textDull max-lg:text-base max-md:w-full max-md:text-lg max-md:text-bgColorBright"
+				class="w-3/4 text-xl text-textDull max-lg:text-base max-md:w-full max-md:text-lg max-md:text-bgColorBright "
 			>
 				{content.description}
 			</p>
@@ -101,7 +101,7 @@
 				<source media="(max-width: 767px)" srcset={CMS_URL + imageMobileSrc} type="image/png" />
 				<source media="(min-width: 768px)" srcset={CMS_URL + imageSrc} type="image/png" />
 				<img
-					class="aspect-[800/700] h-full w-full object-cover object-center"
+					class="aspect-[800/700] h-full w-full object-cover object-center max-md:brightness-[65%] "
 					src={CMS_URL + imageMobileSrc}
 					alt={content.image?.alternativeText}
 				/>

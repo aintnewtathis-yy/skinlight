@@ -13,6 +13,8 @@
 		title: 'Новинки',
 		href: '/catalog'
 	};
+
+    $inspect(data)
 </script>
 
 <Seo

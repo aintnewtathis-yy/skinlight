@@ -246,7 +246,7 @@
 					</div>
 					<div bind:this={tabs}>
 						{#if data.product.fullDesc}
-							<div class="product-card-desc rich-text-block hidden flex-col gap-3">
+							<div class="product-card-desc rich-text-block hidden flex-col gap-3 *:whitespace-normal ">
 								{@html marked.parse(data.product.fullDesc)}
 							</div>
 						{/if}

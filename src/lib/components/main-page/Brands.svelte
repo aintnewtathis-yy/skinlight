@@ -38,7 +38,7 @@
 				<SplideSlide>
 					<a href={brand.href} class="flex flex-col gap-3">
 						<img
-							class="aspect-[368/320] rounded border border-borderColor object-cover"
+							class="aspect-[368/320] w-full rounded border border-borderColor object-cover"
 							src={imageSrc}
 							width={brand.image?.width}
 							height={brand.image?.height}

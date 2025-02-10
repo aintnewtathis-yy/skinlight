@@ -8,7 +8,6 @@
 	let wishlistState = getWishlistState();
 	let { content } = $props();
 
-	$inspect(content)
 	const srcUrl = content.thumbnail?.formats?.large?.url ?? content.thumbnail?.url;
 </script>
 

@@ -3,56 +3,8 @@
 	import Seo from '$lib/components/utils/SEO.svelte';
 
 	let { data } = $props();
-	const courses = [
-		{
-			title: 'Ella Bache: Обзорный видеокурс по линиям',
-			date: 'Доступен всегда',
-			level: 'Для всех',
-			price: '1000 рублей'
-		},
-		{
-			title: 'Ella Bache: Обзорный видеокурс по линиям',
-			date: '30.09 начало в 10.00',
-			level: 'Для всех',
-			price: 'Бесплатно'
-		},
-		{
-			title: 'Ella Bache: Обзорный видеокурс по линиям',
-			date: 'Доступен всегда',
-			level: 'Для всех',
-			price: '1000 рублей'
-		},
-		{
-			title: 'Ella Bache: Обзорный видеокурс по линиям',
-			date: '30.09 начало в 10.00',
-			level: 'Для всех',
-			price: 'Бесплатно'
-		},
-		{
-			title: 'Ella Bache: Обзорный видеокурс по линиям',
-			date: 'Доступен всегда',
-			level: 'Для всех',
-			price: '1000 рублей'
-		},
-		{
-			title: 'Ella Bache: Обзорный видеокурс по линиям',
-			date: '30.09 начало в 10.00',
-			level: 'Для всех',
-			price: 'Бесплатно'
-		},
-		{
-			title: 'Ella Bache: Обзорный видеокурс по линиям',
-			date: 'Доступен всегда',
-			level: 'Для всех',
-			price: '1000 рублей'
-		},
-		{
-			title: 'Ella Bache: Обзорный видеокурс по линиям',
-			date: '30.09 начало в 10.00',
-			level: 'Для всех',
-			price: 'Бесплатно'
-		}
-	];
+
+    $inspect(data)
 </script>
 
 <Seo
@@ -62,22 +14,23 @@
 />
 
 {#snippet courseRow(content, index)}
-	{@const date = new Date(content.date)}
-	{@const dateVisual = `${String(date.getUTCDate()).padStart(2, '0')}.${String(date.getUTCMonth() + 1).padStart(2, '0')} начало в ${String(date.getUTCHours()).padStart(2, '0')}.${String(date.getUTCMinutes()).padStart(2, '0')} `}
+    {@const date = new Date(content.date)}
+    {@const updatedDate = new Date(date.getTime() + 3 * 60 * 60 * 1000)}
+	{@const dateVisual = `${String(updatedDate.getUTCDate()).padStart(2, '0')}.${String(updatedDate.getUTCMonth() + 1).padStart(2, '0')} начало в ${String(updatedDate.getUTCHours()).padStart(2, '0')}.${String(updatedDate.getUTCMinutes()).padStart(2, '0')} `}
 	<a
-		class="-ml-3 grid w-[calc(100%+24px)] grid-cols-[1.5fr_4fr_2.5fr] items-center gap-16 px-3 py-6 *:w-full *:text-lg hover:bg-bgColor focus:bg-bgColor active:bg-bgColor max-xl:grid-cols-[2fr_4fr_2.5fr] max-xl:gap-8 *:max-xl:text-base max-lg:py-4 max-md:flex max-md:flex-col *:max-md:text-lg"
+		class="-ml-3 grid w-[calc(100%+24px)] grid-cols-[1.5fr_4fr_3fr] items-center gap-16 px-3 py-6 *:w-full *:text-lg hover:bg-bgColor focus:bg-bgColor active:bg-bgColor max-xl:grid-cols-[2fr_4fr_2.5fr] max-xl:gap-8 *:max-xl:text-base max-lg:py-4 max-md:flex max-md:flex-col *:max-md:text-lg"
 		href={content.href}
 	>
-		<p>{dateVisual}</p>
+		<p class="flex items-center justify-center text-center text-balance">{dateVisual}</p>
 		<p class="flex items-start gap-2">
 			<span class="mt-[10px] h-2 w-2 rounded-full bg-[#CFBBA5] max-xl:mt-2 max-md:mt-[10px]"></span>
 			<span>{content.title}</span>
 		</p>
 		<div
-			class="grid grid-cols-[1fr_1.5fr] gap-16 max-lg:gap-8 max-md:mt-4 max-md:flex max-md:justify-between"
+			class="grid grid-cols-[2fr_1.5fr] gap-16 max-lg:gap-8 max-md:mt-4 max-md:flex max-md:justify-between"
 		>
-			<p>{content.level}</p>
-			<p>{content.price}</p>
+			<p class="flex items-center justify-center text-center text-balance">{content.level}</p>
+			<p class="flex items-center justify-center text-center text-balance">{content.price}</p>
 		</div>
 	</a>
 {/snippet}

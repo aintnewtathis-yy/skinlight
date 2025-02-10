@@ -1,7 +1,5 @@
 <script>
 	import { page } from '$app/stores';
-	import Footer from '../lib/components/global/Footer.svelte';
-	import Header from '../lib/components/global/Header.svelte';
 </script>
 
 <div class="flex h-[60vh] items-center justify-center max-md:h-svh px-5">

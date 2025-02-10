@@ -5,7 +5,6 @@
 
 	let { data, form } = $props();
 
-
 	let paramsState = $state($page.url.searchParams);
 	let currentPage = $derived(paramsState.get('page') ?? '');
 
@@ -14,10 +13,7 @@
 	});
 </script>
 
-<Seo
-	title={"Информация для покупателей"}
-	description={"Информация для покупателей - Скин Лайт"}
-/>
+<Seo title={'Информация для покупателей'} description={'Информация для покупателей - Скин Лайт'} />
 
 <section class="mb-20 pt-6 max-md:pt-6">
 	<div class="container">
@@ -66,6 +62,13 @@
 							class:bg-bgColor={currentPage === 'opt'}
 						>
 							Косметика оптом
+						</a>
+						<a
+							href="?page=documents"
+							class="-ml-2 w-[calc(100%+8px)] flex-shrink-0 flex-grow-0 rounded px-2 py-3 transition duration-300 hover:bg-bgColor active:bg-bgColor max-lg:m-0 max-lg:w-fit"
+							class:bg-bgColor={currentPage === 'documents'}
+						>
+							Документы
 						</a>
 					</div>
 				</div>
@@ -235,6 +238,14 @@
 									Выбирая работу с Группой компаний «Скин Лайт» вы делаете вклад в успешный модный
 									бизнес в бьюти-сфере.
 								</p>
+							</div>
+						</div>
+					{:else if currentPage === 'documents'}
+						<div class=" flex w-2/4 max-xl:w-3/4 flex-col gap-9 max-lg:w-full">
+							<h1 class="font-serif text-2xl">Документы</h1>
+							<div class="flex flex-col gap-4">
+								<a href="/legal/offerta" class="btn-text">Публичная оферта</a>
+								<a href="/legal/policy" class="btn-text">Политика конфиденциальности</a>
 							</div>
 						</div>
 					{/if}

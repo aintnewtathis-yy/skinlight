@@ -32,6 +32,9 @@
 	img {
 		@apply object-cover;
 	}
+	code {
+		@apply font-sans text-accent;
+	}
 	.container {
 		max-width: 1920px !important;
 	}
