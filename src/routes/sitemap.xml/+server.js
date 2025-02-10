@@ -4,7 +4,7 @@ const site = 'https://skinlight.ru';
 
 /** @type {import('./$types').RequestHandler} */
 export async function GET({ url, locals }) {
-	const req = await fetch(`http://localhost:1337/api/products/sitemap`);
+	const req = await fetch(`${CMS_URL}/api/products/sitemap`);
 	const { products, courses, brands } = await req.json();
 	const sitemap = (products, courses, brands) => `<?xml version="1.0" encoding="UTF-8" ?>
 
