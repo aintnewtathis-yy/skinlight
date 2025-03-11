@@ -12,7 +12,7 @@
 
 <button
 	class={twMerge(
-		'flex w-full items-center justify-between rounded px-2 py-3 transition duration-300 hover:bg-bgColor max-md:px-0 max-md:hover:bg-white',
+		'flex w-full items-center justify-between rounded px-2 py-3 transition duration-300 hover:bg-bgColor  max-md:hover:bg-white',
 		classNames
 	)}
 	onclick={openFilters}

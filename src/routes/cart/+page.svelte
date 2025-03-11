@@ -141,7 +141,7 @@
 					</div>
 				</div>
 				<div
-					class="grid grid-cols-[2fr_1fr] gap-4 overflow-y-auto border-t border-borderColor pt-12 transition duration-300 max-lg:grid-cols-[3fr_2fr] max-md:fixed max-md:bottom-[60px] max-md:left-0 max-md:top-0 max-md:z-20 max-md:flex max-md:h-[calc(100vh-60px)] max-md:flex-col max-md:gap-10 max-md:bg-white max-md:p-5"
+					class="grid grid-cols-[2fr_1fr] gap-4 overflow-y-auto border-t border-borderColor pt-12 transition duration-300 max-lg:grid-cols-[3fr_2fr] max-md:fixed max-md:bottom-[60px] max-md:pb-20 max-md:left-0 max-md:top-0 max-md:z-20 max-md:flex max-md:h-[calc(100vh-60px)] max-md:flex-col max-md:gap-10 max-md:bg-white max-md:p-5"
 					class:max-md:-translate-x-full={!open}
 					class:max-md:translate-x-0={open}
 				>
@@ -380,8 +380,8 @@
 								</form>
 								<p class="text-sm max-md:text-center">
 									Нажимая на кнопку «оплатить заказ», я принимаю
-									<a class="underline" href="#">условия публичной оферты</a>
-									и <a class="underline" href="#">политики конфиденциальности</a>
+									<a class="underline" href="/legal/offerta">условия публичной оферты</a>
+									и <a class="underline" href="/legal/policy">политики конфиденциальности</a>
 								</p>
 							</div>
 						</div>

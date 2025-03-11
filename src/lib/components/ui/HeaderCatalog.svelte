@@ -12,6 +12,8 @@
 	let windowWidth = $state();
 	let firstLevelInfo;
 
+    $inspect(secondMenuItems);
+    
 	let { className, topMenu, botMenu, formState } = $props();
 
 

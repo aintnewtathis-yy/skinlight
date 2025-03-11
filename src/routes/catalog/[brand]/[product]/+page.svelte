@@ -189,7 +189,7 @@
 						</svg>
 					</button>
 				</div>
-				<div class="mt-6 flex flex-col gap-6 max-md:mt-4">
+				<div class="mt-6 flex w-full flex-col gap-6 max-md:mt-4">
 					<div bind:this={tabsSlider}>
 						<Splide
 							aria-label="products"
@@ -246,17 +246,17 @@
 					</div>
 					<div bind:this={tabs}>
 						{#if data.product.fullDesc}
-							<div class="product-card-desc rich-text-block hidden flex-col gap-3 *:whitespace-normal ">
+							<div class="product-card-desc rich-text-block hidden w-full flex-col gap-3 *:whitespace-normal ">
 								{@html marked.parse(data.product.fullDesc)}
 							</div>
 						{/if}
 						{#if data.product.usage}
-							<div class="product-card-desc hidden flex-col gap-3">
+							<div class="product-card-desc hidden flex-col gap-3 w-full">
 								{@html data.product.usage}
 							</div>
 						{/if}
 						{#if data.product.ingredients}
-							<div class="product-card-desc hidden flex-col gap-3">
+							<div class="product-card-desc hidden flex-col gap-3 w-full">
 								{@html data.product.ingredients}
 							</div>
 						{/if}
