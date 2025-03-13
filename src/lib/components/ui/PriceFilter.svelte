@@ -69,7 +69,7 @@
 			open = !open;
 		}}
 	>
-		<span class="leading-none">Цена</span>
+		<span class="leading-none max-lg:text-lg">Цена</span>
 		<img
 			src="/arrow-filter.svg"
 			alt="arrow icon"

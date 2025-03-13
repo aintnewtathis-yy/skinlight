@@ -12,10 +12,9 @@
 	let windowWidth = $state();
 	let firstLevelInfo;
 
-    $inspect(secondMenuItems);
-    
-	let { className, topMenu, botMenu, formState } = $props();
+	$inspect(secondMenuItems);
 
+	let { className, topMenu, botMenu, formState } = $props();
 
 	function openFilters() {
 		open = !open;
@@ -205,7 +204,13 @@
 
 			<div class="mx-2 mt-auto flex flex-col gap-6 pt-3 max-md:mx-0">
 				<p>Наши подписчики в курсе всех новинок и специальных предложений</p>
-				<button type="button" class="btn-dull w-full" onclick={() => {$popupState = !$popupState;}}>Подписаться</button>
+				<button
+					type="button"
+					class="btn-dull w-full"
+					onclick={() => {
+						$popupState = !$popupState;
+					}}>Подписаться</button
+				>
 			</div>
 		</div>
 
@@ -222,12 +227,15 @@
 						in:fade={{ duration: 100 }}
 					>
 						{#each secondMenuItems as subLink}
+							{@const href =
+								!subLink?.line 
+									? `/catalog/${activeBrand}?categorySlug=${subLink.href}`
+									: `/catalog/${activeBrand}?lineSlug=${subLink.href}`}
 							<li
 								class="group w-full rounded transition duration-300 hover:bg-bgColor max-md:hover:bg-white"
 							>
-								<a
-									class="flex items-center justify-between px-2 py-3 max-md:px-0"
-									href={'/catalog/' + activeBrand + '?categorySlug=' + subLink.href}>{subLink.label}</a
+								<a class="flex items-center justify-between px-2 py-3 max-md:px-0" {href}
+									>{subLink.label}</a
 								>
 							</li>
 						{/each}
@@ -251,7 +259,9 @@
 						<li
 							class="group w-full rounded transition duration-300 hover:bg-bgColor max-md:hover:bg-white"
 						>
-							<a class="flex items-center justify-between px-2 py-3 max-md:px-0" href={'/catalog/' + activeBrand + '?categorySlug=' + subLink.href}
+							<a
+								class="flex items-center justify-between px-2 py-3 max-md:px-0"
+								href={'/catalog/' + activeBrand + '?categorySlug=' + subLink.href}
 								>{subLink.label}</a
 							>
 						</li>

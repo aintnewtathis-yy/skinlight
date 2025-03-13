@@ -14,6 +14,8 @@
 	setToastState()
 	setCartState()
 	setWishlistState()
+
+    $inspect(data, '123')
 </script>
 
 <Header topMenu={data?.topMenu} botMenu={data?.botMenu} />

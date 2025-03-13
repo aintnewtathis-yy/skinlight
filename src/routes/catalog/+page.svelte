@@ -91,7 +91,7 @@
 </script>
 
 <Seo
-	title={"Каталог"}
+	title={'Каталог'}
 	description={"Продукция брендов Ella Bache, Pandhy's, Perron Rigot и Val Mi"}
 />
 
@@ -165,7 +165,7 @@
 						class="sticky top-[76px] flex w-full items-center justify-between bg-white max-lg:relative max-lg:top-auto lg:z-20"
 					>
 						<div
-							class="z-20 flex w-full items-center gap-8 pt-5 pb-20 transition duration-300 max-lg:fixed max-lg:left-0 max-lg:top-0 max-lg:z-20 max-lg:h-[calc(100vh-60px)] max-lg:w-full max-lg:flex-col max-lg:items-start max-lg:gap-16 max-lg:overflow-y-auto max-lg:bg-white max-lg:px-5"
+							class="z-20 flex w-full items-center gap-8 pb-20 pt-5 transition duration-300 max-lg:fixed max-lg:left-0 max-lg:top-0 max-lg:z-20 max-lg:h-[calc(100vh-60px)] max-lg:w-full max-lg:flex-col max-lg:items-start max-lg:gap-16 max-lg:overflow-y-auto max-lg:bg-white max-lg:px-5"
 							class:max-lg:translate-y-0={open}
 							class:max-lg:translate-y-[100%]={!open}
 						>
@@ -182,7 +182,7 @@
 							<PriceFilter maxPrice={data.maxPrice} />
 							<SortFilters />
 							<div class="flex w-full flex-col gap-8 lg:hidden">
-								<p>Категории</p>
+								<p class=" max-lg:text-lg">Категории</p>
 								{@render sidebarNav(sidebarData)}
 							</div>
 						</div>

@@ -12,7 +12,11 @@ export async function load({ fetch }) {
 		}
 
 		return {
-			distributors: res.data
+			distributors: res.data.sort((a, b) => {
+				if (a.town.includes('Москва Центральный офис')) return -1;
+				if (b.town.includes('Москва Центральный офис')) return 1;
+				return a.town.localeCompare(b.town);
+			})
 		};
 	} catch (err) {
 		error(404, 'Ошибка при загрузке');

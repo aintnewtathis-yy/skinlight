@@ -64,7 +64,6 @@
 									type="email"
 									disabled
 									value={data.order?.email}
-									placeholder="example@mail.ru"
 								/>
 							</div>
 							<div
@@ -77,7 +76,6 @@
 									name="name"
 									type="text"
 									value={data.order?.firstName}
-									placeholder="Иван"
 								/>
 							</div>
 							<div
@@ -89,7 +87,6 @@
 									class="basic-input max-md:w-full"
 									name="surname"
 									type="text"
-									placeholder="Иванов"
 									value={data.order?.secondName}
 								/>
 							</div>
@@ -102,7 +99,6 @@
 									class="basic-input max-md:w-full"
 									name="phone"
 									type="text"
-									placeholder="+79923231351"
 									value={data.order?.phone}
 								/>
 							</div>
@@ -115,7 +111,6 @@
 									class="basic-input max-md:w-full"
 									name="address"
 									type="text"
-									placeholder="Москва, ул. Дубнинская, д. 43"
 									value={data.order?.address}
 								/>
 							</div>

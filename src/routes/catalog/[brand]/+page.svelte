@@ -10,7 +10,6 @@
 
 	let { data } = $props();
 
-
 	let sidebarData = $state({
 		title: data.currentBrand?.name,
 		categories: data.categories,
@@ -23,7 +22,9 @@
 	let currentCategory = $derived(searchParams.get('categorySlug'));
 	let currentLine = $derived(searchParams.get('lineSlug'));
 
-	let pagination = $derived(searchParams.get('pageLimit') ? parseInt(searchParams.get('pageLimit')) : 24);
+	let pagination = $derived(
+		searchParams.get('pageLimit') ? parseInt(searchParams.get('pageLimit')) : 24
+	);
 
 	let minPriceFilter = $derived(parseInt(searchParams.get('minPrice')) ?? '');
 	let maxPriceFilter = $derived(parseInt(searchParams.get('maxPrice')) ?? '');
@@ -84,14 +85,12 @@
 		});
 	}
 
-	$effect(() => {	
-
+	$effect(() => {
 		sidebarData = {
 			title: data.currentBrand?.name,
 			categories: data.categories,
 			lines: data.lines
 		};
-
 
 		const observer = new IntersectionObserver(
 			(entries) => {
@@ -157,6 +156,52 @@
 		</ul>
 	</nav>
 {/snippet}
+{#snippet sidebarNavSeparateCat(content, categoryPick)}
+	<nav class="overflow-x-visible">
+		<ul class="-mt-3 flex flex-col pb-5">
+			<li
+				class=" group h-full w-full flex-grow rounded transition duration-300 hover:bg-bgColor max-lg:-ml-2 max-lg:px-2 max-md:hover:bg-white"
+			>
+				<a
+					onclick={() => {
+						scrollTopCatalog();
+					}}
+					data-sveltekit-noscroll
+					class="flex h-full w-full px-2 py-3 max-lg:px-0"
+					href="/catalog/">Смотреть всё</a
+				>
+			</li>
+			{#if categoryPick === true}
+				{#each content.categories as category}
+					<li
+						class=" group h-full w-full flex-grow rounded transition duration-300 hover:bg-bgColor max-lg:-ml-2 max-lg:px-2 max-md:hover:bg-white"
+						class:bg-bgColor={currentCategory === category.seo.slug}
+					>
+						<a
+							onclick={() => {
+								scrollTopCatalog();
+							}}
+							data-sveltekit-noscroll
+							class="flex h-full w-full px-2 py-3 max-lg:px-0"
+							href={'?categorySlug=' + category.seo.slug}>{category.name}</a
+						>
+					</li>
+				{/each}
+			{:else}
+				{#each content.lines as line}
+					<li
+						class=" group h-full w-full flex-grow rounded transition duration-300 hover:bg-bgColor max-lg:-ml-2 max-lg:px-2 max-md:hover:bg-white"
+						class:bg-bgColor={currentLine === line.seo.slug}
+					>
+						<a class="flex h-full w-full px-2 py-3 max-md:px-0" href={'?lineSlug=' + line.seo.slug}
+							>{line.name}</a
+						>
+					</li>
+				{/each}
+			{/if}
+		</ul>
+	</nav>
+{/snippet}
 {#snippet sidebarSnippet(content, sidebarNav)}
 	<!-- svelte-ignore a11y_no_static_element_interactions -->
 	<!-- svelte-ignore a11y_mouse_events_have_key_events -->
@@ -211,10 +256,19 @@
 							</button>
 							<PriceFilter maxPrice={data.maxPrice} minPrice={data.minPrice} />
 							<SortFilters />
-							<div class="flex flex-col gap-8 lg:hidden">
-								<p>Категории</p>
-								{@render sidebarNav(sidebarData)}
-							</div>
+							{#if sidebarData.categories.length > 0}
+								<div class="flex flex-col gap-8 lg:hidden">
+									<p class="text-lg">Категории</p>
+									{@render sidebarNavSeparateCat(sidebarData, true)}
+								</div>
+							{/if}
+
+							{#if sidebarData.lines.length > 0}
+								<div class="flex flex-col gap-8 lg:hidden">
+									<p class="text-lg">Линейки</p>
+									{@render sidebarNavSeparateCat(sidebarData, false)}
+								</div>
+							{/if}
 						</div>
 						<h1 class="hidden font-serif text-xl max-lg:flex">{sidebarData.title}</h1>
 						<button

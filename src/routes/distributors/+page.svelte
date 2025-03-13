@@ -5,11 +5,10 @@
 	let { data } = $props();
 
 	const { distributors } = data;
-
 </script>
 
 <Seo
-	title={"Дистрибьюторы"}
+	title={'Представители'}
 	description={"Адреса и контакты салонов, где можно купить профессиональную косметику и средства для шугаринга Pandhy's, Ella Bache, Val Mi и Perron Rigot"}
 />
 
@@ -41,11 +40,11 @@
 			<div class="flex items-end gap-2 *:text-textDull">
 				<a href="/">Главная</a>
 				<span>/</span>
-				<p>Дистрибьюторы</p>
+				<p>Представители</p>
 			</div>
 			<div class="flex flex-col gap-16 max-lg:gap-12">
 				<h1 class="text-center font-serif text-6xl max-xl:text-4xl max-md:text-3xl">
-					Дистрибьюторы
+					Представители
 				</h1>
 				<div class="flex flex-col gap-6 max-md:gap-4">
 					{#each distributors as distributor}
