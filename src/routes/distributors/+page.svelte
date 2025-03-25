@@ -5,6 +5,8 @@
 	let { data } = $props();
 
 	const { distributors } = data;
+
+    $inspect(distributors)
 </script>
 
 <Seo
