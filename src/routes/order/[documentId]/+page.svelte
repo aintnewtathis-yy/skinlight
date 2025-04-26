@@ -4,7 +4,6 @@
 
 	let { data } = $props();
 
-	$inspect(data);
 </script>
 
 <Seo title={`Заказ №${data?.order?.id}`} description={`Заказ №${data?.order?.id}`} />

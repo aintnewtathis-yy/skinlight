@@ -4,7 +4,6 @@
 
 	let { data } = $props();
 
-    $inspect(data)
 </script>
 
 <Seo

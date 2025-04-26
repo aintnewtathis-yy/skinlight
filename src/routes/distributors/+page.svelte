@@ -6,7 +6,6 @@
 
 	const { distributors } = data;
 
-    $inspect(distributors)
 </script>
 
 <Seo

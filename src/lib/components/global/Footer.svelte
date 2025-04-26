@@ -33,8 +33,9 @@
 						</div>
 					</div>
 				</div>
-				<div class="flex justify-end border-t border-borderColor py-6">
-					<p>SKIN LIGHT GROUP, 2024</p>
+				<div class="flex justify-between border-t border-borderColor py-6">
+                    <a target="_blank" href="https://t.me/aintnewthathis">Разработка</a>
+					<p>SKIN LIGHT GROUP, {new Date().getFullYear()}</p>
 				</div>
 			</div>
 		</div>

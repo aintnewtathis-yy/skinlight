@@ -46,6 +46,7 @@
 				{action}
 				method="POST"
 				use:enhance={(e) => {
+                    console.log(e)
 					return async ({ update, result }) => {
 						await update();
 

@@ -65,7 +65,7 @@
 					<a href="/courses" class="btn-dull mt-3 max-md:mt-0">Записаться на обучение</a>
 				</div>
 				<div>
-					<img class="rounded" src="/coursescta.png" alt="" />
+					<img class="rounded " src="/coursescta.webp" alt="" />
 				</div>
 			</div>
 			<div class="grid grid-cols-4 gap-4 max-lg:grid-cols-2">

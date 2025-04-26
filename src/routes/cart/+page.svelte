@@ -42,7 +42,6 @@
 		formState = form ?? null;
 	});
 
-    $inspect(data?.user?.masterStatus === "Проверен")
 </script>
 
 <Seo title={'Корзина'} description={'Корзина'} />
