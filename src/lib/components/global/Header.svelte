@@ -75,7 +75,7 @@
 					<div class="hidden max-md:flex">
 						<HeaderCatalog {topMenu} {botMenu} className={''} />
 					</div>
-					<li class="lg:hidden">
+					<li class="md:hidden">
 						<a href="/">
 							<img
 								class="aspect-square max-h-9 object-contain"
